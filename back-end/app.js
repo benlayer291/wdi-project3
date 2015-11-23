@@ -53,7 +53,6 @@ app.use(function(err, req, res, next) {
     res.status(401).json({message: 'You need an authorization token to view confidential information.'});
   }
 });
-
 var routes = require('./config/routes')
 app.use('/api', routes)
 
