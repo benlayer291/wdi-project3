@@ -19,8 +19,6 @@ mongoose.connect(databaseURL);
 
 require('./config/passport')(passport);
 
-var routes = require('./config/routes')
-
 // Middleware
 app.use(cookieParser());
 app.use(morgan('dev'));
@@ -42,6 +40,11 @@ app.use('/api', expressJWT({secret: secret})
     ]
   })
 );
+//Randon shit we have no idea how it works
+app.use(function(req, res, next){
+  global.currentUser = req.user;
+  next();
+})
 
 app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

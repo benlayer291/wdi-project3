@@ -11,7 +11,8 @@ var userSchema = mongoose.Schema({
     password: { type: String, required: true},
     picture: String,
     birthday: String,
-    tagline: String
+    tagline: String,
+    posts: [{ type: mongoose.Schema.ObjectId, ref: 'Post' }]
   }
 });
 
@@ -24,3 +25,5 @@ userSchema.methods.validPassword = function(password) {
 }
 
 module.exports = mongoose.model('User', userSchema);
+
+
