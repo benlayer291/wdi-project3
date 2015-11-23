@@ -6,19 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-    "dependencies": {
-      "body-parser": "~1.0.0",
-      "connect-flash": "~0.1.1",
-      "cookie-parser": "^1.0.1",
-      "express": "~4.0.0",
-      "express-session": "^1.0.4",
-      "method-override": "^1.0.2",
-      "mongoose": "4.1.1",
-      "morgan": "~1.0.0",
-      "passport": "^0.2.0",
-      "passport-facebook": "^2.0.0"
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "^1.0.1",
+    "express": "~4.0.0",
+    "express-session": "^1.0.4",
+    "jsonwebtoken": "^5.4.1",
+    "method-override": "^1.0.2",
+    "mongoose": "4.1.1",
+    "morgan": "~1.0.0",
+    "passport": "^0.2.0",
+    "passport-facebook": "^2.0.0"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/prosecco75/wdi-project3.git"
