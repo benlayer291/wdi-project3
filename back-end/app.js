@@ -23,9 +23,6 @@ var routes = require('./config/routes')
 
 // Middleware
 app.use(cookieParser());
-app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,7 +34,6 @@ app.use(methodOverride(function(req, res){
   }
 }));
 
-// Protect your api with JWT here - CHECKS FOR THE TOKEN
 app.use('/api', expressJWT({secret: secret})
   .unless({
     path: [
@@ -47,7 +43,6 @@ app.use('/api', expressJWT({secret: secret})
   })
 );
 
-// Show better errors for protected pages (UnauthorizedError) - IF THERE IS NO TOKEN
 app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({message: 'You need an authorization token to view confidential information.'});
@@ -55,10 +50,6 @@ app.use(function(err, req, res, next) {
 });
 var routes = require('./config/routes')
 app.use('/api', routes)
-
-
-// Setting Up the Local Login Strat
-
 
 
 app.listen(3000);
