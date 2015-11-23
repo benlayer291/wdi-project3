@@ -17,6 +17,8 @@ var app            = express();
 var databaseURL = 'mongodb://localhost:27017/spoken';
 mongoose.connect(databaseURL);
 
+var routes = require('./config/routes')
+
 // Middleware
 app.use(cookieParser());
 app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
@@ -25,8 +27,16 @@ app.use(passport.session());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === "object" && "_method" in req.body){
+    var method = req.body._method;
+    delete req.body._method;
+    return method; 
+  }
+}));
+app.use('/api', routes)
 
-// Setting up the Passport Strategies
+// Setting up the Passport Strategies for FACEBOOK
 require("./config/passport")(passport)
 
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
@@ -43,5 +53,10 @@ app.get("/logout", function(req, res){
   res.redirect("/")
 })
 
+// Setting Up the Local Login Strat
+
+
+
 app.listen(3000);
+console.log("App listening local 3000")
 
