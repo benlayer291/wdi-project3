@@ -3,7 +3,7 @@ var passport = require("passport")
 //FACEBOOK USER CONTROLLER
 // GET /signup
 function getSignup(req, res) {
-  res.render('signup', { message: req.flash('errorMessage') })
+  res.render('signup')
 }
 
 // POST /signup

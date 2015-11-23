@@ -1,6 +1,7 @@
-var User = require('../models/user');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var User = require('../models/user');
+
 
 module.exports = function(passport){
 
@@ -38,9 +39,8 @@ module.exports = function(passport){
           return done(null, user);
         });
       }           
-    })
-  }
-)
+    });
+  }));
 
 
   //FACEBOOK PASSPORT LOGIN 
