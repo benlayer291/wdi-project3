@@ -21,9 +21,9 @@ var routes = require('./config/routes')
 
 // Middleware
 app.use(cookieParser());
-app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,21 +37,21 @@ app.use(methodOverride(function(req, res){
 app.use('/api', routes)
 
 // Setting up the Passport Strategies for FACEBOOK
-require("./config/passport")(passport)
+// require("./config/passport")(passport)
 
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
+// app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/'
-  })
-);
+// app.get('/auth/facebook/callback',
+//   passport.authenticate('facebook', {
+//     successRedirect: '/',
+//     failureRedirect: '/'
+//   })
+// );
 
-app.get("/logout", function(req, res){
-  req.logout();
-  res.redirect("/")
-})
+// app.get("/logout", function(req, res){
+//   req.logout();
+//   res.redirect("/")
+// })
 
 // Setting Up the Local Login Strat
 
