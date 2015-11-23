@@ -14,12 +14,12 @@ var app            = express();
 
 
 
-var databaseURL = 'mongodb://localhost:27017spoken';
+var databaseURL = 'mongodb://localhost:27017/spoken';
 mongoose.connect(databaseURL);
 
 // Middleware
 app.use(cookieParser());
-// app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
+app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
