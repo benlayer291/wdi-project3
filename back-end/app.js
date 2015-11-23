@@ -7,9 +7,9 @@ var passport       = require('passport');
 var expressSession = require('express-session');
 var cookieParser   = require("cookie-parser");
 var jwt            = require('jsonwebtoken');
-var expressJWT     = require('express-jwt');
+// var expressJWT     = require('express-jwt');
 var methodOverride = require('method-override');
-var connect-flash  = require('connect-flash');
+var connectFlash  = require('connect-flash');
 var app            = express();
 
 
@@ -29,19 +29,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Setting up the Passport Strategies
 require("./config/passport")(passport)
 
-// app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
 
-// app.get('/auth/facebook/callback',
-//   passport.authenticate('facebook', {
-//     successRedirect: '/',
-//     failureRedirect: '/'
-//   })
-// );
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/'
+  })
+);
 
-// app.get("/logout", function(req, res){
-//   req.logout();
-//   res.redirect("/")
-// })
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("/")
+})
 
 app.listen(3000);
 
