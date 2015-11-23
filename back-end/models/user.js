@@ -3,15 +3,7 @@ var bcrypt   = require('bcrypt');
 
 
 var userSchema = mongoose.Schema({
-  // fb: {
-  //   id: String,
-  //   access_token: String,
-  //   firstName: String,
-  //   lastName: String,
-  //   email: String,
-  //   birthday: String,
-  //   picture: String,
-  // },
+
   local: {
     firstName: String,
     lastName: String,
@@ -19,9 +11,8 @@ var userSchema = mongoose.Schema({
     password: { type: String, required: true},
     picture: String,
     birthday: String,
-    picture: String,
-  },
-  description: String
+    tagline: String
+  }
 });
 
 userSchema.statics.encrypt = function(password){
@@ -31,12 +22,5 @@ userSchema.statics.encrypt = function(password){
 userSchema.methods.validPassword = function(password) {
   return bcrypt.compareSync(password, this.local.password);
 }
-
-
-// userSchema.local.methods.authenticate = function(password, callback) {
-//   bcrypt.compare(password, this.password, function(err, isMatch){
-//     callback(null, isMatch)
-//   }) 
-// }
 
 module.exports = mongoose.model('User', userSchema);

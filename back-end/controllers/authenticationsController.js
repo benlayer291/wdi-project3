@@ -35,19 +35,17 @@ function login(req, res, next) {
 
     var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
         // Send back the token to the front-end to store
-        return res.status(200).json({ 
-          success: true,
-          message: "Thank you for authenticating",
-          token: token,
-          user: user
-        });
-      });
-
-      return localStrategy(req, res, next);
-    };
+    return res.status(200).json({ 
+      success: true,
+      message: "Thank you for authenticating",
+      token: token,
+      user: user
+    });
+  });
+};
 
 
-    module.exports = {
-      login: login,
-      register: register
-    }
+module.exports = {
+  login: login,
+  register: register
+}

@@ -7,15 +7,17 @@ var passport       = require('passport');
 var expressSession = require('express-session');
 var cookieParser   = require("cookie-parser");
 var jwt            = require('jsonwebtoken');
-// var expressJWT     = require('express-jwt');
+var expressJWT     = require('express-jwt');
 var methodOverride = require('method-override');
-var connectFlash  = require('connect-flash');
+var connectFlash   = require('connect-flash');
 var app            = express();
 
-
-
+var config      = require('./config/config');
+var secret      = require('./config/config').secret;
 var databaseURL = 'mongodb://localhost:27017/spoken';
 mongoose.connect(databaseURL);
+
+require('./config/passport')(passport);
 
 var routes = require('./config/routes')
 
@@ -34,24 +36,27 @@ app.use(methodOverride(function(req, res){
     return method; 
   }
 }));
-app.use('/api', routes)
 
-// Setting up the Passport Strategies for FACEBOOK
-require("./config/passport")(passport)
-
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/'
+// Protect your api with JWT here - CHECKS FOR THE TOKEN
+app.use('/api', expressJWT({secret: secret})
+  .unless({
+    path: [
+      { url: '/api/login', methods: ['POST'] },
+      { url: '/api/register', methods: ['POST'] }
+    ]
   })
 );
 
-app.get("/logout", function(req, res){
-  req.logout();
-  res.redirect("/")
-})
+// Show better errors for protected pages (UnauthorizedError) - IF THERE IS NO TOKEN
+app.use(function(err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({message: 'You need an authorization token to view confidential information.'});
+  }
+});
+
+var routes = require('./config/routes')
+app.use('/api', routes)
+
 
 // Setting Up the Local Login Strat
 

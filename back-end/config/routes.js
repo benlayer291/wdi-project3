@@ -1,15 +1,8 @@
 var express  = require('express');
 var router   = express.Router();
 var passport = require("passport");
-
-
 var usersController = require('../controllers/usersController');
 var authenticationsController = require('../controllers/authenticationsController');
-
-router.route('/signup')
-  .get(unAuthenticatedUser, usersController.getSignup)
-  .post(usersController.postSignup)
-
 
 router.post('/login', authenticationsController.login);
 router.post('/register', authenticationsController.register);
