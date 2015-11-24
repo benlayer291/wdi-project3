@@ -1,9 +1,14 @@
 $(init);
 
 function init(){
+  initialPageSetup();
   console.log("working");
   $('.register_form').on("submit", register);
   $('.login_form').on("submit", login);
+  $('.logout-link').on('click', logout);
+  $('.login-link').on('click', showLogin);
+  $('.register-link').on('click', showRegister);
+  $('.posts-link').on('click', showPosts);
 }
 
 function register(){
@@ -16,6 +21,8 @@ function register(){
     beforeSend: setHeader
   }).done(function(data){
     console.log(data)
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
   });
 }
 
@@ -28,9 +35,48 @@ function login(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
+    console.log(data.token);
     if (data.token) localStorage.setItem('token', data.token);
     return loggedInStatus();
-  })
+  }).fail(function(data){
+    console.log(data.responseJSON.message);
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function logout() {
+  event.preventDefault();
+  localStorage.clear();
+  return loggedInStatus();
+}
+
+function showLogin() {
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  return $('#login').show();
+}
+
+function showRegister() {
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  return $('#register').show();
+}
+
+function showPosts() {
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  return $('#posts').show();
+}
+
+function initialPageSetup(){
+  console.log("setup");
+  hideErrors();
+  $('section').hide();
+  $('#search').show();
+  return loggedInStatus();
 }
 
 function setHeader(xhr, settings){
@@ -41,6 +87,7 @@ function setHeader(xhr, settings){
 
 function loggedInStatus(){
   var token = localStorage.getItem('token');
+  console.log(token);
   if (token) {
     return loggedInState();
   } else {
@@ -51,16 +98,23 @@ function loggedInStatus(){
 function loggedInState() {
   $('.logged-out').hide();
   $('.logged-in').show();
-  $('#register').hide();
-  $('#login').hide();
-  $('#posts').hide();
+  $('section').hide();
+  $('#search').show();
 }
 
 function loggedOutState() {
   $('.logged-out').show();
   $('.logged-in').hide();
-  $('#register').show();
-  $('#login').show();
-  $('#posts').show();
+  $('section').hide();
+  $('#search').show();
 }
+
+function showErrors(message) {
+  $('.alert').text(message).removeClass('hide').addClass('show');
+}
+
+function hideErrors() {
+  $('.alert').removeClass('show').addClass('hide');
+}
+ 
 
