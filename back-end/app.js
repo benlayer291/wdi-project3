@@ -9,39 +9,52 @@ var cookieParser   = require("cookie-parser");
 var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
 var methodOverride = require('method-override');
-var connect-flash  = require('connect-flash');
+var connectFlash   = require('connect-flash');
 var app            = express();
 
-
-
-var databaseURL = 'mongodb://localhost:27017spoken';
+var config      = require('./config/config');
+var secret      = require('./config/config').secret;
+var databaseURL = 'mongodb://localhost:27017/spoken';
 mongoose.connect(databaseURL);
+
+require('./config/passport')(passport);
 
 // Middleware
 app.use(cookieParser());
-// app.use(expressSession({secret: 'mySecretKey', resave: true, saveUninitialized: true}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === "object" && "_method" in req.body){
+    var method = req.body._method;
+    delete req.body._method;
+    return method; 
+  }
+}));
 
-// Setting up the Passport Strategies
-require("./config/passport")(passport)
+app.use('/api', expressJWT({secret: secret})
+  .unless({
+    path: [
+      { url: '/api/login', methods: ['POST'] },
+      { url: '/api/register', methods: ['POST'] }
+    ]
+  })
+);
+//Randon shit we have no idea how it works
+app.use(function(req, res, next){
+  global.currentUser = req.user;
+  next();
+})
 
-// app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'} ));
+app.use(function(err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({message: 'You need an authorization token to view confidential information.'});
+  }
+});
+var routes = require('./config/routes')
+app.use('/api', routes)
 
-// app.get('/auth/facebook/callback',
-//   passport.authenticate('facebook', {
-//     successRedirect: '/',
-//     failureRedirect: '/'
-//   })
-// );
-
-// app.get("/logout", function(req, res){
-//   req.logout();
-//   res.redirect("/")
-// })
 
 app.listen(3000);
+console.log("App listening local 3000")
 
