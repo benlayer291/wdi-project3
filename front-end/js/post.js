@@ -1,12 +1,12 @@
-$(init);
+// $(init);
 
-function init(){
-  console.log("working");
+// function init(){
+  // console.log("working");
   // $(".post_form").on("submit", submitPost);
   // $(".posts-link").on("click", posts);
-  $("#posts").on("click",".show-post", showPost);
+  // $("#posts").on("click",".show-post", showPost);
 
-}
+// }
 
 // function checkLoginState(){
 //   if (getToken()) {

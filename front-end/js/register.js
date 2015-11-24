@@ -3,17 +3,14 @@ $(init);
 function init(){
   initialPageSetup();
   console.log("working");
-  $('.login_form').on("submit", login);
+  $('.login_form').on('submit', login);
   $('.logout-link').on('click', logout);
   $('.login-link').on('click', showLogin);
   $('.register-link').on('click', showRegister);
-  $('.posts-link').on('click', showPosts);
-  $('#create-post-button').on("click", showCreatePosts)
-
-  // Geegee
-  $(".post_form").on("submit", submitPost);
-  $("#posts").on("click",".show-post", showPost);
-
+  $('.posts-link').on('click', getPosts);
+  $('#create-post-button').on("click", showCreatePosts);
+  $('.post-form').on('submit', addNewPost);
+  $("#posts").on("click",".show-post", getOnePost);
 }
 
 function register(){
@@ -69,101 +66,6 @@ function showRegister() {
   return $('#register').show();
 }
 
-// POST Border
-function submitPost(){
-  event.preventDefault();
-  $.ajax({ 
-    method: "POST",
-    url: "http://localhost:3000/api/posts",
-    data: $(this).serialize()
-  }).done(function(data){
-    console.log(data)
-  })
-  // $('section').hide();
-  // $('#posts').show();
-}
-
-function showPosts() {
-  event.preventDefault();
-  hideErrors();
-  $('section').hide();
-  $('#posts').show();
-  return getPosts();
-}
-
-function showPost() {
-  console.log("Click bruh")
-  return ajaxRequest("get", "http://localhost:3000/api/posts/"+$(this).attr('id'), null, displayPost)
-}
-
-
-function showCreatePosts(){
-  event.preventDefault();
-  hideErrors();
-  $('section').hide();
-  return $("#create-post").show();
-}
-
-function getPosts(){
-  return ajaxRequest("get", "http://localhost:3000/api/posts", null, displayPosts)
-}
-
-function displayPosts(data){
-  hideErrors();
-  hidePosts();
-  return $.each(data.posts, function(index, post) {
-    $(".posts").prepend('<div class="post">'+
-      '<ul class="what">' +
-      '<p>What: '+ post.what + '</p>'+
-      '</ul>' +
-      '<ul class="where">'+
-      '<p>Where: '+ post.where + '</p>'+
-      '</ul>' +
-      '<ul class="when">'+
-      '<p>When: '+ post.when + '</p>'+
-      '</ul>'+
-      '<button type="button" id=' + post._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'+
-      '</div>'
-    );
-  });
-}
-
-function displayPost(data) {
-  hideErrors();
-  hidePosts();
-  console.log(data);
-  $(".posts").prepend('<div class="post">'+
-    '<ul class="what">' +
-    '<p>What: '+ data.post.what + '</p>'+
-    '</ul>' +
-    '<ul class="where">'+
-    '<p>Where: '+ data.post.where + '</p>'+
-    '</ul>' +
-    '<ul class="when">'+
-    '<p>When: '+ data.post.when + '</p>'+
-    '</ul>'+
-    '<button type="button" id=' + data.post._id + ' class="show-post" value="Submit">Show Page</button>'+
-    '</div>'
-  );
-}
-
-function ajaxRequest(method, url, data, callback) {
-  return $.ajax({
-    method: method,
-    url: url,
-    data: data,
-  }).done(function(data){
-    if (callback) return callback(data)
-  }).fail(function(data){
-    showErrors(data.responseJSON.message)
-  });
-}
-
-function hidePosts(){
-  return $(".post").empty();
-}
-
-
 function initialPageSetup(){
   console.log("setup");
   hideErrors();
@@ -209,5 +111,107 @@ function showErrors(message) {
 function hideErrors() {
   $('.alert').removeClass('show').addClass('hide');
 }
- 
 
+//POSTS js
+
+function getPosts(){
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  $('#posts').show();
+  
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/posts'
+  }).done(function(data){
+    console.log(data);
+    displayAllPosts(data);
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function displayAllPosts(data){
+  hidePosts();
+  var posts = data.posts;
+
+  for (var i=0; i<posts.length; i++) {
+    $('.posts').prepend(
+      '<ul class="what">' +
+      '<p>What: '+ posts[i].what + '</p>'+
+      '</ul>' +
+      '<ul class="where">'+
+      '<p>Where: '+ posts[i].where + '</p>'+
+      '</ul>' +
+      '<ul class="when">'+
+      '<p>When: '+ posts[i].when + '</p>'+
+      '</ul>'+
+      '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
+      );
+  }
+}
+
+function showCreatePosts() {
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  $('#create-post').show();
+}
+
+function addNewPost(){
+  event.preventDefault();
+
+  console.log('creating new post');
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/api/posts',
+    data: $(this).serialize(),
+    beforeSend: setHeader
+  }).done(function(data) {
+    getPosts();
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function getOnePost(){
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  $('#posts').show();
+
+  console.log('showing post');
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
+    beforeSend: setHeader
+  }).done(function(data){
+    displayOnePost(data);
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function displayOnePost(data){
+  console.log('displaying one post');
+  hidePosts();
+
+  var post = data.post;
+
+  $('.posts').prepend(
+    '<ul class="what">' +
+    '<p>What: '+ post.what + '</p>'+
+    '</ul>' +
+    '<ul class="where">'+
+    '<p>Where: '+ post.where + '</p>'+
+    '</ul>' +
+    '<ul class="when">'+
+    '<p>When: '+ post.when + '</p>'+
+    '</ul>'+
+    '<button type="button" id=' + post._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
+    );
+}
+
+function hidePosts(){
+  return $('.posts').empty();
+}
