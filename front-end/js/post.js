@@ -5,6 +5,14 @@ function init(){
   $(".post-link").on("click", posts);
 }
 
+// function checkLoginState(){
+//   if (getToken()) {
+//     return loggedInState();
+//   } else {
+//     return loggedOutState();
+//   }
+// }
+
 function submitPost(){
   event.preventDefault();
 
@@ -12,7 +20,7 @@ function submitPost(){
   var url    = "http://localhost:3000/api" + $(this).attr("action");
   var data   = $(this).serialize();
 
-  return ajaxRequest(method, url, data);
+  return ajaxRequest(method, url, data, authenticationSuccessful);
 }
 
 function posts(){
@@ -44,7 +52,7 @@ function displayPosts(data){
 
 function authenticationSuccessful(data) {
   if (data.token) setToken(data.token);
-  return checkLoginState();
+  // return checkLoginState();
 }
 
 function getToken() {

@@ -15,17 +15,17 @@
     <form class="new-post" method="post" action="/posts">
       <div class="form-group">
         <label for="register-what">What</label>
-        <input type="text" name="what" id="register-what" class="form-control" placeholder="What did you say?">
+        <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
       </div>
       <div class="form-group">
         <label for="register-where">Where</label>
-        <input type="text" name="where" id="register-where" class="form-control" placeholder="Where did you meet?">
+        <input type="text" name="where" id="where" class="form-control" placeholder="Where did you meet?">
       </div>
       <div class="form-group">
-        <select name="style" id="style" name="when" id="register-when" class="form-control" placeholder="When did you meet?">
-            <option value="">Morning</option>
-            <option value="">Afternoon</option>
-            <option value="">Evening</option>
+        <select name="when" id="style" id="when" class="form-control" placeholder="When did you meet?">
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
         </select>
       </div>
       <input type="submit" value='Help me find da love' id="submit">
