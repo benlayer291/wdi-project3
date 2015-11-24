@@ -1,0 +1,89 @@
+/*overrides*/
+
+
+/*Nav*/
+
+nav {
+  background-color: none;
+}
+
+#sign_in_button {
+  
+  color: white;
+  float: right;
+  margin-right: 10%;
+  margin-top: 2%;
+  background-color: transparent;
+  border: none;
+  padding: none;
+
+}
+
+.btn-default:hover {
+     color: none;
+     background-color: none; 
+     border-color: none; 
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+  margin-left: 10%;
+  margin-top: 3%;
+}
+
+
+/*Body*/
+
+body {
+  background-image: url("http://bit.ly/1HihsJb");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+/*Input*/
+
+.input_fields_button {
+  position: absolute;
+  top: 50%;
+  left: 37.5%;
+  width: 25%;
+}
+
+.type_place {
+  position: relative;
+  top: 50%;
+  left: 40%;
+  width: 100px;
+}
+
+.search {
+  background-color: #E4007C;
+}
+
+/*Nav*/
+
+nav {
+  background-color: none;
+}
+
+#sign_in_button {
+  float: right;
+  margin-right: 10%;
+  margin-top: 2%;
+  background-color: none;
+  border: none;
+  padding: none;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+  margin-left: 10%;
+  margin-top: 3%;
+}
+
+
