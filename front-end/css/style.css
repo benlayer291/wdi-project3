@@ -1,10 +1,15 @@
 /*overrides*/
 
 
+#registration_form {
+  display: none;
+}
+
 /*Nav*/
 
 nav {
   background-color: none;
+  height: 29%;
 }
 
 #sign_in_button {
