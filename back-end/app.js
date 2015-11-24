@@ -1,4 +1,5 @@
 var express        = require('express');
+var cors           = require('cors');
 var path           = require('path');
 var morgan         = require('morgan');
 var bodyParser     = require('body-parser');
@@ -22,6 +23,8 @@ require('./config/passport')(passport);
 // Middleware
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(cors());
+// app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride(function(req, res){
@@ -36,11 +39,13 @@ app.use('/api', expressJWT({secret: secret})
   .unless({
     path: [
       { url: '/api/login', methods: ['POST'] },
+      { url: '/api/posts', methods: ['GET'] },
+      { url: '/api/posts', methods: ['POST'] },
       { url: '/api/register', methods: ['POST'] }
     ]
   })
 );
-//Randon shit we have no idea how it works
+//Setting current user variable
 app.use(function(req, res, next){
   global.currentUser = req.user;
   next();
