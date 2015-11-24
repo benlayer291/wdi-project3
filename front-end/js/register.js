@@ -3,7 +3,7 @@ $(init);
 function init(){
   initialPageSetup();
   console.log("working");
-  $('.register_form').on("submit", register);
+  $("#input-4").fileupload({showCaption: false});
   $('.login_form').on("submit", login);
   $('.logout-link').on('click', logout);
   $('.login-link').on('click', showLogin);
