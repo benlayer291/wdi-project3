@@ -10,6 +10,7 @@ var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
 var methodOverride = require('method-override');
 var connectFlash   = require('connect-flash');
+var cors           = require('cors');
 var app            = express();
 
 var config      = require('./config/config');
@@ -22,6 +23,8 @@ require('./config/passport')(passport);
 // Middleware
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(cors());
+app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride(function(req, res){
@@ -36,6 +39,8 @@ app.use('/api', expressJWT({secret: secret})
   .unless({
     path: [
       { url: '/api/login', methods: ['POST'] },
+      { url: '/api/posts', methods: ['GET'] },
+      { url: '/api/posts', methods: ['POST'] },
       { url: '/api/register', methods: ['POST'] }
     ]
   })
