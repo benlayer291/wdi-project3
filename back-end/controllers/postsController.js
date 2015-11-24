@@ -34,14 +34,14 @@ function postsCreate(req, res){
     if (err) return res.status(500).json({ message: "Something went wrong"});
     return res.status(201).json({ message: 'Post succesfully created', post: post });
   });
-  // console.log(currentUser)
-  // User.findById({_id: currentUser._id}, function(err, user){
-  //   user.local.posts.push(post);
-  //   if (err) return res.status(500).json({ message: "Not saving"});
-  //   user.save();
-  //   console.log(user);
+  console.log(currentUser)
+  User.findById({_id: currentUser._id}, function(err, user){
+    user.local.posts.push(post);
+    if (err) return res.status(500).json({ message: "Not saving"});
+    user.save();
+    console.log(user);
 
-  // });
+  });
 }
 
 // Update-POST
