@@ -1,8 +1,11 @@
 $(init);
 
 function init(){
+  console.log("working");
   $("form").on("submit", submitPost);
   $(".post-link").on("click", posts);
+  $("#posts").on("click",".show-post", showPost);
+
 }
 
 // function checkLoginState(){
@@ -12,6 +15,12 @@ function init(){
 //     return loggedOutState();
 //   }
 // }
+
+function showPost() {
+  console.log("Click bruh")
+  return ajaxRequest("get", "http://localhost:3000/api/posts/"+$(this).attr('id'), null, displayPost)
+
+}
 
 function submitPost(){
   event.preventDefault();
@@ -32,11 +41,32 @@ function getPosts(){
   return ajaxRequest("get", "http://localhost:3000/api/posts", null, displayPosts)
 }
 
+function displayPost(data) {
+  hideErrors();
+  hidePosts();
+  console.log(data);
+  $(".posts").prepend('<div class="post">'+
+    '<ul class="what">' +
+    '<p>What: '+ data.post.what + '</p>'+
+    '</ul>' +
+    '<ul class="where">'+
+    '<p>Where: '+ data.post.where + '</p>'+
+    '</ul>' +
+    '<ul class="when">'+
+    '<p>When: '+ data.post.when + '</p>'+
+    '</ul>'+
+    '<button type="button" id=' + data.post._id + ' class="show-post" value="Submit">Show Page</button>'+
+    '</div>'
+  );
+
+}
+
 function displayPosts(data){
-  // hideErrors();
-  // hideUsers();
+  hideErrors();
+  hidePosts();
   return $.each(data.posts, function(index, post) {
-      $(".posts").prepend('<div class="post">'+'<ul class="what">' +
+      $(".posts").prepend('<div class="post">'+
+        '<ul class="what">' +
         '<p>What: '+ post.what + '</p>'+
         '</ul>' +
         '<ul class="where">'+
@@ -44,11 +74,24 @@ function displayPosts(data){
         '</ul>' +
         '<ul class="when">'+
         '<p>When: '+ post.when + '</p>'+
-        '</ul>'+'</div>'
+        '</ul>'+
+        '<button type="button" id=' + post._id + ' class="show-post" value="Submit">Show Page</button>'+
+        '</div>'
       );
     });
 }
 
+function hidePosts(){
+  return $(".post").empty();
+}
+
+function hideErrors(){
+  return $(".alert").removeClass("show").addClass("hide");
+}
+
+function displayErrors(data){
+  return $(".alert").text(data).removeClass("hide").addClass("show");
+}
 
 function authenticationSuccessful(data) {
   if (data.token) setToken(data.token);
