@@ -1,4 +1,5 @@
 var express        = require('express');
+var cors           = require('cors');
 var path           = require('path');
 var morgan         = require('morgan');
 var bodyParser     = require('body-parser');
@@ -22,6 +23,7 @@ require('./config/passport')(passport);
 // Middleware
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride(function(req, res){
