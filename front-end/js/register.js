@@ -17,3 +17,16 @@ function register(){
     console.log(data)
   });
 }
+
+function login(){
+  event.preventDefault();
+  console.log("clicked");
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:3000/api/login",
+    data: $(this).serialize()
+  }).done(function(data){
+    console.log(data)
+  });
+}
+
