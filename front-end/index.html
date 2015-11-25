@@ -4,12 +4,20 @@
   <meta charset="utf-8">
   <title>SPOKEN</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&sensor=false&libraries=places"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&sensor=false&libraries=places"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
   <!-- Local files -->
   <script type="text/javascript" src="./js/register.js"></script>
@@ -23,7 +31,6 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="/">LOGO</a>
         </div>
-
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/" class="register-link logged-out">Register</a></li>
           <li><a href="/" class="login-link logged-out">Login</a></li>
@@ -63,6 +70,50 @@
       </form>
     </section>
 
+<section id="registration_form">
+  <h2>Register</h2>
+  <form class="register_form" method="post" action="/register">
+    <div class="form-group">
+      <label for="register-username">Username</label>
+      <input type="text" name="username" id="register-username" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label for="register-fullname">Full name</label>
+      <input type="text" name="fullname" id="register-fullname" class="form-control" placeholder="Full name">
+    </div>
+    <div class="form-group">
+      <label for="register-image">image</label>
+      <input type="text" name="image" id="register-image" class="form-control" placeholder="Image URL">
+    </div>
+    <div class="form-group">
+      <label for="register-email">Email address</label>
+      <input type="email" name="email" id="register-email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="register-password">Password</label>
+      <input type="password" name="password" id="register-password" class="form-control" placeholder="Password">
+    </div>
+    <button type="submit" id="register_button" class="btn btn-default">Submit</button>
+  </form>
+
+  <h2>Login</h2>
+  <form class="login_form" method="post" action="/login">
+    <div class="form-group">
+      <label for="login-email">Email address</label>
+      <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
+    </div>
+    <button type="submit" id="login_button" class="btn btn-default">Submit</button>
+  </form>
+</section>
+</section>
+
+</body>
+</html>
+=======
     <section id="login">
       <h2>Login</h2>
       <form class="login_form" method="post" action="/login">
@@ -86,7 +137,7 @@
         </div>
         <div class="form-group">
           <label for="post-where">Where</label>
-          <input type="text" name="where" id="where" class="form-control" placeholder="Where did you meet?">
+          <input type="text" id="searchbox" class="form-control " placeholder="Search">
         </div>
         <div class="form-group">
           <label for="post-when">When</label>
@@ -113,3 +164,22 @@
   </main>
 </body>
 </html>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
