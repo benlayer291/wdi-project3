@@ -4,6 +4,7 @@ function init(){
   initialPageSetup();
   console.log("working");
   $('.login_form').on('submit', login);
+  $('.register_form').on('submit', register);
   $('.logout-link').on('click', logout);
   $('.login-link').on('click', showLogin);
   $('.register-link').on('click', showRegister);
@@ -22,7 +23,9 @@ function register(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
-    console.log(data)
+    console.log(data.token);
+    if (data.token) localStorage.setItem('token', data.token);
+    return loggedInStatus();
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
   });
