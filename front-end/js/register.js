@@ -13,6 +13,37 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
+
+  $('.search-form').on("submit", search)
+}
+
+function search(){
+  event.preventDefault();
+  $.ajax({
+    method: "post",
+    url: "http://localhost:3000/api"+$(this).attr("action"),
+    data: $(this).serialize()
+  }).done(function(data){
+    console.log(data);
+
+    hidePosts();
+    var posts = data.posts;
+
+    for (var i=0; i<posts.length; i++) {
+      $('.search-results').append(
+        '<ul class="what">' +
+        '<p>What: '+ posts[i].what + '</p>'+
+        '</ul>' +
+        '<ul class="where">'+
+        '<p>Where: '+ posts[i].where + '</p>'+
+        '</ul>' +
+        '<ul class="when">'+
+        '<p>When: '+ posts[i].when + '</p>'+
+        '</ul>'+
+        '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
+        );
+    }
+  })
 }
 
 function register(){
@@ -217,21 +248,25 @@ function displayOnePost(data){
 }
 
 function hidePosts(){
-  return $('.posts').empty();
+  return $('.posts, .search-results').empty();
 }
 
 // Autocomplete
 function setupGoogleMaps(){
-  // Search box variable
-  var searchBox = new google.maps.places.Autocomplete(document.getElementById('searchbox'));
+  var fields = ["home-searchbox", "posts-searchbox"]
 
-  // SearchBox event listener;
-  google.maps.event.addListener(searchBox, 'places_changed', function() {
-    searchBox.getPlaces();
-  })
+  $.each(fields, function(index, field){
+    // Search box variable
+    var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
 
-  //Clear the searchBox when we click on it; 
-  $('#searchbox').on('click', function(){
-    $(this).val('');
+    // SearchBox event listener;
+    google.maps.event.addListener(searchBox, 'places_changed', function() {
+      searchBox.getPlaces();
+    })
+
+    //Clear the searchBox when we click on it; 
+    $("#" + field).on('click', function(){
+      $(this).val('');
+    })
   })
 }
