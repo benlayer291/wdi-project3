@@ -2,6 +2,7 @@ $(init);
 
 function init(){
   initialPageSetup();
+  setupGoogleMaps();
   console.log("working");
   $('.login_form').on('submit', login);
   $('.register_form').on('submit', register);
@@ -220,37 +221,17 @@ function hidePosts(){
 }
 
 // Autocomplete
-
 function setupGoogleMaps(){
+  // Search box variable
+  var searchBox = new google.maps.places.Autocomplete(document.getElementById('searchbox'));
 
-   //Search box variable
-   var searchBox = new google.maps.places.Autocomplete(document.getElementById('searchbox'));
+  // SearchBox event listener;
+  google.maps.event.addListener(searchBox, 'places_changed', function() {
+    searchBox.getPlaces();
+  })
 
-   mapApp.searchBox = function(){
-     var places = searchBox.getPlaces();
-     //Looping through and removing previous markers form the map;
-     for (var i = 0, marker; marker = markers[i]; i++) {
-       marker.setMap(null);
-     }
-
-     for (var i = 0, place; place = places[i]; i++) {
-       var image = {
-         url: place.icon,
-         size: new google.maps.Size(71, 71),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(17, 34),
-         scaledSize: new google.maps.Size(25, 25)
-       };
-
-   //SearchBox event listener;
-   google.maps.event.addListener(searchBox, 'places_changed', function() {
-     mapApp.searchBox();
-   })
-
-   //Clear the searchBox when we click on it; 
-   $('#searchbox').on('click', function(){
-     $(this).val('');
-      })
-    }
-  }
+  //Clear the searchBox when we click on it; 
+  $('#searchbox').on('click', function(){
+    $(this).val('');
+  })
 }
