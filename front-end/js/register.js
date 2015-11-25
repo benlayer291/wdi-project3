@@ -10,6 +10,7 @@ function init(){
   $('.login-link').on('click', showLogin);
   $('.register-link').on('click', showRegister);
   $('.posts-link').on('click', getPosts);
+  $('.profile-link').on('click', getUser);
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
@@ -19,6 +20,7 @@ function init(){
 
 function search(){
   event.preventDefault();
+  console.log('searching');
   $.ajax({
     method: "post",
     url: "http://localhost:3000/api"+$(this).attr("action"),
@@ -55,8 +57,8 @@ function register(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
-    console.log(data.token);
     if (data.token) localStorage.setItem('token', data.token);
+    localStorage.setItem('user_id', data.user._id);
     return loggedInStatus();
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
@@ -72,13 +74,18 @@ function login(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
-    console.log(data.token);
     if (data.token) localStorage.setItem('token', data.token);
+    localStorage.setItem('user_id', data.user._id);
     return loggedInStatus();
   }).fail(function(data){
     console.log(data.responseJSON.message);
     return showErrors(data.responseJSON.message);
   });
+}
+
+function setCurrentUser() {
+  var user_id = localStorage.getItem('user_id');
+  $('.profile-link').attr('id', user_id);
 }
 
 function logout() {
@@ -119,6 +126,7 @@ function loggedInStatus(){
   var token = localStorage.getItem('token');
   console.log(token);
   if (token) {
+    setCurrentUser();
     return loggedInState();
   } else {
     return loggedOutState();
@@ -269,4 +277,23 @@ function setupGoogleMaps(){
       $(this).val('');
     })
   })
+}
+
+// REQUESTS js
+
+function getUser() {
+  event.preventDefault();
+
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/users/'+$(this).attr('id'),
+    beforeSend: setHeader
+  }).done(function(data){
+    displayOneUser(data);
+  })
+}
+
+function displayOneUser() {
+  console.log('displaying one user');
+  $('.users').append()
 }
