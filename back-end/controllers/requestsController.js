@@ -28,14 +28,14 @@ function requestsCreate(req, res){
   var postId  = req.body.post;
   console.log(postId);
   Post.findOne({_id: postId}, function(err, post){
-    
+    console.log(1);
     var request = new Request({
-      requester_id: currentUser._id
+      requester_id: currentUser._id,
+      message: req.body.message
     });
-
+    console.log(request);
     request.save(function(err, request){
       if (err) return res.status(500).json({ message: "Something went wrong" });
-
       post.requests.push(request);
 
       post.save(function(err, post){

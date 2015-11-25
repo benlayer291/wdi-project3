@@ -1,4 +1,5 @@
 var mongoose   = require('mongoose');
+var Request    = require('./request');
 
 var postSchema = new mongoose.Schema({
   // _creator: { type: String, ref: 'User' },
@@ -6,7 +7,7 @@ var postSchema = new mongoose.Schema({
   when: {type: String, required: true},
   what: {type: String, required: true},
   status: {type: String, default: 'pending'},
-  requests: [{ type: mongoose.Schema.ObjectId, ref: 'Request' }]
+  requests: [Request.schema]
 })
 
 module.exports = mongoose.model('Post', postSchema);
