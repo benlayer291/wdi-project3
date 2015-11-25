@@ -14,25 +14,117 @@ nav {
   border: none; }
 
 .logo {
+  position: relative;
   height: 50px;
   width: 50px;
   margin-left: 10%;
-  margin-top: 3vh; }
+  margin-top: 5.39vh; }
 
 .navbar-right {
+  position: relative;
   font-color: white;
-  margin-top: 3vh;
+  margin-top: 5.39vh;
+  top: -2vh;
   background-color: transparent;
   border: none;
   padding: none; }
 
+/*homepage*/
+.title {
+  margin-bottom: 0.5vh;
+  margin-top: 0vh;
+  text-align: center;
+  color: white;
+  margin-top: 0px;
+  font-size: 58px;
+  letter-spacing: 2px; }
+
+#search_blurb {
+  color: white;
+  margin-top: -1.5vh; }
+
+#learn_more_arrow {
+  position: absolute;
+  width: 3vw;
+  height: auto;
+  top: 90vh;
+  left: 49.5vw;
+  background-color: transparent; }
+
 /*Body*/
+main.container {
+  width: 27vw;
+  height: 30vh;
+  margin-top: 22vh; }
+
 body {
   background-image: url("http://bit.ly/1Igm8Ks");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 100vh;
-  width: 100vw; }
+  width: 100vw;
+  background-color: #E8ECF0; }
+
+/*about*/
+.about {
+  height: 100vh;
+  width: 100%;
+  background-color: #111C24; }
+
+#wordmark {
+  position: absolute;
+  left: 35vw;
+  top: 132vh;
+  font-size: 14.5vh; }
+
+#about_blurb {
+  position: absolute;
+  left: 26vw;
+  top: 146vh;
+  font-size: 8vh;
+  font-style: italic;
+  color: #F1F1F1; }
+
+#wordmark_logo {
+  position: absolute;
+  width: 5.2vw;
+  height: auto;
+  left: 45vw;
+  top: 135.25vh; }
+
+#about_box {
+  position: absolute;
+  height: 25.4vh;
+  width: 44vw;
+  background-color: #E8ECF0;
+  top: 166vh;
+  left: 28.5vw;
+  border-radius: 8px; }
+
+#blurb_box_tip {
+  position: absolute;
+  width: 6vw;
+  height: auto;
+  left: 34vw;
+  top: 186.8vh;
+  background-color: none; }
+
+/*buttons*/
+.large_button {
+  width: 27vw;
+  height: 8vh;
+  margin-top: 2.5vh;
+  border-radius: 5px; }
+
+.action_button {
+  background-color: #E4007C;
+  border: none;
+  color: white; }
+
+#search {
+  width: 27vw;
+  height: 100%;
+  margin-top: -16.7vh; }
 
 /*# sourceMappingURL=style.css.map */
