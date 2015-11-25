@@ -25,11 +25,13 @@ function requestsShow(req, res){
 
 //Create
 function requestsCreate(req, res){
-  var postId  = req.body.post.id;
+  var postId  = req.body.post;
   console.log(postId);
   Post.findOne({_id: postId}, function(err, post){
     
-    var request = new Request(req.body.request);
+    var request = new Request({
+      requester_id: currentUser._id
+    });
 
     request.save(function(err, request){
       if (err) return res.status(500).json({ message: "Something went wrong" });
