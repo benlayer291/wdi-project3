@@ -21,6 +21,7 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+<div class="homepage-image">
   <header>
     <nav class="navbar navbar-default">
       <div class="container">
@@ -37,15 +38,61 @@
       </div><!-- /.container-fluid -->
     </nav>
   </header>
+  <!-- HOMEPAGE -->
+  <main>
 
-  <!-- 
-  HOMEPAGE TITLE -->
+      <div class="container">
+        <div class="hide alert alert-danger" role="alert"></div>
+        <div class='row'>
 
-  <h1 class="title">We spoke. It was great.</h1>
-  <h1 class="title">If only we'd stayed in touch...</h1>
+          <section class="col-sm-12" id="homepage-title">
+            <h1 class="title">We spoke. It was great.</h1>
+            <h1 class="title">If only we'd stayed in touch...</h1>
+          </section>
 
-  <main class="container">
-    <div class="hide alert alert-danger" role="alert"></div>
+        </div>
+        <div class="row" id="search_row">
+          <div class="col-sm-6 col-md-offset-3">
+            <section id="search">
+
+              <a id="search_blurb">Where and when did you meet?</a>
+              <form class="search-form" method="post" action="/search">
+                <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+                <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
+              </form> 
+
+              <div class="search-results"></div>
+            </section>
+
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-offset-3">
+        <section id="learn_more_section">
+        <div id="scroll_to_about">
+          <a id="learn_more">Learn More</a>
+          <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
+        </div>
+        </section>
+        </div>
+
+      </div>
+    </div>
+
+
+    <section id="about">
+      <div class="about">
+        <h1 class="title" id="wordmark">SPOKEN</h1>
+        <img id="wordmark_logo" src="http://bit.ly/1XlIMbg">
+
+        <h1 id="about_blurb">You've already met the one</h1>
+        <div id="about_box"></div>
+        <img id="blurb_box_tip" src="http://bit.ly/1Hnk9Jn">
+      </div>
+    </section>
+
+    <!-- END OF HOMEPAGE -->
+
     <section id="register">
       <h2>Register</h2>
       <form class="register_form" method="post" action="/register">
@@ -73,74 +120,59 @@
       </form>
     </section>
 
-<section id="login">
-  <h2>Login</h2>
-  <form class="login_form" method="post" action="/login">
-    <div class="form-group">
-      <label for="login-email">Email address</label>
-      <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <label for="login-password">Password</label>
-      <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
-    </div>
-    <button type="submit" id="login_button" class="large_button">Submit</button>
-  </form>
-</section>
+    <section id="login">
+      <h2>Login</h2>
+      <form class="login_form" method="post" action="/login">
+        <div class="form-group">
+          <label for="login-email">Email address</label>
+          <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
+        </div>
+        <button type="submit" id="login_button" class="large_button">Submit</button>
+      </form>
+    </section>
 
-<section id="create-post">
-  <form class="post-form" method="post" action="/posts">
-    <div class="form-group">
-      <label for="post-what">What</label>
-      <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
-    </div>
-    <div class="form-group">
-      <label for="post-where">Where</label>
-      <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
-    </div>
-    <div class="form-group">
-      <label for="post-when">When</label>
-      <select name="when" id="when" class="form-control" placeholder="When did you meet?">
-        <option value="morning">Morning</option>
-        <option value="afternoon">Afternoon</option>
-        <option value="evening">Evening</option>
-      </select>
-    </div>
-    <button type="submit" id="add-post-button" class="large_button">Add post</button>
-  </form>
-</section>
+    <section id="create-post">
+      <form class="post-form" method="post" action="/posts">
+        <div class="form-group">
+          <label for="post-what">What</label>
+          <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
+        </div>
+        <div class="form-group">
+          <label for="post-where">Where</label>
+          <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+        </div>
+        <div class="form-group">
+          <label for="post-when">When</label>
+          <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+            <option value="morning">Morning</option>
+            <option value="afternoon">Afternoon</option>
+            <option value="evening">Evening</option>
+          </select>
+        </div>
+        <button type="submit" id="add-post-button" class="large_button">Add post</button>
+      </form>
+    </section>
 
-<section id="posts">
-  <button type="button" id="create-post-button" class="large_button">Create post</button>
-  <h2>Posts</h2>
-  <div class="posts"></div>
-</section>
+    <section id="posts">
+      <button type="button" id="create-post-button" class="large_button">Create post</button>
+      <h2>Posts</h2>
+      <div class="posts"></div>
+    </section>
 
-<section id="search">
+    <!-- /*SHOW*/ -->
 
-<a id="search_blurb">Where and when did you meet?</a>
-  <form class="search-form" method="post" action="/search">
-    <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
-    <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
-  </form> 
 
-  <div class="search-results"></div>
-</section>
+    <!-- /*SHOW*/ -->
 
-<a></a>
-<img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
-
+  </div>
 </main>
-<div class="about">
-    <h1 class="title" id="wordmark">SPOKEN</h1>
-    <img id="wordmark_logo" src="http://bit.ly/1XlIMbg">
 
-    <h1 id="about_blurb">You've already met the one</h1>
-    <div id="about_box"></div>
-    <img id="blurb_box_tip" src="http://bit.ly/1Hnk9Jn">
-</div>
 </body>
-<!-- <section class="about_section"> -->
+
 </html>
 
 
@@ -154,7 +186,7 @@
 
 
 
-  
+
 
 
 

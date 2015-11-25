@@ -13,7 +13,9 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
-
+  $('#scroll_to_about').on("click", function(){
+  $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
+  })
   $('.search-form').on("submit", search)
 }
 
@@ -105,7 +107,6 @@ function initialPageSetup(){
   console.log("setup");
   hideErrors();
   $('section').hide();
-  $('#search').show();
   return loggedInStatus();
 }
 
@@ -128,15 +129,19 @@ function loggedInStatus(){
 function loggedInState() {
   $('.logged-out').hide();
   $('.logged-in').show();
-  $('section').hide();
+  $('#about').show();
   $('#search').show();
+  $('#homepage-title').show();
+  $('#learn_more_section').show();
 }
 
 function loggedOutState() {
   $('.logged-out').show();
   $('.logged-in').hide();
-  $('section').hide();
+  $('#about').show();
   $('#search').show();
+  $('#homepage-title').show();
+  $('#learn_more_section').show();
 }
 
 function showErrors(message) {
@@ -152,9 +157,16 @@ function hideErrors() {
 function getPosts(){
   event.preventDefault();
   hideErrors();
-  $('section').hide();
+  $('#homepage-title').hide();
+  $('#scroll_to_about').hide();
+  $('#about').hide();
   $('#posts').show();
-  
+  $(".navbar-default").css("background-color", "#111C24");
+  $(".homepage-image").css("background-image", "none");
+  $("body").css("background-color", "#E8ECF0");
+
+
+
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/posts'
