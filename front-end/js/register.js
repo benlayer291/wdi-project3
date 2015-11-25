@@ -10,6 +10,7 @@ function init(){
   $('.login-link').on('click', showLogin);
   $('.register-link').on('click', showRegister);
   $('.posts-link').on('click', getPosts);
+  $('.profile-link').on('click', getUser);
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
@@ -34,17 +35,29 @@ function search(){
     for (var i=0; i<posts.length; i++) {
       $('.search-results').append(
         '<ul class="what">' +
-        '<p>What: '+ posts[i].what + '</p>'+
+        '<p>'+ posts[i].what + '</p>'+
         '</ul>' +
         '<ul class="where">'+
-        '<p>Where: '+ posts[i].where + '</p>'+
+        '<p>'+ posts[i].where + '</p>'+
         '</ul>' +
         '<ul class="when">'+
-        '<p>When: '+ posts[i].when + '</p>'+
+        '<p>'+ posts[i].when + '</p>'+
         '</ul>'+
         '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
         );
     }
+
+        $('#homepage-title').hide();
+        $('#search-post-button').hide();
+        $('#home-searchbox').hide();
+        $('#search_blurb').hide();
+        $('#scroll_to_about').hide();
+        $('#about').hide();
+        $('#posts').show();
+        $(".navbar-default").css("background-color", "#111C24");
+        $(".homepage-image").css("background-image", "none");
+        $("body").css("background-color", "#E8ECF0");
+        $('.where').hide();
   })
 }
 
@@ -57,8 +70,8 @@ function register(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
-    console.log(data.token);
     if (data.token) localStorage.setItem('token', data.token);
+    localStorage.setItem('user_id', data.user._id);
     return loggedInStatus();
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
@@ -74,13 +87,18 @@ function login(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
-    console.log(data.token);
     if (data.token) localStorage.setItem('token', data.token);
+    localStorage.setItem('user_id', data.user._id);
     return loggedInStatus();
   }).fail(function(data){
     console.log(data.responseJSON.message);
     return showErrors(data.responseJSON.message);
   });
+}
+
+function setCurrentUser() {
+  var user_id = localStorage.getItem('user_id');
+  $('.profile-link').attr('id', user_id);
 }
 
 function logout() {
@@ -120,6 +138,7 @@ function loggedInStatus(){
   var token = localStorage.getItem('token');
   console.log(token);
   if (token) {
+    setCurrentUser();
     return loggedInState();
   } else {
     return loggedOutState();
@@ -281,4 +300,23 @@ function setupGoogleMaps(){
       $(this).val('');
     })
   })
+}
+
+// REQUESTS js
+
+function getUser() {
+  event.preventDefault();
+
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/users/'+$(this).attr('id'),
+    beforeSend: setHeader
+  }).done(function(data){
+    displayOneUser(data);
+  })
+}
+
+function displayOneUser() {
+  console.log('displaying one user');
+  $('.users').append()
 }
