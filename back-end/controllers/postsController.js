@@ -28,19 +28,20 @@ function postsShow(req, res){
 // Create-POST
 
 function postsCreate(req, res){
-  var post = new Post(req.body);
-
-  post.save(function(err, post){
-    if (err) return res.status(500).json({ message: "Something went wrong"});
-    return res.status(201).json({ message: 'Post succesfully created', post: post });
-  });
-  console.log(currentUser)
   User.findById({_id: currentUser._id}, function(err, user){
-    user.local.posts.push(post);
-    if (err) return res.status(500).json({ message: "Not saving"});
-    user.save();
-    console.log(user);
 
+    var post = new Post(req.body);
+    post.save(function(err, post){
+      console.log(err)
+      if (err) return res.status(500).json({ message: "Something went wrong"});
+      
+      user.local.posts.push(post);
+
+      user.save(function(err, user) { 
+        if (err) return res.status(500).json({ message: "Not saving"});
+        return res.status(201).json({ message: 'Post succesfully created', post: post });  
+      });
+    });
   });
 }
 
@@ -67,7 +68,6 @@ function postsUpdate(req, res){
   });
 }
 
-
 // Delete-POST
 
 function postsDelete(req,res){
@@ -80,10 +80,24 @@ function postsDelete(req,res){
   });  
 }
 
+// Search
+
+function postsSearch(req, res) {
+ Post.find({ $text : { $search : req.body.search } },
+           { score : { $meta: "textScore" } }
+ ).sort({ score : { $meta : 'textScore' } }).exec(function(err, posts) {
+  // }, function(err, posts) {
+    if (err) return res.status(500).json({ message: "Something went wrong " });
+
+    res.status(200).json({ posts: posts })
+  })
+}
+
 module.exports = {
   postsIndex:  postsIndex,
   postsShow:   postsShow,
   postsCreate: postsCreate,
   postsUpdate: postsUpdate,
-  postsDelete: postsDelete
+  postsDelete: postsDelete,
+  postsSearch: postsSearch
 }

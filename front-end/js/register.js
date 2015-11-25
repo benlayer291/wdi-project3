@@ -2,6 +2,7 @@ $(init);
 
 function init(){
   initialPageSetup();
+  setupGoogleMaps();
   console.log("working");
   $('.login_form').on('submit', login);
   $('.register_form').on('submit', register);
@@ -12,6 +13,37 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
+
+  $('.search-form').on("submit", search)
+}
+
+function search(){
+  event.preventDefault();
+  $.ajax({
+    method: "post",
+    url: "http://localhost:3000/api"+$(this).attr("action"),
+    data: $(this).serialize()
+  }).done(function(data){
+    console.log(data);
+
+    hidePosts();
+    var posts = data.posts;
+
+    for (var i=0; i<posts.length; i++) {
+      $('.search-results').append(
+        '<ul class="what">' +
+        '<p>What: '+ posts[i].what + '</p>'+
+        '</ul>' +
+        '<ul class="where">'+
+        '<p>Where: '+ posts[i].where + '</p>'+
+        '</ul>' +
+        '<ul class="when">'+
+        '<p>When: '+ posts[i].when + '</p>'+
+        '</ul>'+
+        '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
+        );
+    }
+  })
 }
 
 function register(){
@@ -216,41 +248,25 @@ function displayOnePost(data){
 }
 
 function hidePosts(){
-  return $('.posts').empty();
+  return $('.posts, .search-results').empty();
 }
 
 // Autocomplete
-
 function setupGoogleMaps(){
+  var fields = ["home-searchbox", "posts-searchbox"]
 
-   //Search box variable
-   var searchBox = new google.maps.places.Autocomplete(document.getElementById('searchbox'));
+  $.each(fields, function(index, field){
+    // Search box variable
+    var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
 
-   mapApp.searchBox = function(){
-     var places = searchBox.getPlaces();
-     //Looping through and removing previous markers form the map;
-     for (var i = 0, marker; marker = markers[i]; i++) {
-       marker.setMap(null);
-     }
+    // SearchBox event listener;
+    google.maps.event.addListener(searchBox, 'places_changed', function() {
+      searchBox.getPlaces();
+    })
 
-     for (var i = 0, place; place = places[i]; i++) {
-       var image = {
-         url: place.icon,
-         size: new google.maps.Size(71, 71),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(17, 34),
-         scaledSize: new google.maps.Size(25, 25)
-       };
-
-   //SearchBox event listener;
-   google.maps.event.addListener(searchBox, 'places_changed', function() {
-     mapApp.searchBox();
-   })
-
-   //Clear the searchBox when we click on it; 
-   $('#searchbox').on('click', function(){
-     $(this).val('');
-      })
-    }
-  }
+    //Clear the searchBox when we click on it; 
+    $("#" + field).on('click', function(){
+      $(this).val('');
+    })
+  })
 }

@@ -38,9 +38,10 @@ app.use(methodOverride(function(req, res){
 app.use('/api', expressJWT({secret: secret})
   .unless({
     path: [
-      { url: '/api/login', methods: ['POST'] },
-      { url: '/api/register', methods: ['POST'] },
-      { url: '/api/posts', methods: ['GET'] }
+      { url: '/api/login',        methods: ['POST'] },
+      { url: '/api/register',     methods: ['POST'] },
+      { url: '/api/posts',        methods: ['GET'] },
+      { url: '/api/search', methods: ['POST'] },
     ]
   })
 );
