@@ -23,6 +23,12 @@
   <script type="text/javascript" src="./js/register.js"></script>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
+<!-- <div><img src="http://bit.ly/1HihsJb"></div> -->
+<nav>
+<button id="sign_in_button" type="button" class="btn btn-default navbar-btn">Sign in</button>
+<button id="register_button" type="button" class="register_button">Register</button>
+<img class="logo" src="http://bit.ly/1XlIMbg")>
+=======
 <body>
   <header>
     <nav class="navbar navbar-default">
@@ -31,6 +37,7 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="/">LOGO</a>
         </div>
+>>>>>>> 63210b52b68a4621e8083e1f87b57239d56ac182
 
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/" class="register-link logged-out">Register</a></li>
@@ -71,6 +78,50 @@
       </form>
     </section>
 
+<section id="registration_form">
+  <h2>Register</h2>
+  <form class="register_form" method="post" action="/register">
+    <div class="form-group">
+      <label for="register-username">Username</label>
+      <input type="text" name="username" id="register-username" class="form-control" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label for="register-fullname">Full name</label>
+      <input type="text" name="fullname" id="register-fullname" class="form-control" placeholder="Full name">
+    </div>
+    <div class="form-group">
+      <label for="register-image">image</label>
+      <input type="text" name="image" id="register-image" class="form-control" placeholder="Image URL">
+    </div>
+    <div class="form-group">
+      <label for="register-email">Email address</label>
+      <input type="email" name="email" id="register-email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="register-password">Password</label>
+      <input type="password" name="password" id="register-password" class="form-control" placeholder="Password">
+    </div>
+    <button type="submit" id="register_button" class="btn btn-default">Submit</button>
+  </form>
+
+  <h2>Login</h2>
+  <form class="login_form" method="post" action="/login">
+    <div class="form-group">
+      <label for="login-email">Email address</label>
+      <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
+    </div>
+    <button type="submit" id="login_button" class="btn btn-default">Submit</button>
+  </form>
+</section>
+</section>
+
+</body>
+</html>
+=======
     <section id="login">
       <h2>Login</h2>
       <form class="login_form" method="post" action="/login">
