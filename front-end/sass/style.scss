@@ -1,38 +1,54 @@
 /* Write your styling here */
+
 /*nav*/
-.navbar-default .navbar-nav > li > a {
-  color: #F1F1F1; }
+
+.navbar-default .navbar-nav>li>a {
+    color: #F1F1F1;
+}
 
 .container {
-  width: 67%; }
+  width: 67%;
+}
 
 nav {
-  height: 29vh; }
+  height: 29vh;
+}
 
 .navbar-default {
   background-color: transparent;
-  border: none; }
+  border: none;
 
-.logo {
+}
+
+.logo{
+
   height: 50px;
   width: 50px;
   margin-left: 10%;
-  margin-top: 3vh; }
+  margin-top: 3vh; 
+}
 
 .navbar-right {
+
   font-color: white;
   margin-top: 3vh;
   background-color: transparent;
   border: none;
-  padding: none; }
+  padding: none;
+  
+}
+
 
 /*Body*/
+
+
 body {
-  background-image: url("http://bit.ly/1Igm8Ks");
+  background-image: url('http://bit.ly/1Igm8Ks'); 
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 100vh;
-  width: 100vw; }
+  width: 100vw;
 
-/*# sourceMappingURL=style.css.map */
+
+}
