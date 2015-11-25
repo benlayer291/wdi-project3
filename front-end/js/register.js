@@ -14,13 +14,14 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
-
+  $('#scroll_to_about').on("click", function(){
+  $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
+  })
   $('.search-form').on("submit", search)
 }
 
 function search(){
   event.preventDefault();
-  console.log('searching');
   $.ajax({
     method: "post",
     url: "http://localhost:3000/api"+$(this).attr("action"),
@@ -34,17 +35,29 @@ function search(){
     for (var i=0; i<posts.length; i++) {
       $('.search-results').append(
         '<ul class="what">' +
-        '<p>What: '+ posts[i].what + '</p>'+
+        '<p>'+ posts[i].what + '</p>'+
         '</ul>' +
         '<ul class="where">'+
-        '<p>Where: '+ posts[i].where + '</p>'+
+        '<p>'+ posts[i].where + '</p>'+
         '</ul>' +
         '<ul class="when">'+
-        '<p>When: '+ posts[i].when + '</p>'+
+        '<p>'+ posts[i].when + '</p>'+
         '</ul>'+
         '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
         );
     }
+
+        $('#homepage-title').hide();
+        $('#search-post-button').hide();
+        $('#home-searchbox').hide();
+        $('#search_blurb').hide();
+        $('#scroll_to_about').hide();
+        $('#about').hide();
+        $('#posts').show();
+        $(".navbar-default").css("background-color", "#111C24");
+        $(".homepage-image").css("background-image", "none");
+        $("body").css("background-color", "#E8ECF0");
+        $('.where').hide();
   })
 }
 
@@ -112,7 +125,6 @@ function initialPageSetup(){
   console.log("setup");
   hideErrors();
   $('section').hide();
-  $('#search').show();
   return loggedInStatus();
 }
 
@@ -136,15 +148,19 @@ function loggedInStatus(){
 function loggedInState() {
   $('.logged-out').hide();
   $('.logged-in').show();
-  $('section').hide();
+  $('#about').show();
   $('#search').show();
+  $('#homepage-title').show();
+  $('#learn_more_section').show();
 }
 
 function loggedOutState() {
   $('.logged-out').show();
   $('.logged-in').hide();
-  $('section').hide();
+  $('#about').show();
   $('#search').show();
+  $('#homepage-title').show();
+  $('#learn_more_section').show();
 }
 
 function showErrors(message) {
@@ -160,9 +176,16 @@ function hideErrors() {
 function getPosts(){
   event.preventDefault();
   hideErrors();
-  $('section').hide();
+  $('#homepage-title').hide();
+  $('#scroll_to_about').hide();
+  $('#about').hide();
   $('#posts').show();
-  
+  $(".navbar-default").css("background-color", "#111C24");
+  $(".homepage-image").css("background-image", "none");
+  $("body").css("background-color", "#E8ECF0");
+
+
+
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/posts'

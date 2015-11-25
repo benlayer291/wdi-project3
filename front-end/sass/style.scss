@@ -1,36 +1,51 @@
 /* Write your styling here */
+
 /*nav*/
+
 width
-.navbar-default .navbar-nav > li > a {
-  color: #F1F1F1; }
+
+.navbar-default .navbar-nav>li>a {
+    color: #F1F1F1;
+}
+
 
 .container {
-  width: 67%; }
+  width: 67%;
+}
 
 nav {
-  height: 29vh; }
+  height: 29vh;
+}
 
 .navbar-default {
   background-color: transparent;
-  border: none; }
+  border: none;
 
-.logo {
+}
+
+.logo{
+
   position: relative;
   height: 50px;
   width: 50px;
   margin-left: 10%;
-  margin-top: 5.39vh; }
+  margin-top: 5.39vh; 
+}
 
 .navbar-right {
+
   position: relative;
   font-color: white;
   margin-top: 5.39vh;
   top: -2vh;
   background-color: transparent;
   border: none;
-  padding: none; }
+  padding: none;
+  
+}
 
 /*homepage*/
+
 .title {
   margin-bottom: 0.5vh;
   margin-top: 0vh;
@@ -38,49 +53,79 @@ nav {
   color: white;
   margin-top: 0px;
   font-size: 58px;
-  letter-spacing: 2px; }
+  letter-spacing: 2px;
+}
 
-#search_blurb {
+#search_blurb{
   color: white;
-  margin-top: -1.5vh; }
+  margin-top: -1.5vh;
+}
+
+// #learn_more{
+//   position: absolute;
+//   color: white;
+//   left: 10vw;
+//   top: 10vh;
+//   font-weight: lighter;
+// }
 
 #learn_more_arrow {
+  // position: absolute;
   display: block;
   width: 3vw;
   height: auto;
   margin: auto;
-  background-color: transparent; }
+  // left: 10vw;
+  // top: 10vh;
+  background-color: transparent;
+}
 
 #learn_more {
   display: block;
+
   margin: 5vh auto;
   text-align: center;
-  color: white; }
+  color: white;
+}
 
 /*Body*/
+
+// main.container{
+//   width: 27vw;
+//   height: 30vh;
+//   margin-top: 22vh;
+// }
+
+
 body {
-  background-color: none; }
+  background-color: none;
+}
 
 .homepage-image {
-  background-image: url("http://bit.ly/1Igm8Ks");
+  background-image: url('http://bit.ly/1Igm8Ks'); 
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: 100vh;
   width: 100vw;
-  position: relative; }
+  position: relative;
+}
 
 /*about*/
+
 .about {
   height: 100vh;
   width: 100%;
-  background-color: #111C24; }
+  background-color: #111C24;
+
+}
 
 #wordmark {
-  position: absolute;
-  left: 35vw;
-  top: 132vh;
-  font-size: 14.5vh; }
+      position: absolute;
+      left: 35vw;
+      top: 132vh;
+      font-size: 14.5vh;
+  }
 
 #about_blurb {
   position: absolute;
@@ -88,51 +133,63 @@ body {
   top: 146vh;
   font-size: 8vh;
   font-style: italic;
-  color: #F1F1F1; }
+  color: #F1F1F1;
+}
 
 #wordmark_logo {
   position: absolute;
   width: 5.2vw;
   height: auto;
   left: 45vw;
-  top: 135.25vh; }
+  top: 135.25vh;
+}
 
 #about_box {
-  position: absolute;
-  height: 25.4vh;
-  width: 44vw;
-  background-color: #E8ECF0;
-  top: 166vh;
-  left: 28.5vw;
-  border-radius: 8px; }
+    position: absolute;
+    height: 25.4vh;
+    width: 44vw;
+    background-color: #E8ECF0;
+    top: 166vh;
+    left: 28.5vw;
+    border-radius: 8px;
+}
 
-#blurb_box_tip {
+#blurb_box_tip{
   position: absolute;
   width: 6vw;
   height: auto;
   left: 34vw;
   top: 186.8vh;
-  background-color: none; }
+  background-color: none;
+
+}
+
 
 /*buttons*/
+
 .large_button {
   width: 27vw;
   height: 8vh;
   margin-top: 2.5vh;
   border-radius: 5px;
-  min-width: 320px; }
+  min-width: 320px;
+}
 
 .action_button {
   background-color: #E4007C;
   border: none;
   color: white;
-  min-width: 320px; }
+  min-width: 320px;
+}
 
 #search {
-  width: 27vw;
-  height: 100%;
-  margin: auto;
-  margin-top: 6vh;
-  min-width: 320px; }
+    width: 27vw;
+    height: 100%;
+    margin: auto;
+    margin-top: 6vh;
+    min-width: 320px;
+}
 
-/*# sourceMappingURL=style.css.map */
+
+
+
