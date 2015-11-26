@@ -17,7 +17,10 @@ function init(){
   $('#scroll_to_about').on("click", function(){
   $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
   })
-  $('.search-form').on("submit", search)
+  $('.search-form').on("submit", search);
+  $('#user-profile-button').on('click', displayOneUser);
+  $('#user-posts-button').on('click', displayOneUserPosts);
+  $('#user-requests-button').on('click', displayOneUserRequests);
 }
 
 function search(){
@@ -327,7 +330,7 @@ function fillInfoOneUser(data) {
   $('#profile-tagline').html(user.tagline);
   
   for (var i=0; i<posts.length; i++) {
-    $('#profile-posts').append(
+    $('#user-profile-posts').append(
       '<div class="row">' +
         '<div class="col-sm-3">'+posts[i].where+'</div>' +
         '<div class="col-sm-3">'+posts[i].when+'</div>' +
@@ -339,7 +342,7 @@ function fillInfoOneUser(data) {
   for (var i=0; i<posts.length; i++) {
     for(var j=0; j<posts[i].requests.length; j++){
       console.log(posts[i].requests[j])
-      $('#profile-requests').append(
+      $('#user-profile-requests').append(
         '<div class="row">'+
         '<div class="col-sm-4">' +
           '<img id="requests-image">' +
@@ -371,5 +374,22 @@ function displayOneUser() {
   event.preventDefault();
   console.log('displaying user');
   $('section').hide();
+  $('#profile-tools').show();
   $('#profile').show();
+}
+
+function displayOneUserPosts() {
+  event.preventDefault();
+  console.log('displaying user');
+  $('section').hide();
+  $('#profile-tools').show();
+  $('#profile-posts').show();
+}
+
+function displayOneUserRequests() {
+  event.preventDefault();
+  console.log('displaying user');
+  $('section').hide();
+  $('#profile-tools').show();
+  $('#profile-requests').show();
 }
