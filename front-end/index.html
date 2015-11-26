@@ -9,7 +9,7 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
   <!-- Social buttons -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -25,26 +25,32 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
-<div class="homepage-image">
-  <header>
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <img class="logo" src="http://bit.ly/1XlIMbg">
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/" class="register-link logged-out">Register</a></li>
-          <li><a href="/" class="login-link logged-out">Login</a></li>
-          <li><a href="/" class="posts-link logged-in">Posts</a></li>
-          <li><a href="/" class="profile-link logged-in">My Profile</a></li>
-          <li><a href="/" class="logout-link logged-in">Logout</a></li>
-        </ul>
-      </div><!-- /.container-fluid -->
-    </nav>
-  </header>
-  <!-- HOMEPAGE -->
-  <main>
+  <div class="homepage-image">
+    <header>
+      <nav class="navbar navbar-default">
+        <!-- SEARCH TITLE -->
+        <section class="search_title">
+          <div id="nearby">SPOKEN NEAR</div>
+          <div id="nav-search-title"></div>
+        </section>
+
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <img class="logo" src="http://bit.ly/1XlIMbg">
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/" class="register-link logged-out">Register</a></li>
+            <li><a href="/" class="login-link logged-out">Login</a></li>
+            <li><a href="/" class="posts-link logged-in">Posts</a></li>
+            <li><a href="/" class="profile-link logged-in">My Profile</a></li>
+            <li><a href="/" class="logout-link logged-in">Logout</a></li>
+          </ul>
+        </div><!-- /.container-fluid -->
+      </nav>
+    </header>
+    <!-- HOMEPAGE -->
+    <main>
 
       <div class="container">
         <div class="hide alert alert-danger" role="alert"></div>
@@ -68,19 +74,94 @@
                 <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
               </form> 
 
-              <div class="search-results"></div>
+              <section id="which_log_in">
+
+                <a id="search_blurb">How would you like to log in?</a>
+                <button type="submit" id="search-post-button" class="large_button_email large_button">Email</button>
+                <button type="submit" id="search-post-button" class="large_button_facebook large_button">Facebook</button>
+              </section>
+            </div>
+          </div>
+
+          <div class="row" id="search_results_row">
+            <div class="col-sm-6 col-md-offset-3">
+
+            <section id="create-post">
+              <form class="post-form" method="post" action="/posts">
+                <div class="form-group">
+                  <label for="post-what">What</label>
+                  <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
+                  <div label="charCount" id='CharCountLabel1'></div>
+                </div>
+                <div class="form-group">
+                  <label for="post-where">Where</label>
+                  <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+                  <input type="hidden" id="cityLat" name="lattitude">
+                  <input type="hidden" id="cityLng" name="longitude">  
+                </div>
+                <div class="form-group">
+                  <label for="post-when">When</label>
+                  <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                  </select>
+                </div>
+                <button type="submit" id="add-post-button" class="btn btn-default">Add post</button>
+              </form>
             </section>
 
+              <!-- <section id="create-post">
+                <form class="post-form" method="post" action="/posts">
+                  <div class="form-group">
+                    <label for="post-what">What</label>
+                    <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
+                    <div label="charCount" id='CharCountLabel1'></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="post-where">Where</label>
+                    <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+                  </div>
+                  <div class="form-group">
+                    <label for="post-when">When</label>
+                    <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
+                    </select>
+                  </div>
+                  <button type="submit" id="add-post-button" class="large_button">Add post</button>
+                </form>
+              </section> -->
+            </div>
+          </div>
+
+          <div class="row" id="search_results_row">
+
+
+          <!-- Search Results --> <!-- DUPLICATION??? -->
+
+            <div class="search-results row"></div>
+            <section id="posts">
+              <div class="col-sm-2 col-md-offset-3">
+                <a id="add_post_no_luck">"No luck?"</a>
+              </div>
+              <div class="col-sm-2 col-md-offset-2">
+                <button type="button" id="create-post-button" class="small_action_button">Add post</button>
+              </div>
+              <!-- <h2>Posts</h2> -->
+              <div class="posts"></div>
+            </section>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-offset-3">
-        <section id="learn_more_section">
-        <div id="scroll_to_about">
-          <a id="learn_more">Learn More</a>
-          <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
-        </div>
-        </section>
+          <section id="learn_more_section">
+            <div id="scroll_to_about">
+              <a id="learn_more">Learn More</a>
+              <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
+            </div>
+          </section>
         </div>
 
       </div>
@@ -130,35 +211,12 @@
       </a>
     </section>
 
-<section id="create-post">
-  <form class="post-form" method="post" action="/posts">
-    <div class="form-group">
-      <label for="post-what">What</label>
-      <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
-    </div>
-    <div class="form-group">
-      <label for="post-where">Where</label>
-      <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
-      <input type="hidden" id="cityLat" name="lattitude">
-      <input type="hidden" id="cityLng" name="longitude">  
-    </div>
-    <div class="form-group">
-      <label for="post-when">When</label>
-      <select name="when" id="when" class="form-control" placeholder="When did you meet?">
-        <option value="morning">Morning</option>
-        <option value="afternoon">Afternoon</option>
-        <option value="evening">Evening</option>
-      </select>
-    </div>
-    <button type="submit" id="add-post-button" class="btn btn-default">Add post</button>
-  </form>
-</section>
 
-<section id="posts">
-  <button type="button" id="create-post-button" class="btn btn-default">Create post</button>
-  <h2>Posts</h2>
-  <div class="posts"></div>
-</section>
+    <section id="posts">
+      <button type="button" id="create-post-button" class="btn btn-default">Create post</button>
+      <h2>Posts</h2>
+      <div class="posts"></div>
+    </section>
 
     <section id="login">
       <h2>Login</h2>
@@ -173,50 +231,44 @@
         </div>
         <button type="submit" id="login_button" class="large_button">Submit</button>
       </form>
-      <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
-        <span class="fa fa-facebook"></span> Sign in with Facebook
-      </a>
-    </section>
-
-    <section id="posts">
-      <button type="button" id="create-post-button" class="large_button">Create post</button>
-      <h2>Posts</h2>
-      <div class="posts"></div>
-    </section>
-
-    <section id="profile-tools">
-      <div class='row'>
-        <div class="col-sm-4">
-          <button id='user-profile-button'>Profile</button>
-        </div>
-        <div class="col-sm-4">
-          <button id='user-posts-button'>Posts</button>
-        </div>
-        <div class="col-sm-4">
-          <button id='user-requests-button'>Requests</button>
-        </div>
+        <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
+          <span class="fa fa-facebook"></span> Sign in with Facebook
+        </a>
+      </section>
+<!--     </section>
+ -->
+  <section id="profile-tools">
+    <div class='row'>
+      <div class="col-sm-4">
+        <button id='user-profile-button'>Profile</button>
       </div>
-    </section>
-    <section id="profile">
-      <div class='row'>
-        <div class='col-sm-4'>
-          <img id='profile-image'>
+      <div class="col-sm-4">
+        <button id='user-posts-button'>Posts</button>
+      </div>
+      <div class="col-sm-4">
+        <button id='user-requests-button'>Requests</button>
+      </div>
+    </div>
+  </section>
+  <section id="profile">
+    <div class='row'>
+      <div class='col-sm-4'>
+        <img id='profile-image'>
+      </div>
+      <div class='col-sm-8'>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <h3 id='profile-name'>NAME</h3>
+          </div>
         </div>
-        <div class='col-sm-8'>
-          <div class='row'>
-            <div class='col-sm-12'>
-              <h3 id='profile-name'>NAME</h3>
-            </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <p id='profile-email'>EMAIL</p>
           </div>
-          <div class='row'>
-            <div class='col-sm-12'>
-              <p id='profile-email'>EMAIL</p>
-            </div>
-          </div>
-          <div class='row'>
-            <div class='col-sm-12'>
-              <p id='profile-tagline'>TAGLINE</p>
-            </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <p id='profile-tagline'>TAGLINE</p>
           </div>
         </div>
       </div>
@@ -245,10 +297,11 @@
     </section>
 
   </div>
-
 </main>
 
 </body>
+</div>
+</div>
 
 </html>
 
