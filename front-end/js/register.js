@@ -14,11 +14,12 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
+  $('.search-form').on("submit", search)
   $('#scroll_to_about').on("click", function(){
   $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
   })
-  $('.search-form').on("submit", search)
   $('.search_title').hide();
+
 
 
 }
@@ -65,21 +66,10 @@ function search(){
 
             // MAKE IT A LOGO BUTTON
             '<a class="logo_button_search_page accept" id=' + posts[i]._id + ' href="#"><img src="http://bit.ly/1XlIMbg" style="width: 7vh;"></a>'
-
              +
           '</div>' +
           '</div>'
           );
-        // '<ul class="what">' +
-        // '<p>'+ posts[i].what + '</p>'+
-        // '</ul>' +
-        // '<ul class="where">'+
-        // '<p class="where">'+ posts[i].where + '</p>'+
-        // '</ul>' +
-        // '<ul class="when">'+
-        // '<p>'+ posts[i].when + '</p>'+
-        // '</ul>'+
-        // '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
     }
 
         
@@ -183,6 +173,7 @@ function loggedInStatus(){
 }
 
 function loggedInState() {
+  $('section').hide();
   $('.logged-out').hide();
   $('.logged-in').show();
   $('#about').show();
@@ -192,6 +183,7 @@ function loggedInState() {
 }
 
 function loggedOutState() {
+  $('section').hide();
   $('.logged-out').show();
   $('.logged-in').hide();
   $('#about').show();
@@ -227,7 +219,7 @@ function getPosts(){
     method: 'GET',
     url: 'http://localhost:3000/api/posts'
   }).done(function(data){
-    console.log(data);
+
     displayAllPosts(data);
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
