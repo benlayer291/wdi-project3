@@ -1,4 +1,5 @@
 var mongoose   = require('mongoose');
+var Request    = require('./request');
 
 var postSchema = new mongoose.Schema({
   _creator:  { type: String, ref: 'User' },
@@ -7,7 +8,8 @@ var postSchema = new mongoose.Schema({
   longitude: { type: String, required: true },
   when:      { type: String, required: true },
   what:      { type: String, required: true },
-  status:    { type: String, default: 'pending' }
+  status:    { type: String, default: 'pending' },
+  requests: [Request.schema]
 })
 
 postSchema.index({ where: "text" });
