@@ -83,10 +83,9 @@ function postsDelete(req,res){
 // Search
 
 function postsSearch(req, res) {
- Post.find({ $text : { $search : req.body.search } },
-           { score : { $meta: "textScore" } }
- ).sort({ score : { $meta : 'textScore' } }).exec(function(err, posts) {
-  // }, function(err, posts) {
+  Post.find({ $text : { $search : req.body.search } },
+            { score : { $meta: "textScore" } }
+  ).sort({ score : { $meta : 'textScore' } }).exec(function(err, posts) {
     if (err) return res.status(500).json({ message: "Something went wrong " });
 
     res.status(200).json({ posts: posts })

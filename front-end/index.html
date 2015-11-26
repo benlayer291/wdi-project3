@@ -63,6 +63,8 @@
               <a id="search_blurb">Where and when did you meet?</a>
               <form class="search-form" method="post" action="/search">
                 <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+                <input type="hidden" id="searchLat" name="lattitude">
+                <input type="hidden" id="searchLng" name="longitude">  
                 <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
               </form> 
 
@@ -128,6 +130,36 @@
       </a>
     </section>
 
+<section id="create-post">
+  <form class="post-form" method="post" action="/posts">
+    <div class="form-group">
+      <label for="post-what">What</label>
+      <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
+    </div>
+    <div class="form-group">
+      <label for="post-where">Where</label>
+      <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+      <input type="hidden" id="cityLat" name="lattitude">
+      <input type="hidden" id="cityLng" name="longitude">  
+    </div>
+    <div class="form-group">
+      <label for="post-when">When</label>
+      <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+        <option value="morning">Morning</option>
+        <option value="afternoon">Afternoon</option>
+        <option value="evening">Evening</option>
+      </select>
+    </div>
+    <button type="submit" id="add-post-button" class="btn btn-default">Add post</button>
+  </form>
+</section>
+
+<section id="posts">
+  <button type="button" id="create-post-button" class="btn btn-default">Create post</button>
+  <h2>Posts</h2>
+  <div class="posts"></div>
+</section>
+
     <section id="login">
       <h2>Login</h2>
       <form class="login_form" method="post" action="/login">
@@ -144,28 +176,6 @@
       <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
         <span class="fa fa-facebook"></span> Sign in with Facebook
       </a>
-    </section>
-
-    <section id="create-post">
-      <form class="post-form" method="post" action="/posts">
-        <div class="form-group">
-          <label for="post-what">What</label>
-          <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
-        </div>
-        <div class="form-group">
-          <label for="post-where">Where</label>
-          <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
-        </div>
-        <div class="form-group">
-          <label for="post-when">When</label>
-          <select name="when" id="when" class="form-control" placeholder="When did you meet?">
-            <option value="morning">Morning</option>
-            <option value="afternoon">Afternoon</option>
-            <option value="evening">Evening</option>
-          </select>
-        </div>
-        <button type="submit" id="add-post-button" class="large_button">Add post</button>
-      </form>
     </section>
 
     <section id="posts">

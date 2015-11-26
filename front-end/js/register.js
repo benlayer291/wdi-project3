@@ -14,10 +14,11 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
+  $('.search-form').on("submit", search);
   $('#scroll_to_about').on("click", function(){
   $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
   })
-  $('.search-form').on("submit", search);
+
   $('#user-profile-button').on('click', displayOneUser);
   $('#user-posts-button').on('click', displayOneUserPosts);
   $('#user-requests-button').on('click', displayOneUserRequests);
@@ -25,15 +26,33 @@ function init(){
 
 function search(){
   event.preventDefault();
+
+  var search   = $("#home-searchbox").val();
+  var formData = $(this).serialize();
+  console.log("cityLat.value "+document.getElementById('cityLat').value)
+  console.log(document.getElementById('cityLng').value)
+
+  console.log("Form Data: "+formData)
+
+
   $.ajax({
     method: "post",
     url: "http://localhost:3000/api"+$(this).attr("action"),
-    data: $(this).serialize()
+    data: formData
   }).done(function(data){
-    console.log(data);
-
     hidePosts();
     var posts = data.posts;
+
+    if (posts.length === 0) {
+      showErrors("There are no posts found for this location.");
+      // $('#create-post-button').trigger("click");
+      // $("#posts-searchbox").val(search)
+    }
+
+    if (posts.length === 0 && !document.getElementById('cityLat').value) {
+      showErrors("Please search again. That location was not found.")
+    }
+
 
     for (var i=0; i<posts.length; i++) {
       $('.search-results').append(
@@ -60,7 +79,7 @@ function search(){
         $(".navbar-default").css("background-color", "#111C24");
         $(".homepage-image").css("background-image", "none");
         $("body").css("background-color", "#E8ECF0");
-        $('.where').hide();
+        $('.where').show();
   })
 }
 
@@ -150,6 +169,7 @@ function loggedInStatus(){
 }
 
 function loggedInState() {
+  $('section').hide();
   $('.logged-out').hide();
   $('.logged-in').show();
   $('#about').show();
@@ -159,6 +179,7 @@ function loggedInState() {
 }
 
 function loggedOutState() {
+  $('section').hide();
   $('.logged-out').show();
   $('.logged-in').hide();
   $('#about').show();
@@ -284,6 +305,7 @@ function hidePosts(){
   return $('.posts, .search-results').empty();
 }
 
+
 // Autocomplete
 function setupGoogleMaps(){
   var fields = ["home-searchbox", "posts-searchbox"]
@@ -291,10 +313,17 @@ function setupGoogleMaps(){
   $.each(fields, function(index, field){
     // Search box variable
     var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
-
-    // SearchBox event listener;
-    google.maps.event.addListener(searchBox, 'places_changed', function() {
-      searchBox.getPlaces();
+    // // SearchBox event listener;
+    google.maps.event.addListener(searchBox, 'place_changed', function() {
+      var place = searchBox.getPlace();
+      console.log("Search Box: "+searchBox)
+      console.log(place);
+      var placeLat = place.geometry.location.lat();
+      var placeLng = place.geometry.location.lng();
+      document.getElementById('cityLat').value = placeLat;
+      console.log(placeLat);
+      document.getElementById('cityLng').value = placeLng;
+      console.log(placeLng);
     })
 
     //Clear the searchBox when we click on it; 
