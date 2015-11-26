@@ -22,8 +22,10 @@ function init(){
   $('#user-profile-button').on('click', displayOneUser);
   $('#user-posts-button').on('click', displayOneUserPosts);
   $('#user-requests-button').on('click', displayOneUserRequests);
+  $('.large_button_facebook').on("click", function(){
+    $(document.body).animate({'scrollTop' :$('nav').offset().top}, 900);
+  })
 }
-
 
 function whenYouPressLogIn(){
   $('#which_log_in').fadeIn(1000);
@@ -130,6 +132,7 @@ function login(){
 
     return showErrors(data.responseJSON.message);
   });
+
 }
 
 function setCurrentUser() {
@@ -218,7 +221,7 @@ function getPosts(){
   $('#homepage-title').hide();
   $('#scroll_to_about').hide();
   $('#about').hide();
-  $('#posts').show();
+  $('#search').hide();
   $(".navbar-default").css("background-color", "#111C24");
   $(".homepage-image").css("background-image", "none");
   $("body").css("background-color", "#E8ECF0");
@@ -371,7 +374,9 @@ function fillInfoOneUser(data) {
   $('#profile-name').html(user.firstName + " " + user.lastName);
   $('#profile-email').html(user.email);
   $('#profile-tagline').html(user.tagline);
+
   
+
   for (var i=0; i<posts.length; i++) {
     $('#user-profile-posts').append(
       '<div class="row">' +
@@ -416,9 +421,28 @@ function fillInfoOneUser(data) {
 function displayOneUser() {
   event.preventDefault();
   console.log('displaying user');
-  $('section').hide();
-  $('#profile-tools').show();
-  $('#profile').show();
+  $('#my-profile-header').show();
+  $('#profile-tools').fadeIn(1200);
+  $('#profile').fadeIn(1200);
+  $('#homepage-title').hide();
+  $('#search-post-button').hide();
+  $('#home-searchbox').hide();
+  $('#search_blurb').hide();
+  $('#scroll_to_about').hide();
+  $('#about').hide();
+  $(".navbar-default").css("background-color", "#111C24");
+  $(".homepage-image").css("background-image", "none");
+  $("body").css("background-color", "#E8ECF0");
+  $('.where').show();
+  $('#user-profile-button').css("background-color", "white");
+  $('#user-profile-button').css("color", "black");
+  $('#user-posts-button').css("background-color", "#E4007C");
+  $('#user-posts-button').css("color", "white");
+  $('#user-requests-button').css("background-color", "#E4007C");
+  $('#user-requests-button').css("color", "white");
+  $('#tagline-box').show();
+  $('.col-md-offset-3').hide();
+
 }
 
 function displayOneUserPosts() {
@@ -426,7 +450,14 @@ function displayOneUserPosts() {
   console.log('displaying user');
   $('section').hide();
   $('#profile-tools').show();
-  $('#profile-posts').show();
+  $('#profile-posts').fadeIn(1200);
+  $('#my-profile-header').show();
+  $('#user-posts-button').css("background-color", "white");
+  $('#user-posts-button').css("color", "black");
+  $('#user-profile-button').css("background-color", "#E4007C");
+  $('#user-profile-button').css("color", "white");
+  $('#user-requests-button').css("background-color", "#E4007C");
+  $('#user-requests-button').css("color", "white");
 }
 
 function displayOneUserRequests() {
@@ -434,7 +465,14 @@ function displayOneUserRequests() {
   console.log('displaying user');
   $('section').hide();
   $('#profile-tools').show();
-  $('#profile-requests').show();
+  $('#profile-requests').fadeIn(1200);
+  $('#my-profile-header').show();
+  $('#user-requests-button').css("background-color", "white");
+  $('#user-requests-button').css("color", "black");
+  $('#user-profile-button').css("background-color", "#E4007C");
+  $('#user-profile-button').css("color", "white");
+  $('#user-posts-button').css("background-color", "#E4007C");
+  $('#user-posts-button').css("color", "white");
 }
 
 
