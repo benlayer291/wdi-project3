@@ -25,17 +25,18 @@ function requestsShow(req, res){
 
 //Create
 function requestsCreate(req, res){
-  var postId  = req.body.post;
+  console.log(req.body)
+  var postId  = req.body.post_id;
   console.log(postId);
   Post.findOne({_id: postId}, function(err, post){
     console.log(1);
     var request = new Request({
-      requester_id: currentUser._id,
-      requester_firstName: currentUser.firstName,
-      requester_lastName: currentUser.lastName,
-      requester_email: currentUser.email,
-      requester_picture: currentUser.picture,
-      message: req.body.message
+      requester_id: req.body.requester_id,
+      requester_firstName: req.body.requester_firstName,
+      requester_lastName: req.body.requester_lastName,
+      requester_email: req.body.requester_email,
+      requester_picture: req.body.requester_picture,
+      message: req.body.requester_message
     });
     console.log(request);
     request.save(function(err, request){
