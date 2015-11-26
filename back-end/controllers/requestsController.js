@@ -31,6 +31,10 @@ function requestsCreate(req, res){
     console.log(1);
     var request = new Request({
       requester_id: currentUser._id,
+      requester_firstName: currentUser.firstName,
+      requester_lastName: currentUser.lastName,
+      requester_email: currentUser.email,
+      requester_picture: currentUser.picture,
       message: req.body.message
     });
     console.log(request);
