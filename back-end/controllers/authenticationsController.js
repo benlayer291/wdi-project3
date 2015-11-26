@@ -87,7 +87,12 @@ function facebook(req, res, next) {
     newUser.local.email           = profile.email;
     newUser.local.password        = profile.access_token;
 
+    if (!newUser.email) {
+      newUser.local.email = "temp-"+ profile.access_token+ "@facebook.com"
+    } 
+
     return newUser.save(function(err, user) {
+      console.log(newUser);
       if (err) return res.status(500).json({ message: 'Something went wrong.' });
       var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
       return res.status(200).json({ 
