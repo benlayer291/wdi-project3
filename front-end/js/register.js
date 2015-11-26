@@ -318,5 +318,5 @@ function getUser() {
 
 function displayOneUser() {
   console.log('displaying one user');
-  $('.users').append()
+  $('#profile').
 }
