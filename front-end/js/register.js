@@ -317,12 +317,54 @@ function getUserInfo() {
 }
 
 function fillInfoOneUser(data) {
-  var user = data.user
+  var user     = data.user.local
+  var posts    = data.user.local.posts
+
   console.log('filling User Info');
-  $('#profile-image').attr('src', user.local.picture);
-  $('#profile-name').html(user.local.firstName + " " + user.local.lastName);
-  $('#profile-email').html(user.local.email);
-  $('#profile-tagline').html(user.local.tagline);
+  $('#profile-image').attr('src', user.picture);
+  $('#profile-name').html(user.firstName + " " + user.lastName);
+  $('#profile-email').html(user.email);
+  $('#profile-tagline').html(user.tagline);
+  
+  for (var i=0; i<posts.length; i++) {
+    $('#profile-posts').append(
+      '<div class="row">' +
+        '<div class="col-sm-3">'+posts[i].where+'</div>' +
+        '<div class="col-sm-3">'+posts[i].when+'</div>' +
+        '<div class="col-sm-6">'+posts[i].what+'</div>' +
+      '</div>'
+      )
+  }
+
+  for (var i=0; i<posts.length; i++) {
+    for(var j=0; j<posts[i].requests.length; j++){
+      console.log(posts[i].requests[j])
+      $('#profile-requests').append(
+        '<div class="row">'+
+        '<div class="col-sm-4">' +
+          '<img id="requests-image">' +
+        '</div>'+
+        '<div class="col-sm-8">'+
+          '<div class="row">'+
+            '<div class="col-sm-12">'+
+              '<h3 id="requests-name">'+ posts[i].requests[j].firstName+ '</h3>' +
+            '</div>'+
+          '</div>'+
+          '<div class="row">'+
+            '<div class="col-sm-12">'+
+              '<p id="requests-email">' + posts[i].requests[j].email +'</p>'+
+            '</div>'+
+          '</div>'+
+          '<div class="row">'+
+            '<div class="col-sm-12">'+
+              '<p id="requests-message">' + posts[i].requests[j].message + '</p>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '</div>'
+        )
+    }
+  }
 }
 
 function displayOneUser() {
