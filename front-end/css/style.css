@@ -1,11 +1,7 @@
 /* Write your styling here */
 /*nav*/
-width
 .navbar-default .navbar-nav > li > a {
   color: #F1F1F1; }
-
-.container {
-  width: 67%; }
 
 nav {
   height: 29vh; }
@@ -49,13 +45,26 @@ nav {
   width: 3vw;
   height: auto;
   margin: auto;
+  margin-top: 2vh;
   background-color: transparent; }
 
 #learn_more {
+  text-decoration: none;
   display: block;
-  margin: 5vh auto;
+  margin-top: 7vh;
   text-align: center;
   color: white; }
+
+.large_button_email {
+  background-color: white;
+  border: none; }
+
+.large_button_facebook {
+  background-color: #3B5998;
+  border: none;
+  color: white;
+  margin-top: 6vh;
+  min-width: 320px; }
 
 /*Body*/
 body {
@@ -122,11 +131,26 @@ body {
   border-radius: 5px;
   min-width: 320px; }
 
+#create-post-button {
+  background-color: #E4007C;
+  width: 6vw;
+  height: 8vh;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-left: 5.2vh; }
+
 .action_button {
   background-color: #E4007C;
   border: none;
   color: white;
   min-width: 320px; }
+
+#which_log_in {
+  width: 27vw;
+  height: 100%;
+  margin: auto;
+  z-index: 51; }
 
 #search {
   width: 27vw;
@@ -134,5 +158,48 @@ body {
   margin: auto;
   margin-top: 6vh;
   min-width: 320px; }
+
+.each-result {
+  margin: 8vh auto;
+  overflow: hidden;
+  width: 50vw; }
+
+#add_post_no_luck {
+  position: absolute;
+  right: 40.2vh; }
+
+#nav-search-title {
+  display: hidden;
+  position: absolute;
+  margin-left: 34.5vw;
+  margin-right: auto;
+  color: white;
+  margin-top: 10vh; }
+  #nav-search-title h3 {
+    font-size: 7.3vh; }
+
+#nearby {
+  position: absolute;
+  margin-left: 42vw;
+  color: #B7BABD;
+  margin-top: 10vh;
+  font-size: 2.2vh;
+  font-style: lighter; }
+
+.logo_button_search_page {
+  color: none;
+  background-color: transparent;
+  height: 50px;
+  width: 50px; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50; }
 
 /*# sourceMappingURL=style.css.map */

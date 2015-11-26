@@ -18,7 +18,20 @@ function init(){
   $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
   })
   $('.search-form').on("submit", search)
+  $('.search_title').hide();
+
+
 }
+
+
+function whenYouPressLogIn(){
+  $('#which_log_in').fadeIn(1000);
+  $('#search-post-button').hide();
+  $('#home-searchbox').hide();
+  $('#search_blurb').hide();
+  $('.overlay').fadeIn(2000);
+
+};
 
 function search(){
   event.preventDefault();
@@ -32,21 +45,45 @@ function search(){
     hidePosts();
     var posts = data.posts;
 
+    var title=  (posts[1].where).split(',');
+    $('#nav-search-title').html('<h3>'+
+      title[0]
+      + '</h3>');
+
+    // var partsOfStr = str.split(',');
+
     for (var i=0; i<posts.length; i++) {
       $('.search-results').append(
-        '<ul class="what">' +
-        '<p>'+ posts[i].what + '</p>'+
-        '</ul>' +
-        '<ul class="where">'+
-        '<p>'+ posts[i].where + '</p>'+
-        '</ul>' +
-        '<ul class="when">'+
-        '<p>'+ posts[i].when + '</p>'+
-        '</ul>'+
-        '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
-        );
+        '<div class="each-result">'+
+          '<div class="col-sm-4">' +
+            '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
+          '</div>' +
+          '<div class="col-sm-4">' +
+            '<p class="when">'+ posts[i].when + '</p>'+
+          '</div>' +
+          '<div class="col-sm-4">' +
+
+            // MAKE IT A LOGO BUTTON
+            '<a class="logo_button_search_page accept" id=' + posts[i]._id + ' href="#"><img src="http://bit.ly/1XlIMbg" style="width: 7vh;"></a>'
+
+             +
+          '</div>' +
+          '</div>'
+          );
+        // '<ul class="what">' +
+        // '<p>'+ posts[i].what + '</p>'+
+        // '</ul>' +
+        // '<ul class="where">'+
+        // '<p class="where">'+ posts[i].where + '</p>'+
+        // '</ul>' +
+        // '<ul class="when">'+
+        // '<p>'+ posts[i].when + '</p>'+
+        // '</ul>'+
+        // '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
     }
 
+        
+        $('.search_title').show();
         $('#homepage-title').hide();
         $('#search-post-button').hide();
         $('#home-searchbox').hide();
@@ -110,7 +147,7 @@ function logout() {
 function showLogin() {
   event.preventDefault();
   hideErrors();
-  $('section').hide();
+  whenYouPressLogIn();
   return $('#login').show();
 }
 
@@ -204,7 +241,7 @@ function displayAllPosts(data){
   for (var i=0; i<posts.length; i++) {
     $('.posts').prepend(
       '<ul class="what">' +
-      '<p>What: '+ posts[i].what + '</p>'+
+      '<p>What: '+'"'+ posts[i].what +'"' + '</p>'+
       '</ul>' +
       '<ul class="where">'+
       '<p>Where: '+ posts[i].where + '</p>'+
@@ -320,3 +357,16 @@ function displayOneUser() {
   console.log('displaying one user');
   $('.users').append()
 }
+
+function characterCount(TextArea,FieldToCount){
+  var myField = document.getElementById(TextArea);
+  var myLabel = document.getElementById(FieldToCount); 
+  if(!myField || !myLabel){return false}; // catches errors
+  var MaxChars =  myField.maxLengh;
+  if(!MaxChars){MaxChars =  myField.getAttribute('maxlength') ; };  if(!MaxChars){return false};
+  var remainingChars =   MaxChars - myField.value.length
+  myLabel.innerHTML = remainingChars+" Characters Remaining of Maximum "+MaxChars
+}
+
+//SETUP!!
+// setInterval(function(){CharacterCount('CharCountLabel1','CharCountLabel1')},55);

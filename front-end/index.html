@@ -1,80 +1,137 @@
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>SPOKEN</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://use.typekit.net/mcm4chn.js"></script>
-  <script>try{Typekit.load({ async: true });}catch(e){}</script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8">
+    <title>SPOKEN</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://use.typekit.net/mcm4chn.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-  <!-- Google Maps -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
-  
-  <!-- Local files -->
-  <script type="text/javascript" src="./js/register.js"></script>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
 
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
-</head>
-<body>
-<div class="homepage-image">
-  <header>
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <img class="logo" src="http://bit.ly/1XlIMbg">
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/" class="register-link logged-out">Register</a></li>
-          <li><a href="/" class="login-link logged-out">Login</a></li>
-          <li><a href="/" class="posts-link logged-in">Posts</a></li>
-          <li><a href="/" class="profile-link logged-in">My Profile</a></li>
-          <li><a href="/" class="logout-link logged-in">Logout</a></li>
-        </ul>
-      </div><!-- /.container-fluid -->
-    </nav>
-  </header>
-  <!-- HOMEPAGE -->
-  <main>
+    <!-- Local files -->
+    <script type="text/javascript" src="./js/register.js"></script>
 
-      <div class="container">
-        <div class="hide alert alert-danger" role="alert"></div>
-        <div class='row'>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+  </head>
+<!--   <div class="overlay"> -->
+  <body>
+    <div class="homepage-image">
+      <header>
+        <nav class="navbar navbar-default">
 
-          <section class="col-sm-12" id="homepage-title">
-            <h1 class="title">We spoke. It was great.</h1>
-            <h1 class="title">If only we'd stayed in touch...</h1>
+          <!-- SEARCH TITLE -->
+          <section class="search_title">
+            <div id="nearby">SPOKEN NEAR</div>
+            <div id="nav-search-title"></div>
           </section>
 
-        </div>
-        <div class="row" id="search_row">
-          <div class="col-sm-6 col-md-offset-3">
-            <section id="search">
 
-              <a id="search_blurb">Where and when did you meet?</a>
-              <form class="search-form" method="post" action="/search">
-                <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
-                <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
-              </form> 
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <img class="logo" src="http://bit.ly/1XlIMbg">
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/" class="register-link logged-out">Register</a></li>
+              <li><a href="/" class="login-link logged-out">Login</a></li>
+              <li><a href="/" class="posts-link logged-in">Posts</a></li>
+              <li><a href="/" class="profile-link logged-in">My profile</a></li>
+              <li><a href="/" class="logout-link logged-in">Logout</a></li>
+            </ul>
+          </div><!-- /.container-fluid -->
+        </nav>
+      </header>
+      <!-- HOMEPAGE -->
+      <main>
 
-              <div class="search-results"></div>
+        <div class="container">
+          <div class="hide alert alert-danger" role="alert"></div>
+          <div class='row'>
+
+            <section class="col-sm-12" id="homepage-title">
+              <h1 class="title">We spoke. It was great.</h1>
+              <h1 class="title">If only we'd stayed in touch...</h1>
             </section>
 
+          </div>
+          <div class="row" id="search_row">
+            <div class="col-sm-6 col-md-offset-3">
+              <section id="search">
+
+                <a id="search_blurb">Where and when did you meet?</a>
+                <form class="search-form" method="post" action="/search">
+                  <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+                  <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
+                </form> 
+              </section>
+
+              <section id="which_log_in">
+
+                <a id="search_blurb">How would you like to log in?</a>
+                <button type="submit" id="search-post-button" class="large_button_email large_button">Email</button>
+                <button type="submit" id="search-post-button" class="large_button_facebook large_button">Facebook</button>
+              </section>
+            </div>
+          </div>
+
+          <div class="row" id="search_results_row">
+            <div class="col-sm-6 col-md-offset-3">
+
+              <section id="create-post">
+                <form class="post-form" method="post" action="/posts">
+                  <div class="form-group">
+                    <label for="post-what">What</label>
+                    <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
+                    <div label="charCount" id='CharCountLabel1'></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="post-where">Where</label>
+                    <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+                  </div>
+                  <div class="form-group">
+                    <label for="post-when">When</label>
+                    <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
+                    </select>
+                  </div>
+                  <button type="submit" id="add-post-button" class="large_button">Add post</button>
+                </form>
+              </section>
+            </div>
+          </div>
+
+          <div class="row" id="search_results_row">
+            <!-- Search Results -->
+            <div class="search-results row"></div>
+            <section id="posts">
+              <div class="col-sm-2 col-md-offset-3">
+                <a id="add_post_no_luck">"No luck?"</a>
+              </div>
+              <div class="col-sm-2 col-md-offset-2">
+                <button type="button" id="create-post-button" class="small_action_button">Add post</button>
+              </div>
+              <!-- <h2>Posts</h2> -->
+              <div class="posts"></div>
+            </section>
           </div>
         </div>
 
         <div class="col-sm-6 col-md-offset-3">
-        <section id="learn_more_section">
-        <div id="scroll_to_about">
-          <a id="learn_more">Learn More</a>
-          <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
-        </div>
-        </section>
+          <section id="learn_more_section">
+            <div id="scroll_to_about">
+              <a id="learn_more">Learn More</a>
+              <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
+            </div>
+          </section>
         </div>
 
       </div>
@@ -136,33 +193,7 @@
       </form>
     </section>
 
-    <section id="create-post">
-      <form class="post-form" method="post" action="/posts">
-        <div class="form-group">
-          <label for="post-what">What</label>
-          <input type="text" name="what" id="what" class="form-control" placeholder="What did you say?">
-        </div>
-        <div class="form-group">
-          <label for="post-where">Where</label>
-          <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
-        </div>
-        <div class="form-group">
-          <label for="post-when">When</label>
-          <select name="when" id="when" class="form-control" placeholder="When did you meet?">
-            <option value="morning">Morning</option>
-            <option value="afternoon">Afternoon</option>
-            <option value="evening">Evening</option>
-          </select>
-        </div>
-        <button type="submit" id="add-post-button" class="large_button">Add post</button>
-      </form>
-    </section>
 
-    <section id="posts">
-      <button type="button" id="create-post-button" class="large_button">Create post</button>
-      <h2>Posts</h2>
-      <div class="posts"></div>
-    </section>
 
     <!-- /*SHOW*/ -->
 
@@ -173,6 +204,8 @@
 </main>
 
 </body>
+</div>
+</div>
 
 </html>
 
