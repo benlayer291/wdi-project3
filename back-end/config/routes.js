@@ -5,10 +5,12 @@ var usersController = require('../controllers/usersController');
 var authenticationsController = require('../controllers/authenticationsController');
 var postsController = require('../controllers/postsController');
 var requestsController = require('../controllers/requestsController');
+
 //Authentication routes
 router.post('/login', authenticationsController.login);
 router.post('/register', authenticationsController.register);
-router.post('/search', postsController.postsSearch)
+router.post('/search', postsController.postsSearch);
+router.post('/facebook', authenticationsController.facebook);
 
 //User routes
 router.route('/users')

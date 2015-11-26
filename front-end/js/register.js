@@ -10,7 +10,7 @@ function init(){
   $('.login-link').on('click', showLogin);
   $('.register-link').on('click', showRegister);
   $('.posts-link').on('click', getPosts);
-  $('.profile-link').on('click', getUser);
+  $('.profile-link').on('click', displayOneUser);
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
@@ -63,7 +63,7 @@ function search(){
 
 function register(){
   event.preventDefault();
-  console.log("clicked");
+
   $.ajax({
     method: "POST",
     url: "http://localhost:3000/api/register",
@@ -80,7 +80,7 @@ function register(){
 
 function login(){
   event.preventDefault();
-  console.log("clicked");
+
   $.ajax({
     method: "POST",
     url: "http://localhost:3000/api/login",
@@ -91,7 +91,7 @@ function login(){
     localStorage.setItem('user_id', data.user._id);
     return loggedInStatus();
   }).fail(function(data){
-    console.log(data.responseJSON.message);
+
     return showErrors(data.responseJSON.message);
   });
 }
@@ -122,7 +122,7 @@ function showRegister() {
 }
 
 function initialPageSetup(){
-  console.log("setup");
+  console.log('page-setup');
   hideErrors();
   $('section').hide();
   return loggedInStatus();
@@ -136,9 +136,10 @@ function setHeader(xhr, settings){
 
 function loggedInStatus(){
   var token = localStorage.getItem('token');
-  console.log(token);
+
   if (token) {
     setCurrentUser();
+    getUserInfo();
     return loggedInState();
   } else {
     return loggedOutState();
@@ -190,7 +191,7 @@ function getPosts(){
     method: 'GET',
     url: 'http://localhost:3000/api/posts'
   }).done(function(data){
-    console.log(data);
+
     displayAllPosts(data);
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
@@ -227,7 +228,6 @@ function showCreatePosts() {
 function addNewPost(){
   event.preventDefault();
 
-  console.log('creating new post');
   $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/api/posts',
@@ -246,7 +246,6 @@ function getOnePost(){
   $('section').hide();
   $('#posts').show();
 
-  console.log('showing post');
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
@@ -259,7 +258,7 @@ function getOnePost(){
 }
 
 function displayOnePost(data){
-  console.log('displaying one post');
+
   hidePosts();
 
   var post = data.post;
@@ -304,19 +303,31 @@ function setupGoogleMaps(){
 
 // REQUESTS js
 
-function getUser() {
+function getUserInfo() {
   event.preventDefault();
 
   $.ajax({
     method: 'GET',
-    url: 'http://localhost:3000/api/users/'+$(this).attr('id'),
+    url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
     beforeSend: setHeader
   }).done(function(data){
-    displayOneUser(data);
+
+    fillInfoOneUser(data);
   })
 }
 
+function fillInfoOneUser(data) {
+  var user = data.user
+  console.log('filling User Info');
+  $('#profile-image').attr('src', user.local.picture);
+  $('#profile-name').html(user.local.firstName + " " + user.local.lastName);
+  $('#profile-email').html(user.local.email);
+  $('#profile-tagline').html(user.local.tagline);
+}
+
 function displayOneUser() {
-  console.log('displaying one user');
-  $('#profile').
+  event.preventDefault();
+  console.log('displaying user');
+  $('section').hide();
+  $('#profile').show();
 }

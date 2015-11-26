@@ -12,6 +12,10 @@ var userSchema = mongoose.Schema({
     birthday: String,
     tagline: String,
     posts: [{ type: mongoose.Schema.ObjectId, ref: 'Post' }]
+  },
+  facebook: {
+    id: String,
+    access_token: String
   }
 });
 

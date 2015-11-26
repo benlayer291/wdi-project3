@@ -8,6 +8,8 @@
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <!-- Social buttons -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
@@ -17,6 +19,8 @@
   
   <!-- Local files -->
   <script type="text/javascript" src="./js/register.js"></script>
+  <script type="text/javascript" src="./bower_components/hello/dist/hello.all.min.js"></script>
+  <script type="text/javascript" src="./js/oauth.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
@@ -119,6 +123,9 @@
         </div>
         <button type="submit" id="register_button" class="large_button">Submit</button>
       </form>
+      <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
+        <span class="fa fa-facebook"></span> Sign in with Facebook
+      </a>
     </section>
 
     <section id="login">
@@ -134,6 +141,9 @@
         </div>
         <button type="submit" id="login_button" class="large_button">Submit</button>
       </form>
+      <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
+        <span class="fa fa-facebook"></span> Sign in with Facebook
+      </a>
     </section>
 
     <section id="create-post">
@@ -167,7 +177,7 @@
     <section id="profile">
       <div class='row'>
         <div class="col-sm-4">
-          <button>My Profile</button>
+          <button>Profile</button>
         </div>
         <div class="col-sm-4">
           <button>Posts</button>
@@ -178,7 +188,7 @@
       </div>
       <div class='row'>
         <div class='col-sm-4'>
-          <img id='profile-image' src="">
+          <img id='profile-image'>
         </div>
         <div class='col-sm-8'>
           <div class='row'>
