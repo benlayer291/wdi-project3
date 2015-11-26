@@ -18,10 +18,13 @@ function init(){
   $('#scroll_to_about').on("click", function(){
   $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
   })
-
   $('#user-profile-button').on('click', displayOneUser);
   $('#user-posts-button').on('click', displayOneUserPosts);
   $('#user-requests-button').on('click', displayOneUserRequests);
+   //New Geegee Code
+  $('#posts').on('click', ".send-request", createRequestForm);
+  $('.request-form').on('submit', sendRequestForm);
+  //End Geegee Code
 }
 
 function search(){
@@ -109,8 +112,10 @@ function login(){
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
+    console.log("Data line 115: "+data);
     if (data.token) localStorage.setItem('token', data.token);
     localStorage.setItem('user_id', data.user._id);
+    localStorage.setItem('user', data.user);
     return loggedInStatus();
   }).fail(function(data){
 
@@ -225,22 +230,33 @@ function getPosts(){
 function displayAllPosts(data){
   hidePosts();
   var posts = data.posts;
+  console.log("displayAllPosts")
 
   for (var i=0; i<posts.length; i++) {
-    $('.posts').prepend(
-      '<ul class="what">' +
-      '<p>What: '+ posts[i].what + '</p>'+
-      '</ul>' +
-      '<ul class="where">'+
-      '<p>Where: '+ posts[i].where + '</p>'+
-      '</ul>' +
-      '<ul class="when">'+
-      '<p>When: '+ posts[i].when + '</p>'+
-      '</ul>'+
-      '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
-      );
+      $('.posts').prepend(
+        '<ul class="what">' +
+        '<p>What: '+ posts[i].what + '</p>'+
+        '</ul>' +
+        '<ul class="where">'+
+        '<p>Where: '+ posts[i].where + '</p>'+
+        '</ul>' +
+        '<ul class="when">'+
+        '<p>When: '+ posts[i].when + '</p>'+
+        '</ul>'+
+        '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
+        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'
+        )
+
+  // if( posts[i].requests){
+  //   for (var j=0; j<posts[i].requests.length; j++){
+  //     if (posts[i].requests[j].requester_id == localStorage.getItem('user_id')){
+  //       '<button type="button" disabled id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Request Sent</button>'
+  //       } else{ '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'}
+  //     }
+  //   }
   }
 }
+
 
 function showCreatePosts() {
   event.preventDefault();
@@ -298,8 +314,7 @@ function displayOnePost(data){
     '<p>When: '+ post.when + '</p>'+
     '</ul>'+
     '<button type="button" id=' + post._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
-    );
-}
+)}
 
 function hidePosts(){
   return $('.posts, .search-results').empty();
@@ -333,7 +348,7 @@ function setupGoogleMaps(){
   })
 }
 
-// REQUESTS js
+// Users js
 
 function getUserInfo() {
   event.preventDefault();
@@ -343,16 +358,16 @@ function getUserInfo() {
     url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
     beforeSend: setHeader
   }).done(function(data){
-
+    console.log("THIZ IS DA DATA "+ data.user)
     fillInfoOneUser(data);
+
   })
 }
 
 function fillInfoOneUser(data) {
   var user     = data.user.local
   var posts    = data.user.local.posts
-
-  console.log('filling User Info');
+  console.log("Console log "+ user);
   $('#profile-image').attr('src', user.picture);
   $('#profile-name').html(user.firstName + " " + user.lastName);
   $('#profile-email').html(user.email);
@@ -399,6 +414,7 @@ function fillInfoOneUser(data) {
   }
 }
 
+
 function displayOneUser() {
   event.preventDefault();
   console.log('displaying user');
@@ -422,3 +438,71 @@ function displayOneUserRequests() {
   $('#profile-tools').show();
   $('#profile-requests').show();
 }
+
+// Request 
+
+function createRequestForm(){
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  $('#create-request').show();
+  fillRequestForm();
+}
+
+function fillRequestForm(data){
+ $.ajax({
+   method: 'GET',
+   url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
+   beforeSend: setHeader
+ }).done(function(data){
+  console.log(data);
+  $('#requester_id').val(data.user._id);
+  $('#requester_firstName').val(data.user.local.firstName);
+  $('#requester_email').val(data.user.local.email);
+  $('#requester_picture').val(data.user.local.picture);
+  $('#post_id').val(($('.send-request').attr('id')));
+ })
+}
+
+
+function sendRequestForm(){
+  event.preventDefault();
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/api/requests',
+    beforeSend: setHeader,
+    data: $(this).serialize(),
+    }).done(function(data) {
+      displayOneUserRequests();
+    }).fail(function(data){
+      return showErrors(data.responseJSON.message);
+    });
+}
+
+// function displayRequest(data){
+//   $('#user-profile-requests').prepend(        
+//     '<div class="row">'+
+//         '<div class="col-sm-4">' +
+//           '<img id="requests-image" src='+ data.requester_picture + '>' +
+//         '</div>'+
+//         '<div class="col-sm-8">'+
+//           '<div class="row">'+
+//             '<div class="col-sm-12">'+
+//               '<h3 id="requests-name">'+ data.requester_firstName+ '</h3>' +
+//             '</div>'+
+//           '</div>'+
+//           '<div class="row">'+
+//             '<div class="col-sm-12">'+
+//               '<p id="requests-email">' + data.requester_email +'</p>'+
+//             '</div>'+
+//           '</div>'+
+//           '<div class="row">'+
+//             '<div class="col-sm-12">'+
+//               '<p id="requests-message">' + data.requester_message + '</p>'+
+//             '</div>'+
+//           '</div>'+
+//         '</div>'+
+//         '</div>'
+//   )
+// }
+

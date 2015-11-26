@@ -227,7 +227,25 @@
     <section id="profile-requests">
       <div class='row' id="user-profile-requests"><h3>Requests</h3></div>
     </section>
+
+    <section id="create-request">
+      <form class="request-form" method="post" action="/requests">
+        <div class="form-group">
+          <label for="request-message">Write your message here</label>
+          <input type="text" name="requester_message" id="requester_message" class="form-control" placeholder="Send your love message">
+          <input type="hidden" id="requester_id" name="requester_id" value="">
+          <input type="hidden" id="requester_firstName" name="requester_firstName" value="">
+          <input type="hidden" id="requester_email" name="requester_email" value="">
+          <input type="hidden" id="requester_picture" name="requester_picture" value="">
+          <input type="hidden" id="post_id" name="post_id" value="">
+
+        </div>
+        <button type="submit" id="add-request-button" class="btn btn-default">Send Request</button>
+      </form>
+    </section>
+
   </div>
+
 </main>
 
 </body>
