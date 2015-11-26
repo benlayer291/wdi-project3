@@ -40,6 +40,13 @@ nav {
   color: white;
   margin-top: -1.5vh; }
 
+#learn_more {
+  position: absolute;
+  color: white;
+  left: 10vw;
+  top: 10vh;
+  font-weight: lighter; }
+
 #learn_more_arrow {
   display: block;
   width: 3vw;
@@ -67,6 +74,11 @@ nav {
   min-width: 320px; }
 
 /*Body*/
+main.container {
+  width: 27vw;
+  height: 30vh;
+  margin-top: 22vh; }
+
 body {
   background-color: none; }
 

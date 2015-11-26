@@ -10,18 +10,18 @@ function init(){
   $('.login-link').on('click', showLogin);
   $('.register-link').on('click', showRegister);
   $('.posts-link').on('click', getPosts);
-  $('.profile-link').on('click', getUser);
+  $('.profile-link').on('click', displayOneUser);
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
   $('.search-form').on("submit", search)
   $('#scroll_to_about').on("click", function(){
-  $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
+    $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
   })
   $('.search_title').hide();
-
-
-
+  $('#user-profile-button').on('click', displayOneUser);
+  $('#user-posts-button').on('click', displayOneUserPosts);
+  $('#user-requests-button').on('click', displayOneUserRequests);
 }
 
 
@@ -36,61 +36,70 @@ function whenYouPressLogIn(){
 
 function search(){
   event.preventDefault();
+
+  var search   = $("#home-searchbox").val();
+  var formData = $(this).serialize();
+  console.log("cityLat.value "+document.getElementById('cityLat').value)
+  console.log(document.getElementById('cityLng').value)
+
+
   $.ajax({
     method: "post",
     url: "http://localhost:3000/api"+$(this).attr("action"),
-    data: $(this).serialize()
+    data: formData
   }).done(function(data){
-    console.log(data);
-
     hidePosts();
     var posts = data.posts;
 
     var title=  (posts[1].where).split(',');
-    $('#nav-search-title').html('<h3>'+
-      title[0]
-      + '</h3>');
+    $('#nav-search-title').html('<h3>'+ title[0] + '</h3>');
 
-    // var partsOfStr = str.split(',');
+    if (posts.length === 0) {
+      showErrors("There are no posts found for this location.");
+    }
+
+    if (posts.length === 0 && !document.getElementById('cityLat').value) {
+      showErrors("Please search again. That location was not found.")
+    }
 
     for (var i=0; i<posts.length; i++) {
       $('.search-results').append(
         '<div class="each-result">'+
-          '<div class="col-sm-4">' +
-            '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
-          '</div>' +
-          '<div class="col-sm-4">' +
-            '<p class="when">'+ posts[i].when + '</p>'+
-          '</div>' +
-          '<div class="col-sm-4">' +
+        '<div class="col-sm-4">' +
+        '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
+        '</div>' +
+        '<div class="col-sm-4">' +
+        '<p class="when">'+ posts[i].when + '</p>'+
+        '</div>' +
+        '<div class="col-sm-4">' +
 
-            // MAKE IT A LOGO BUTTON
-            '<a class="logo_button_search_page accept" id=' + posts[i]._id + ' href="#"><img src="http://bit.ly/1XlIMbg" style="width: 7vh;"></a>'
-             +
+
+        '<a class="logo_button_search_page accept" id=' + posts[i]._id + ' href="#"><img src="http://bit.ly/1XlIMbg" style="width: 7vh;"></a>'
+          +
           '</div>' +
           '</div>'
-          );
+         );
     }
 
-        
-        $('.search_title').show();
-        $('#homepage-title').hide();
-        $('#search-post-button').hide();
-        $('#home-searchbox').hide();
-        $('#search_blurb').hide();
-        $('#scroll_to_about').hide();
-        $('#about').hide();
-        $('#posts').show();
-        $(".navbar-default").css("background-color", "#111C24");
-        $(".homepage-image").css("background-image", "none");
-        $("body").css("background-color", "#E8ECF0");
-        $('.where').hide();
+
+    $('.search_title').show();
+    $('#homepage-title').hide();
+    $('#search-post-button').hide();
+    $('#home-searchbox').hide();
+    $('#search_blurb').hide();
+    $('#scroll_to_about').hide();
+    $('#about').hide();
+    $('#posts').show();
+    $(".navbar-default").css("background-color", "#111C24");
+    $(".homepage-image").css("background-image", "none");
+    $("body").css("background-color", "#E8ECF0");
+    $('.where').show();
   })
 }
 
 function register(){
   event.preventDefault();
-  console.log("clicked");
+
   $.ajax({
     method: "POST",
     url: "http://localhost:3000/api/register",
@@ -107,7 +116,7 @@ function register(){
 
 function login(){
   event.preventDefault();
-  console.log("clicked");
+
   $.ajax({
     method: "POST",
     url: "http://localhost:3000/api/login",
@@ -118,7 +127,7 @@ function login(){
     localStorage.setItem('user_id', data.user._id);
     return loggedInStatus();
   }).fail(function(data){
-    console.log(data.responseJSON.message);
+
     return showErrors(data.responseJSON.message);
   });
 }
@@ -149,7 +158,7 @@ function showRegister() {
 }
 
 function initialPageSetup(){
-  console.log("setup");
+  console.log('page-setup');
   hideErrors();
   $('section').hide();
   return loggedInStatus();
@@ -163,9 +172,10 @@ function setHeader(xhr, settings){
 
 function loggedInStatus(){
   var token = localStorage.getItem('token');
-  console.log(token);
+
   if (token) {
     setCurrentUser();
+    getUserInfo();
     return loggedInState();
   } else {
     return loggedOutState();
@@ -256,7 +266,6 @@ function showCreatePosts() {
 function addNewPost(){
   event.preventDefault();
 
-  console.log('creating new post');
   $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/api/posts',
@@ -275,7 +284,6 @@ function getOnePost(){
   $('section').hide();
   $('#posts').show();
 
-  console.log('showing post');
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
@@ -288,7 +296,7 @@ function getOnePost(){
 }
 
 function displayOnePost(data){
-  console.log('displaying one post');
+
   hidePosts();
 
   var post = data.post;
@@ -311,6 +319,7 @@ function hidePosts(){
   return $('.posts, .search-results').empty();
 }
 
+
 // Autocomplete
 function setupGoogleMaps(){
   var fields = ["home-searchbox", "posts-searchbox"]
@@ -318,10 +327,17 @@ function setupGoogleMaps(){
   $.each(fields, function(index, field){
     // Search box variable
     var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
-
-    // SearchBox event listener;
-    google.maps.event.addListener(searchBox, 'places_changed', function() {
-      searchBox.getPlaces();
+    // // SearchBox event listener;
+    google.maps.event.addListener(searchBox, 'place_changed', function() {
+      var place = searchBox.getPlace();
+      console.log("Search Box: "+searchBox)
+      console.log(place);
+      var placeLat = place.geometry.location.lat();
+      var placeLng = place.geometry.location.lng();
+      document.getElementById('cityLat').value = placeLat;
+      console.log(placeLat);
+      document.getElementById('cityLng').value = placeLng;
+      console.log(placeLng);
     })
 
     //Clear the searchBox when we click on it; 
@@ -333,22 +349,96 @@ function setupGoogleMaps(){
 
 // REQUESTS js
 
-function getUser() {
+function getUserInfo() {
   event.preventDefault();
 
   $.ajax({
     method: 'GET',
-    url: 'http://localhost:3000/api/users/'+$(this).attr('id'),
+    url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
     beforeSend: setHeader
   }).done(function(data){
-    displayOneUser(data);
+
+    fillInfoOneUser(data);
   })
 }
 
-function displayOneUser() {
-  console.log('displaying one user');
-  $('.users').append()
+function fillInfoOneUser(data) {
+  var user     = data.user.local
+  var posts    = data.user.local.posts
+
+  console.log('filling User Info');
+  $('#profile-image').attr('src', user.picture);
+  $('#profile-name').html(user.firstName + " " + user.lastName);
+  $('#profile-email').html(user.email);
+  $('#profile-tagline').html(user.tagline);
+  
+  for (var i=0; i<posts.length; i++) {
+    $('#user-profile-posts').append(
+      '<div class="row">' +
+      '<div class="col-sm-3">'+posts[i].where+'</div>' +
+      '<div class="col-sm-3">'+posts[i].when+'</div>' +
+      '<div class="col-sm-6">'+posts[i].what+'</div>' +
+      '</div>'
+      )
+  }
+
+  for (var i=0; i<posts.length; i++) {
+    for(var j=0; j<posts[i].requests.length; j++){
+      console.log(posts[i].requests[j])
+      $('#user-profile-requests').append(
+        '<div class="row">'+
+        '<div class="col-sm-4">' +
+        '<img id="requests-image">' +
+        '</div>'+
+        '<div class="col-sm-8">'+
+        '<div class="row">'+
+        '<div class="col-sm-12">'+
+        '<h3 id="requests-name">'+ posts[i].requests[j].firstName+ '</h3>' +
+        '</div>'+
+        '</div>'+
+        '<div class="row">'+
+        '<div class="col-sm-12">'+
+        '<p id="requests-email">' + posts[i].requests[j].email +'</p>'+
+        '</div>'+
+        '</div>'+
+        '<div class="row">'+
+        '<div class="col-sm-12">'+
+        '<p id="requests-message">' + posts[i].requests[j].message + '</p>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'
+        )
+    }
+  }
 }
+
+function displayOneUser() {
+  event.preventDefault();
+  console.log('displaying user');
+  $('section').hide();
+  $('#profile-tools').show();
+  $('#profile').show();
+}
+
+function displayOneUserPosts() {
+  event.preventDefault();
+  console.log('displaying user');
+  $('section').hide();
+  $('#profile-tools').show();
+  $('#profile-posts').show();
+}
+
+function displayOneUserRequests() {
+  event.preventDefault();
+  console.log('displaying user');
+  $('section').hide();
+  $('#profile-tools').show();
+  $('#profile-requests').show();
+}
+
+
+// CHARACTER TICKER
 
 function characterCount(TextArea,FieldToCount){
   var myField = document.getElementById(TextArea);

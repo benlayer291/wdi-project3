@@ -1,77 +1,78 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>SPOKEN</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://use.typekit.net/mcm4chn.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <title>SPOKEN</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://use.typekit.net/mcm4chn.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <!-- Social buttons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-    <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
+  <!-- Google Maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
+  
+  <!-- Local files -->
+  <script type="text/javascript" src="./js/register.js"></script>
+  <script type="text/javascript" src="./bower_components/hello/dist/hello.all.min.js"></script>
+  <script type="text/javascript" src="./js/oauth.js"></script>
 
-    <!-- Local files -->
-    <script type="text/javascript" src="./js/register.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-  </head>
-<!--   <div class="overlay"> -->
-  <body>
-    <div class="homepage-image">
-      
-      <header>
-        <nav class="navbar navbar-default">
-
-          <!-- SEARCH TITLE -->
-          <section class="search_title">
-            <div id="nearby">SPOKEN NEAR</div>
-            <div id="nav-search-title"></div>
-          </section>
-
-
-          <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <img class="logo" src="http://bit.ly/1XlIMbg">
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/" class="register-link logged-out">Register</a></li>
-              <li><a href="/" class="login-link logged-out">Login</a></li>
-              <li><a href="/" class="posts-link logged-in">Posts</a></li>
-              <li><a href="/" class="profile-link logged-in">My profile</a></li>
-              <li><a href="/" class="logout-link logged-in">Logout</a></li>
-            </ul>
-          </div><!-- /.container-fluid -->
-        </nav>
-      </header>
-      <!-- HOMEPAGE -->
-      <main>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+  <div class="homepage-image">
+    <header>
+      <nav class="navbar navbar-default">
+        <!-- SEARCH TITLE -->
+        <section class="search_title">
+          <div id="nearby">SPOKEN NEAR</div>
+          <div id="nav-search-title"></div>
+        </section>
 
         <div class="container">
-          <div class="hide alert alert-danger" role="alert"></div>
-          <div class='row'>
-
-            <section class="col-sm-12" id="homepage-title">
-              <h1 class="title">We spoke. It was great.</h1>
-              <h1 class="title">If only we'd stayed in touch...</h1>
-            </section>
-
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <img class="logo" src="http://bit.ly/1XlIMbg">
           </div>
-          <div class="row" id="search_row">
-            <div class="col-sm-6 col-md-offset-3">
-              <section id="search">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/" class="register-link logged-out">Register</a></li>
+            <li><a href="/" class="login-link logged-out">Login</a></li>
+            <li><a href="/" class="posts-link logged-in">Posts</a></li>
+            <li><a href="/" class="profile-link logged-in">My Profile</a></li>
+            <li><a href="/" class="logout-link logged-in">Logout</a></li>
+          </ul>
+        </div><!-- /.container-fluid -->
+      </nav>
+    </header>
+    <!-- HOMEPAGE -->
+    <main>
 
-                <a id="search_blurb">Where and when did you meet?</a>
-                <form class="search-form" method="post" action="/search">
-                  <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
-                  <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
-                </form> 
-              </section>
+      <div class="container">
+        <div class="hide alert alert-danger" role="alert"></div>
+        <div class='row'>
+
+          <section class="col-sm-12" id="homepage-title">
+            <h1 class="title">We spoke. It was great.</h1>
+            <h1 class="title">If only we'd stayed in touch...</h1>
+          </section>
+
+        </div>
+        <div class="row" id="search_row">
+          <div class="col-sm-6 col-md-offset-3">
+            <section id="search">
+
+              <a id="search_blurb">Where and when did you meet?</a>
+              <form class="search-form" method="post" action="/search">
+                <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+                <input type="hidden" id="searchLat" name="lattitude">
+                <input type="hidden" id="searchLng" name="longitude">  
+                <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
+              </form> 
 
               <section id="which_log_in">
 
@@ -85,7 +86,32 @@
           <div class="row" id="search_results_row">
             <div class="col-sm-6 col-md-offset-3">
 
-              <section id="create-post">
+            <section id="create-post">
+              <form class="post-form" method="post" action="/posts">
+                <div class="form-group">
+                  <label for="post-what">What</label>
+                  <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
+                  <div label="charCount" id='CharCountLabel1'></div>
+                </div>
+                <div class="form-group">
+                  <label for="post-where">Where</label>
+                  <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+                  <input type="hidden" id="cityLat" name="lattitude">
+                  <input type="hidden" id="cityLng" name="longitude">  
+                </div>
+                <div class="form-group">
+                  <label for="post-when">When</label>
+                  <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                  </select>
+                </div>
+                <button type="submit" id="add-post-button" class="btn btn-default">Add post</button>
+              </form>
+            </section>
+
+              <!-- <section id="create-post">
                 <form class="post-form" method="post" action="/posts">
                   <div class="form-group">
                     <label for="post-what">What</label>
@@ -106,14 +132,15 @@
                   </div>
                   <button type="submit" id="add-post-button" class="large_button">Add post</button>
                 </form>
-              </section>
+              </section> -->
             </div>
           </div>
 
           <div class="row" id="search_results_row">
 
 
-            <!-- Search Results -->
+          <!-- Search Results --> <!-- DUPLICATION??? -->
+
             <div class="search-results row"></div>
             <section id="posts">
               <div class="col-sm-2 col-md-offset-3">
@@ -179,6 +206,16 @@
         </div>
         <button type="submit" id="register_button" class="large_button">Submit</button>
       </form>
+      <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
+        <span class="fa fa-facebook"></span> Sign in with Facebook
+      </a>
+    </section>
+
+
+    <section id="posts">
+      <button type="button" id="create-post-button" class="btn btn-default">Create post</button>
+      <h2>Posts</h2>
+      <div class="posts"></div>
     </section>
 
     <section id="login">
@@ -194,16 +231,59 @@
         </div>
         <button type="submit" id="login_button" class="large_button">Submit</button>
       </form>
+        <a class="btn btn-block btn-social btn-facebook" data-auth="facebook">
+          <span class="fa fa-facebook"></span> Sign in with Facebook
+        </a>
+      </section>
     </section>
 
+<!--   >>>>>>> e42318accfa8dd1bea6c8cc3d7eaf41df3526495 -->
 
 
-    <!-- /*SHOW*/ -->
-
-
-    <!-- /*SHOW*/ -->
-
-  </div>
+  <section id="profile-tools">
+    <div class='row'>
+      <div class="col-sm-4">
+        <button id='user-profile-button'>Profile</button>
+      </div>
+      <div class="col-sm-4">
+        <button id='user-posts-button'>Posts</button>
+      </div>
+      <div class="col-sm-4">
+        <button id='user-requests-button'>Requests</button>
+      </div>
+    </div>
+  </section>
+  <section id="profile">
+    <div class='row'>
+      <div class='col-sm-4'>
+        <img id='profile-image'>
+      </div>
+      <div class='col-sm-8'>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <h3 id='profile-name'>NAME</h3>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <p id='profile-email'>EMAIL</p>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <p id='profile-tagline'>TAGLINE</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="profile-posts">
+    <div class='row' id="user-profile-posts"><h3>Posts</h3></div>
+  </section>
+  <section id="profile-requests">
+    <div class='row' id="user-profile-requests"><h3>Requests</h3></div>
+  </section>
+</div>
 </main>
 
 </body>
