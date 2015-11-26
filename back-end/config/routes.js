@@ -8,7 +8,7 @@ var postsController = require('../controllers/postsController');
 //Authentication routes
 router.post('/login', authenticationsController.login);
 router.post('/register', authenticationsController.register);
-router.post('/search', postsController.postsSearch)
+router.post('/search', postsController.postsSearch);
 
 //User routes
 router.route('/users')

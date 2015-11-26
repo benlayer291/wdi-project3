@@ -13,21 +13,33 @@ function init(){
   $('#create-post-button').on("click", showCreatePosts);
   $('.post-form').on('submit', addNewPost);
   $("#posts").on("click",".show-post", getOnePost);
-
   $('.search-form').on("submit", search)
 }
 
 function search(){
   event.preventDefault();
+
+  var search   = $("#home-searchbox").val();
+  console.log(search)
+  var formData = $(this).serialize();
+
+  if (!formData['latitude'] || !formData['longitude']) {
+    showErrors("Please search again. That location was not found.")
+  }
+
   $.ajax({
     method: "post",
     url: "http://localhost:3000/api"+$(this).attr("action"),
-    data: $(this).serialize()
+    data: formData
   }).done(function(data){
-    console.log(data);
-
     hidePosts();
     var posts = data.posts;
+
+    if (posts.length === 0) {
+      showErrors("There are no posts found for this location.");
+      // $('#create-post-button').trigger("click");
+      // $("#posts-searchbox").val(search)
+    }
 
     for (var i=0; i<posts.length; i++) {
       $('.search-results').append(
@@ -196,7 +208,6 @@ function showCreatePosts() {
 function addNewPost(){
   event.preventDefault();
 
-  console.log('creating new post');
   $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/api/posts',
@@ -215,7 +226,6 @@ function getOnePost(){
   $('section').hide();
   $('#posts').show();
 
-  console.log('showing post');
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
@@ -251,6 +261,7 @@ function hidePosts(){
   return $('.posts, .search-results').empty();
 }
 
+
 // Autocomplete
 function setupGoogleMaps(){
   var fields = ["home-searchbox", "posts-searchbox"]
@@ -259,9 +270,16 @@ function setupGoogleMaps(){
     // Search box variable
     var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
 
-    // SearchBox event listener;
-    google.maps.event.addListener(searchBox, 'places_changed', function() {
-      searchBox.getPlaces();
+    // // SearchBox event listener;
+    google.maps.event.addListener(searchBox, 'place_changed', function() {
+      var place = searchBox.getPlace();
+      console.log(place);
+      var placeLat = place.geometry.location.lat();
+      var placeLng = place.geometry.location.lng();
+      document.getElementById('cityLat').value = placeLat;
+      console.log(placeLat);
+      document.getElementById('cityLng').value = placeLng;
+      console.log(placeLng);
     })
 
     //Clear the searchBox when we click on it; 
