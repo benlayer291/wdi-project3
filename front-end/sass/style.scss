@@ -1,10 +1,9 @@
-/* Write your styling here */
+
+
+  button:focus {outline:0;}
 
 /*nav*/
 
-// .navbar-default .navbar-nav>li>a {
-//     color: #FFF;
-// }
 
 .navbar-default .navbar-nav>li>a {
     color: #F1F1F1;
@@ -188,6 +187,16 @@ body {
 
 /*buttons*/
 
+.profile_button {
+width: 150px;
+height: 5vh;
+margin-left: 19%;
+border-radius: 5px;
+border: none;
+background-color: white;
+
+}
+
 .large_button {
   width: 27vw;
   height: 8vh;
@@ -252,10 +261,20 @@ body {
 
   display: hidden;
   position: absolute;
-  margin-left: 34.5vw;
-  margin-right: auto;
+  margin-left: 38.5vw;
+  margin-right: 38.5vw;
   color: white;
   margin-top: 10vh; 
+
+  #my-profile {
+    display: hidden;
+    position: absolute;
+    margin-left: 34.5vw;
+    margin-right: auto;
+    color: white;
+    margin-top: 10vh; 
+
+  }
 
   h3 {
 
@@ -291,6 +310,74 @@ body {
     background-color: rgba(0,0,0,0.5);
     z-index: 50;
 }
+
+
+// Profile
+
+#profile {
+  // position: absolute;
+}
+
+#profile-image{
+  border-radius: 100%;
+  margin: 0 auto;
+  top: 3.5vh;
+  position: absolute;
+}
+
+.profile-box {
+  margin-top: 5vh;
+}
+
+#my-profile-header{
+  color: white;
+  font-size: 30pt;
+  text-align: center;
+}
+
+#profile-name {
+  font-size: 12pt;
+  font-weight: bold;
+  top: 11vh;
+  position: absolute;
+  }
+
+#profile-email{
+  font-size: 9pt;
+  top: 15vh;
+  font-weight: bold;
+  position: absolute;
+}
+
+#profile-tagline{
+  font-size: 12pt;
+  position: absolute;
+  z-index: 21;
+  color: black;
+  margin-top: 1.8vh;
+  margin-left: 0.2vw;
+}
+
+#tagline-box {
+  top: 18.5vh;
+  position: absolute;
+  width: 27vw;
+  height: 6.5vh;
+  margin-top: 2.5vh;
+  border-radius: 5px;
+  min-width: 320px;
+  background-color: white;
+}
+
+
+.search-results{
+  margin-top: -70vh;
+}
+
+.search_row{
+  display: none;
+}
+
 
 
 
