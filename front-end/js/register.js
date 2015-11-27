@@ -24,9 +24,10 @@ function init(){
   $('#user-requests-button').on('click', displayOneUserRequests);
   $('#posts').on('click', ".send-request", createRequestForm);
   $('.request-form').on('submit', sendRequestForm);
-  $('.large_button_facebook').on("click", function(){
-    $(document.body).animate({'scrollTop' :$('nav').offset().top}, 900);
-  })
+  $('.btn-facebook').on("click", PressFacebook);
+
+
+  $('.large_button_email').on("click", chooseEmailLogin);
 }
 
 function whenYouPressLogIn(){
@@ -34,9 +35,18 @@ function whenYouPressLogIn(){
   $('#search-post-button').hide();
   $('#home-searchbox').hide();
   $('#search_blurb').hide();
-  $('.overlay').fadeIn(2000);
 
 };
+
+function PressFacebook() {
+  $('#search_blurb').fadeIn(1000);
+  $('#search-post-button').fadeIn(1000);
+  $('#home-searchbox').fadeIn(1000);
+  $('.large_facebook_button').hide();
+  $('.large_button_email').hide();
+  $('#log_in_blurb').hide();
+  $(document.body).animate({'scrollTop' :$('nav').offset().top}, 900);
+}
 
 function search(){
   event.preventDefault();
@@ -77,7 +87,7 @@ function search(){
         '</div>' +
         '<div class="col-sm-4">' +
         // '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
-        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'
+        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send"></button>'
           +
           '</div>' +
           '</div>'
@@ -86,12 +96,6 @@ function search(){
 
     $('section').hide();
     $('.search_title').show();
-    // $('#homepage-title').hide();
-    // $('#search-post-button').hide();
-    // $('#home-searchbox').hide();
-    // $('#search_blurb').hide();
-    // $('#scroll_to_about').hide();
-    // $('#about').hide();
     $('#posts').show();
     $(".navbar-default").css("background-color", "#111C24");
     $(".homepage-image").css("background-image", "none");
@@ -152,6 +156,10 @@ function showLogin() {
   event.preventDefault();
   hideErrors();
   whenYouPressLogIn();
+  // return $('#login').show();
+}
+
+function chooseEmailLogin() {
   return $('#login').show();
 }
 
@@ -258,7 +266,7 @@ function displayAllPosts(data){
         '<p>When: '+ posts[i].when + '</p>'+
         '</ul>'+
         '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
-        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'
+        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send"></button>'
         )
 
   // if( posts[i].requests){
