@@ -24,6 +24,9 @@ function authenticate() {
 }
 
 hello.on('auth.login', function(auth){
+  $('#loginModal').modal('hide');
+  $('#registerModal').modal('hide');
+  
   hello(auth.network).api('/me').then(function(data) {
     data.access_token = hello(auth.network).getAuthResponse().access_token;
     return $.ajax({

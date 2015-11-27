@@ -1,7 +1,16 @@
+html {
+  height: 100%;
+  min-height: 100%; }
+
+body {
+  background-image: url("http://bit.ly/1Igm8Ks");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; }
+
 button:focus {
   outline: 0; }
 
-/*nav*/
 .navbar-default .navbar-nav > li > a {
   color: #F1F1F1; }
 
@@ -28,7 +37,6 @@ nav {
   border: none;
   padding: none; }
 
-/*homepage*/
 .title {
   margin-bottom: 0.5vh;
   margin-top: 0vh;
@@ -42,42 +50,29 @@ nav {
   color: white;
   margin-top: -1.5vh; }
 
+#scroll_to_about {
+  text-align: center; }
+
 #learn_more {
-  position: absolute;
   color: white;
   left: 17.5vw;
   top: 10vh;
-  font-weight: lighter; }
-
-#learn_more_arrow {
-  display: block;
-  width: 3vw;
-  height: auto;
-  margin: auto;
-  margin-top: 10vh;
-  margin-left: 22vw;
-  background-color: transparent; }
-
-#learn_more {
+  font-weight: lighter;
   text-decoration: none;
   display: block;
-  margin-top: -5vh;
-  margin-left: 4.6vw;
+  text-align: center; }
+
+#learn_more_arrow {
+  display: inline-block;
+  width: 3vw;
+  height: auto;
+  background-color: transparent;
   text-align: center;
-  color: white; }
+  margin: 20px; }
 
 .large_button_email {
   background-color: white;
   border: none; }
-
-.btn-facebook {
-  text-decoration: none;
-  background-color: none;
-  border: none;
-  color: white;
-  margin-left: 11.3vw;
-  margin-top: 2.5vh;
-  position: absolute; }
 
 .large_facebook_button {
   width: 27vw;
@@ -91,77 +86,37 @@ nav {
   text-decoration: none;
   color: white; }
 
-/*Body*/
 main.container {
   width: 27vw;
   height: 30vh;
   margin-top: 22vh; }
 
-body {
-  background-color: none; }
-
-.homepage-image {
-  background-image: url("http://bit.ly/1Igm8Ks");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-  width: 100vw;
-  position: relative; }
-
-/*about*/
 .about {
-  height: 100vh;
+  padding: 50px;
   width: 100%;
   background-color: #111C24; }
 
-#wordmark {
-  position: absolute;
-  left: 35vw;
-  top: 132vh;
-  font-size: 14.5vh; }
-
-#about_blurb {
-  position: absolute;
-  left: 26vw;
-  top: 146vh;
-  font-size: 8vh;
-  font-style: italic;
-  color: #F1F1F1; }
-
 #wordmark_logo {
-  position: absolute;
-  width: 5.2vw;
-  height: auto;
-  left: 45vw;
-  top: 135.25vh; }
+  height: 60px;
+  margin: 0 auto;
+  display: block; }
 
 #about_box {
-  position: absolute;
-  height: 25.4vh;
-  width: 44vw;
+  border-radius: 8px;
+  height: 100px;
+  width: 300px;
   background-color: #E8ECF0;
-  top: 166vh;
-  left: 28.5vw;
-  border-radius: 8px; }
+  margin: 0 auto; }
 
 #blurb_box_tip {
-  position: absolute;
-  width: 6vw;
-  height: auto;
-  left: 34vw;
-  top: 186.8vh;
-  background-color: none; }
+  margin: -30px auto;
+  height: 50px;
+  width: 30px;
+  display: block; }
 
-/*buttons*/
 #create-post-button {
-  background-color: #E4007C;
-  width: 8vw;
-  height: 6vh;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  margin-left: 1.2vh; }
+  display: block;
+  margin: 0 auto; }
 
 .profile_button {
   width: 150px;
@@ -177,15 +132,6 @@ body {
   margin-top: 2.5vh;
   border-radius: 5px;
   min-width: 320px; }
-
-#create-post-button {
-  background-color: #E4007C;
-  width: 6vw;
-  height: 8vh;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  margin-left: 5.2vh; }
 
 .action_button {
   background-color: #E4007C;
@@ -306,22 +252,51 @@ body {
 .search_row {
   display: none; }
 
-.send-request {
-  background-image: url(../images/logo.png);
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-color: #E8ECF0;
-  width: 10vw;
-  height: 20vh;
-  border-color: #E8ECF0; }
+.request-container {
+  text-align: center; }
 
-.send-request :hover {
-  background-image: url(../images/logo.png);
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-color: #E8ECF0;
-  width: 10vw;
-  height: 20vh;
-  border-color: #E8ECF0; }
+.send-request img {
+  height: 50px; }
+
+/******************************************************************************/
+#learn_more_section {
+  overflow: hidden; }
+
+#about_blurb {
+  text-align: center;
+  font-style: italic;
+  color: #F1F1F1;
+  margin: 30px 0; }
+
+.homepage {
+  min-height: 600px; }
+
+#home #search_row {
+  text-align: center;
+  margin: 20px 0; }
+#home #search_blurb {
+  margin: 10px auto;
+  display: block;
+  width: 27vw;
+  text-align: left; }
+#home input {
+  display: block;
+  margin: 0 auto; }
+
+#user-profile-button, #user-posts-button, #user-requests-button {
+  width: 100% !important; }
+
+.pac-container {
+  background-color: #FFF;
+  z-index: 20;
+  position: fixed;
+  display: inline-block;
+  float: left; }
+
+.modal {
+  z-index: 20; }
+
+.modal-backdrop {
+  z-index: 10; }
 
 /*# sourceMappingURL=style.css.map */

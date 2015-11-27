@@ -25,11 +25,11 @@ function requestsShow(req, res){
 
 //Create
 function requestsCreate(req, res){
-  console.log(req.body)
+
   var postId  = req.body.post_id;
-  console.log(postId);
+
   Post.findOne({_id: postId}, function(err, post){
-    console.log(1);
+
     var request = new Request({
       requester_id: req.body.requester_id,
       requester_firstName: req.body.requester_firstName,
@@ -38,8 +38,12 @@ function requestsCreate(req, res){
       requester_picture: req.body.requester_picture,
       message: req.body.requester_message
     });
-    console.log(request);
+
+    console.log(post);
+
     request.save(function(err, request){
+      console.log(err);
+
       if (err) return res.status(500).json({ message: "Something went wrong" });
       post.requests.push(request);
 
@@ -47,7 +51,6 @@ function requestsCreate(req, res){
         if (err) return res.status(500).json({ message: "Something went wrong" });
         return res.status(201).json({ message: 'Request succesfully created', request: request }); 
       });
-      console.log(post);
     });
   });  
 }

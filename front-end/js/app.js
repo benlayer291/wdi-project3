@@ -1,136 +1,611 @@
-// $(document).ready(function(){
+$(init);
 
-//   // var location = r:new google.maps.LatLng(51.5072, 0.1275),
-//   //Initialize map variables
-//   var mapOptions, canvas, map;
-//   var markers = [];
-//   //Search box variable
-//   var searchBox = new google.maps.places.Autocomplete(document.getElementById('searchbox'));
-
-//   //Directions variables
-//   // var directionsService = new google.maps.DirectionsService();
-//   // var directionsDisplay = new google.maps.DirectionsRenderer();
+function init(){
   
-//   var mapApp = {};
+  setupGoogleMaps();
 
-//   mapApp.initializeMap = function(){
-//     mapOptions = {
-//       zoom:8,
-//       center:new google.maps.LatLng(51.5072, 0.1275),
-//       mapTypeId:google.maps.MapTypeId.ROADMAP
-//     };
+  // Forms
+  $('.login_form').on('submit', login);
+  $('.register_form').on('submit', register);
+  $('.post-form').on('submit', addNewPost);
+  $('.search-form').on("submit", search)
+  $('.request-form').on('submit', sendRequestForm);
+  
+  // Links
+  $('.logout-link').on('click', logout);
+  $('.profile-link').on('click', displayOneUser);
+  $('.home-link').on('click', displayHome);
 
-//     canvas = document.getElementById('googleMap');
-//     map = new google.maps.Map(canvas, mapOptions);
-//     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-//   };
+  $('.search-post-button').on('click', getPosts);
+  $('#create-post-button').on("click", showCreatePosts);
+  $("#posts").on("click",".show-post", getOnePost);
+  $('#scroll_to_about').on("click", aboutScroll)
+  
+  $('#user-profile-button').on('click', displayOneUser);
+  $('#user-posts-button').on('click', displayOneUserPosts);
+  $('#user-requests-button').on('click', displayOneUserRequests);
+  $('#posts').on('click', ".send-request", createRequestForm);
 
-//   mapApp.searchBox = function(){
-//     var places = searchBox.getPlaces();
-//     //Looping through and removing previous markers form the map;
-//     for (var i = 0, marker; marker = markers[i]; i++) {
-//       marker.setMap(null);
-//     }
-//     //Deleting previous markers
-//     markers = [];
-//     // var bounds = new google.maps.LatLngBounds();
-    
-//     for (var i = 0, place; place = places[i]; i++) {
-//       var image = {
-//         url: place.icon,
-//         size: new google.maps.Size(71, 71),
-//         origin: new google.maps.Point(0, 0),
-//         anchor: new google.maps.Point(17, 34),
-//         scaledSize: new google.maps.Size(25, 25)
-//       };
+  // $('.large_button_email').on("click", chooseEmailLogin);
+  // $('.search_title').hide();
 
-//       // Create a marker for each place.
-//       var marker = new google.maps.Marker({
-//         map: map,
-//         icon: image,                              
-//         title: place.name,
-//         position: place.geometry.location
-//       });
-//       //mapping the bounds of the map around the location; 
-//       markers.push(marker);
-//       // bounds.extend(place.geometry.location);
-//     }
-//     // map.fitBounds(bounds); 
-//   };
+  initialPageSetup();
+}
 
-//   mapApp.directions = function(){
-//     //Remove previous routes from directionsDisplay;
-//     if (directionsDisplay != undefined){
-//       directionsDisplay.setDirections({routes: []});
-//     }
-//     var from = $('#directions_from').val();
-//     var to = $('#directions_to').val();
-//     var mode = $('#directions_mode').val();
+function aboutScroll(){
+  $(document.body).animate({'scrollTop' :$('#about').offset().top}, 900);
+}
 
-//     var request = {
-//       origin:from,
-//       destination:to,
-//       travelMode:google.maps.TravelMode[mode]
-//     }
-    
-//     directionsDisplay.setMap(map);
+function displayHome(){
+  event.preventDefault();
+  $('section').hide();
+  $("#home").show();
+  $(".navbar-default").css("background", "transparent");
+  $("body").css("background-image", 'url("http://bit.ly/1Igm8Ks")');
+}
 
-//     directionsService.route(request, function(response, status){
-//       if(status == google.maps.DirectionsStatus.OK){
-//         directionsDisplay.setDirections(response);
-//         $('#directions-panel').html("");
-//         directionsDisplay.setPanel(document.getElementById('directions-panel'))
-//       } else {
-//         alert('Something went wrong');
-//       }
-//     });
-//   }
+function whenYouPressLogIn(){
+  $('#which_log_in').toggle();
+  $('#search-post-button').toggle();
+  $('#home-searchbox').toggle();
+  $('#search_blurb').toggle();
+};
 
-//   mapApp.updateLocation = function(position){
-//     var coords = position.coords;
-//     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-//     var marker = new google.maps.Marker({
-//       position: latlng,
-//       map: map,
-//       title: 'You are here'
-//     })
+function search(){
+  event.preventDefault();
 
-//     map.setCenter(latlng);
-//   }
+  var search   = $("#home-searchbox").val();
+  var formData = $(this).serialize();
 
-//   mapApp.handleLocationError =  function(error){
-//       console.log(error);
-//   }
+  $.ajax({
+    method: "post",
+    url: "http://localhost:3000/api"+$(this).attr("action"),
+    data: formData
+  }).done(function(data){
+    hidePosts();
+    var posts = data.posts;
 
-//   mapApp.geolocation =  function(){
-//     navigator.geolocation.getCurrentPosition(mapApp.updateLocation, mapApp.handleLocationError);
-//   }
+    if (posts.length === 0) {
+      showErrors("There are no posts found for this location.");
+      
+      if (localStorage.getItem("token")) {
+        $("#addPostModal").modal('show');
+        $("#posts-searchbox").val(search);
+        setupGoogleMaps()
+      } else {
+        $("#loginModal").modal('show');
+      }
 
-//   //SearchBox event listener;
-//   google.maps.event.addListener(searchBox, 'places_changed', function() {
-//     mapApp.searchBox();
-//   })
+      if (posts.length === 0 && !document.getElementById('cityLat').value) {
+        showErrors("Please search again. That location was not found.")
+      }
 
-//   //Clear the searchBox when we click on it; 
-//   $('#searchbox').on('click', function(){
-//     $(this).val('');
-//   })
+    } else {
+      var title = (posts[0].where).split(',');
+      $('#nav-search-title').html('<h3>'+ title[0] + '</h3>');
 
-//   //Directions event listener;
-//   $('#directions_form').on('submit', function(event){
-//     event.preventDefault();
-//     mapApp.directions();
-//   })
+      for (var i=0; i<posts.length; i++) {
+        $('.search-results').append(
+          '<div class="each-result">'+
+          '<div class="col-sm-4">' +
+          '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
+          '</div>' +
+          '<div class="col-sm-4">' +
+          '<p class="when">'+ posts[i].when + '</p>'+
+          '</div>' +
+          '<div class="col-sm-4 request-container">' +
+          '<a href="#" id=' + posts[i]._id + ' data-toggle="modal" data-target="#requestModal" class="send-request"><img src="../images/logo.png"></a>'
+            +
+            '</div>' +
+            '</div>'
+           );
+      }
 
-//   //Geolocation event listener, remember for local development you need to start a Python server;
-//   $('#current_position').on('click', function(event){
-//     event.preventDefault();
-//     if(navigator.geolocation){
-//       mapApp.geolocation();
-//     } else {
-//       alert('Geolocation not available in this browser');
-//     }
-//   })
+      $('section').hide();
+      $('.search_title').show();
+      $('#posts').show();
+      $(".navbar-default").css("background-color", "#111C24");
+      $("body").css("background-image", "none");
+      $("body").css("background-color", "#E8ECF0");
+      
+      $("#search_results").removeClass("hide")
+      $("#search_results").show();
+    }
+  })
+}
 
-//   mapApp.initializeMap();
-// });
+function register(){
+  event.preventDefault();
+  $('#registerModal').modal('hide');
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:3000/api/register",
+    data: $(this).serialize(),
+    beforeSend: setHeader
+  }).done(function(data){
+    if (data.token) localStorage.setItem('token', data.token);
+    localStorage.setItem('user_id', data.user._id);
+    return loggedInStatus();
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function login(){
+  event.preventDefault();
+  
+  $('#loginModal').modal('hide');
+  
+  $.ajax({
+    method: "POST",
+    url: "http://localhost:3000/api/login",
+    data: $(this).serialize(),
+    beforeSend: setHeader
+  }).done(function(data){
+    if (data.token) localStorage.setItem('token', data.token);
+    localStorage.setItem('user_id', data.user._id);
+    localStorage.setItem('user', data.user);
+
+    return loggedInStatus();
+  }).fail(function(data){
+
+    return showErrors(data.responseJSON.message);
+  });
+
+}
+
+function setCurrentUser() {
+  var user_id = localStorage.getItem('user_id');
+  $('.profile-link').attr('id', user_id);
+}
+
+function logout() {
+  event.preventDefault();
+  
+  displayHome();
+
+  localStorage.clear();
+  return loggedInStatus();
+}
+
+function showLogin() {
+  event.preventDefault();
+  hideErrors();
+  whenYouPressLogIn();
+  // return $('#login').show();
+}
+
+function chooseEmailLogin() {
+  return $('#login').show();
+}
+
+function showRegister() {
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  return $('#register').show();
+}
+
+function initialPageSetup(){
+  hideErrors();
+  // $('section').hide();
+  displayHome()
+  return loggedInStatus();
+}
+
+function setHeader(xhr, settings){
+  var token = localStorage.getItem('token');
+
+  if (token) return xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+}
+
+function loggedInStatus(){
+  var token = localStorage.getItem('token');
+
+  if (token) {
+    setCurrentUser();
+    getUserInfo();
+    return loggedInState();
+  } else {
+    return loggedOutState();
+  }
+}
+
+function loggedInState() {
+  $('section').hide();
+  $('.logged-out').hide();
+  $('.logged-in').show();
+  // $('#home').show();
+  $('#about').show();
+  $('#search').show();
+  // $('#homepage-title').show();
+  $('#learn_more_section').show();
+  displayHome();
+}
+
+function loggedOutState() {
+  $('section').hide();
+  $('.logged-out').show();
+  $('.logged-in').hide();
+  $('#about').show();
+  // $('#search').show();
+  // $('#homepage-title').show();
+  $('#learn_more_section').show();
+  displayHome();
+}
+
+function showErrors(message) {
+  $('.alert').text(message).removeClass('hide').addClass('show');
+}
+
+function hideErrors() {
+  $('.alert').removeClass('show').addClass('hide');
+}
+
+//POSTS js
+
+function getPosts(){
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+
+  $("#home").hide()
+  // $('#homepage-title').hide();
+  $('#scroll_to_about').hide();
+  $('#about').hide();
+  $('#search').hide();
+  $(".navbar-default").css("background-color", "#111C24");
+  $("body").css("background-image", "none");
+  $("body").css("background-color", "#E8ECF0");
+
+
+
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/posts'
+  }).done(function(data){
+
+    displayAllPosts(data);
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function displayAllPosts(data){
+  hidePosts();
+  var posts = data.posts;
+
+  for (var i=0; i<posts.length; i++) {
+      $('.posts').prepend(
+        '<ul class="what">' +
+        '<p>What: '+ posts[i].what + '</p>'+
+        '</ul>' +
+        '<ul class="where">'+
+        '<p>Where: '+ posts[i].where + '</p>'+
+        '</ul>' +
+        '<ul class="when">'+
+        '<p>When: '+ posts[i].when + '</p>'+
+        '</ul>'+
+        '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
+        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send"></button>'
+        )
+
+  // if( posts[i].requests){
+  //   for (var j=0; j<posts[i].requests.length; j++){
+  //     if (posts[i].requests[j].requester_id == localStorage.getItem('user_id')){
+  //       '<button type="button" disabled id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Request Sent</button>'
+  //       } else{ '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'}
+  //     }
+  //   }
+  }
+}
+
+
+function showCreatePosts() {
+  event.preventDefault();
+  hideErrors();
+  // $('section').hide();
+  // $('#create-post').show();
+  if (localStorage.getItem("token")) {
+    $("#addPostModal").modal('show');
+    $("#posts-searchbox").val(search);
+  } else {
+    $("#loginModal").modal('show');
+  }
+}
+
+function addNewPost(){
+  event.preventDefault();
+
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/api/posts',
+    data: $(this).serialize(),
+    beforeSend: setHeader
+  }).done(function(data) {
+    $("#addPostModal").modal("hide");
+    getPosts();
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function getOnePost(){
+  event.preventDefault();
+  hideErrors();
+  $('section').hide();
+  $('#posts').show();
+
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
+    beforeSend: setHeader
+  }).done(function(data){
+    displayOnePost(data);
+  }).fail(function(data){
+    return showErrors(data.responseJSON.message);
+  });
+}
+
+function displayOnePost(data){
+
+  hidePosts();
+
+  var post = data.post;
+
+  $('.posts').prepend(
+    '<ul class="what">' +
+    '<p>What: '+ post.what + '</p>'+
+    '</ul>' +
+    '<ul class="where">'+
+    '<p>Where: '+ post.where + '</p>'+
+    '</ul>' +
+    '<ul class="when">'+
+    '<p>When: '+ post.when + '</p>'+
+    '</ul>'+
+    '<button type="button" id=' + post._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>'
+)}
+
+function hidePosts(){
+  return $('.posts, .search-results').empty();
+}
+
+
+// Autocomplete
+function setupGoogleMaps(){
+  var fields = ["home-searchbox", "posts-searchbox"]
+
+  $.each(fields, function(index, field){
+    // Search box variable
+    var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
+    // // SearchBox event listener;
+    google.maps.event.addListener(searchBox, 'place_changed', function() {
+      var place = searchBox.getPlace();
+      var placeLat = place.geometry.location.lat();
+      var placeLng = place.geometry.location.lng();
+      document.getElementById('cityLat').value = placeLat;
+      document.getElementById('cityLng').value = placeLng;
+    })
+
+    //Clear the searchBox when we click on it; 
+    $("#" + field).on('click', function(){
+      $(this).val('');
+    })
+  })
+}
+
+// Users js
+
+function getUserInfo() {
+  event.preventDefault();
+
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
+    beforeSend: setHeader
+  }).done(function(data){
+    fillInfoOneUser(data);
+
+  })
+}
+
+function fillInfoOneUser(data) {
+  var user     = data.user.local
+  var posts    = data.user.local.posts
+  $('#profile-image').attr('src', user.picture);
+  $('#profile-name').html(user.firstName + " " + user.lastName);
+  $('#profile-tagline').html(user.tagline);
+
+  for (var i=0; i<posts.length; i++) {
+    $('#user-profile-posts').append(
+      '<div class="row">' +
+      '<div class="col-sm-3">'+posts[i].where+'</div>' +
+      '<div class="col-sm-3">'+posts[i].when+'</div>' +
+      '<div class="col-sm-6">'+posts[i].what+'</div>' +
+      '</div>'
+      )
+  }
+
+  for (var i=0; i<posts.length; i++) {
+    for(var j=0; j<posts[i].requests.length; j++){
+      console.log(posts[i].requests[j])
+      $('#user-profile-requests').append(
+        '<div class="row">'+
+        '<div class="col-sm-4">' +
+        '<img id="requests-image">' +
+        '</div>'+
+        '<div class="col-sm-8">'+
+        '<div class="row">'+
+        '<div class="col-sm-12">'+
+        '<h3 id="requests-name">'+ posts[i].requests[j].firstName+ '</h3>' +
+        '</div>'+
+        '</div>'+
+        '<div class="row">'+
+        '<div class="col-sm-12">'+
+        '<p id="requests-email">' + posts[i].requests[j].email +'</p>'+
+        '</div>'+
+        '</div>'+
+        '<div class="row">'+
+        '<div class="col-sm-12">'+
+        '<p id="requests-message">' + posts[i].requests[j].message + '</p>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>'
+        )
+    }
+  }
+}
+
+
+function displayOneUser() {
+  event.preventDefault();
+
+  $('section').hide();
+
+  // Section
+  $("#profile").show(); 
+
+  // Sub-sections
+  $("#profile-box").show();
+  $("#profile-requests").hide();
+  $("#profile-posts").hide();
+
+  $('#scroll_to_about').hide();
+  $('#about').hide();
+
+  $('#my-profile-header').show();
+  $(".navbar-default").css("background-color", "#111C24");
+  $("body").css("background-image", "none");
+  $("body").css("background-color", "#E8ECF0");
+  
+  // $('.where').show();
+
+  $('#user-profile-button').css("background-color", "white");
+  $('#user-profile-button').css("color", "black");
+  $('#user-posts-button').css("background-color", "#E4007C");
+  $('#user-posts-button').css("color", "white");
+  $('#user-requests-button').css("background-color", "#E4007C");
+  $('#user-requests-button').css("color", "white");
+  // $('#tagline-box').show();
+  $('.col-md-offset-3').hide();
+}
+
+function displayOneUserPosts() {
+  event.preventDefault();
+  // $('section').hide();
+  $('#profile-posts').fadeIn(1200);
+  // $('#my-profile-header').show();
+
+  $("#profile-box").hide();
+  $("#profile-requests").hide();
+  $("#profile-posts").show();
+
+  $('#user-posts-button').css("background-color", "white");
+  $('#user-posts-button').css("color", "black");
+  $('#user-profile-button').css("background-color", "#E4007C");
+  $('#user-profile-button').css("color", "white");
+  $('#user-requests-button').css("background-color", "#E4007C");
+  $('#user-requests-button').css("color", "white");
+  // $('#profile-tools').show();
+}
+
+function displayOneUserRequests() {
+  event.preventDefault();
+
+  $("#profile-box").hide();
+  $("#profile-requests").show();
+  $("#profile-posts").hide();
+
+  $('#profile-requests').fadeIn(1200);
+  $('#user-requests-button').css("background-color", "white");
+  $('#user-requests-button').css("color", "black");
+  $('#user-profile-button').css("background-color", "#E4007C");
+  $('#user-profile-button').css("color", "white");
+  $('#user-posts-button').css("background-color", "#E4007C");
+  $('#user-posts-button').css("color", "white");
+  $('#profile-tools').show().css("display", "block");
+}
+
+function createRequestForm(){
+  // console.log("HELLO");
+  event.preventDefault();
+  hideErrors();
+  // $('section').hide();
+  // $('#create-request').show();
+  fillRequestForm();
+}
+
+function fillRequestForm(data){
+ $.ajax({
+   method: 'GET',
+   url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
+   beforeSend: setHeader
+ }).done(function(data){
+  console.log(data);
+  $('#requester_id').val(data.user._id);
+  $('#requester_firstName').val(data.user.local.firstName);
+  $('#requester_email').val(data.user.local.email);
+  $('#requester_picture').val(data.user.local.picture);
+  $('#post_id').val(($('.send-request').attr('id')));
+ })
+}
+
+
+function sendRequestForm(){
+  event.preventDefault();
+  $("#requestModal").modal('hide');
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/api/requests',
+    beforeSend: setHeader,
+    data: $(this).serialize(),
+    }).done(function(data) {
+      displayOneUserRequests();
+    }).fail(function(data){
+      return showErrors(data.responseJSON.message);
+    });
+}
+
+// function displayRequest(data){
+//   $('#user-profile-requests').prepend(        
+//     '<div class="row">'+
+//         '<div class="col-sm-4">' +
+//           '<img id="requests-image" src='+ data.requester_picture + '>' +
+//         '</div>'+
+//         '<div class="col-sm-8">'+
+//           '<div class="row">'+
+//             '<div class="col-sm-12">'+
+//               '<h3 id="requests-name">'+ data.requester_firstName+ '</h3>' +
+//             '</div>'+
+//           '</div>'+
+//           '<div class="row">'+
+//             '<div class="col-sm-12">'+
+//               '<p id="requests-email">' + data.requester_email +'</p>'+
+//             '</div>'+
+//           '</div>'+
+//           '<div class="row">'+
+//             '<div class="col-sm-12">'+
+//               '<p id="requests-message">' + data.requester_message + '</p>'+
+//             '</div>'+
+//           '</div>'+
+//         '</div>'+
+//         '</div>'
+//   )
+// }
+
+// CHARACTER TICKER
+
+function characterCount(TextArea,FieldToCount){
+  var myField = document.getElementById(TextArea);
+  var myLabel = document.getElementById(FieldToCount); 
+  if(!myField || !myLabel){return false}; // catches errors
+  var MaxChars =  myField.maxLengh;
+  if(!MaxChars){MaxChars =  myField.getAttribute('maxlength') ; };  if(!MaxChars){return false};
+  var remainingChars =   MaxChars - myField.value.length
+  myLabel.innerHTML = remainingChars+" Characters Remaining of Maximum "+MaxChars
+}
+
+//SETUP!!
+// setInterval(function(){CharacterCount('CharCountLabel1','CharCountLabel1')},55);
+

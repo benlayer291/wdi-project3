@@ -18,242 +18,162 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
   
   <!-- Local files -->
-  <script type="text/javascript" src="./js/register.js"></script>
+  <script type="text/javascript" src="./js/app.js"></script>
   <script type="text/javascript" src="./bower_components/hello/dist/hello.all.min.js"></script>
   <script type="text/javascript" src="./js/oauth.js"></script>
 
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
-  <div class="homepage-image">
-    <header>
-      <nav class="navbar navbar-default">
-        <!-- SEARCH TITLE -->
-        <section class="search_title">
-          <div id="nearby">SPOKEN NEAR</div>
-          <div id="nav-search-title"></div>
-        </section>
 
-        <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <img class="logo" src="http://bit.ly/1XlIMbg">
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/" class="register-link logged-out">Register</a></li>
-            <li><a href="/" class="login-link logged-out">Login</a></li>
-<!--             <li><a href="/" class="posts-link logged-in">Posts</a></li> -->
-            <li><a href="/" class="profile-link logged-in">My Profile</a></li>
-            <li><a href="/" class="logout-link logged-in">Logout</a></li>
-          </ul>
-        </div><!-- /.container-fluid -->
-        <section id="my-profile-header">
-        <h6 id="my-profile-header">My Profile</h6>
-        </section>
-      </nav>
+  <header>
+    <nav class="navbar navbar-default">
 
-
-
-    </header>
-    <!-- HOMEPAGE -->
-    <main>
+      <section class="search_title">
+        <div id="nearby">SPOKEN NEAR</div>
+        <div id="nav-search-title"></div>
+      </section>
 
       <div class="container">
-        <div class="hide alert alert-danger" role="alert"></div>
+        <div class="navbar-header">
+          <a href="#" class="home-link">
+            <img class="logo" src="http://bit.ly/1XlIMbg">
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="register-link logged-out" data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
+          <li><a class="login-link logged-out" data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
+          <li><a href="/" class="profile-link logged-in">My Profile</a></li>
+          <li><a href="/" class="logout-link logged-in">Logout</a></li>
+        </ul>
+      </div><!-- /.container-fluid -->
 
-          <section class="col-sm-12" id="homepage-title">
+      <section id="my-profile-header">
+        <h6 id="my-profile-header">My Profile</h6>
+      </section>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <div class="homepage">
+        <div class="container">
+          <div class="hide alert alert-danger" role="alert"></div>
+          <div class="col-sm-12" id="homepage-title">
             <h1 class="title">We spoke. It was great.</h1>
             <h1 class="title">If only we'd stayed in touch...</h1>
-          </section>
-
+          </div>
         </div>
-<!--           <div class="col-sm-6 col-md-offset-3"> -->
-            <section id="search">
-            <div class="row" id="search_row">
+        <div class="row" id="search_row">
+          <a id="search_blurb">Where and when did you meet?</a>
+          <form class="search-form" method="post" action="/search">
+            <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+            <input type="hidden" id="searchLat" name="lattitude">
+            <input type="hidden" id="searchLng" name="longitude">  
+            <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
+          </form> 
+        </div>
+      </div>
 
-              <a id="search_blurb">Where and when did you meet?</a>
-              <form class="search-form" method="post" action="/search">
-                <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
-                <input type="hidden" id="searchLat" name="lattitude">
-                <input type="hidden" id="searchLng" name="longitude">  
-                <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
-              </form> 
-          </section>
-
-              <section id="which_log_in">
-              <div class="row" id="log_in_row">
-
-                <a id="log_in_blurb">How would you like to log in?</a>
-                <button type="submit" id="search-post-button" class="large_button_email large_button">Email</button>
-                <div class="large_facebook_button">
-                <a class=" btn-facebook" data-auth="facebook">
-                Facebook</a>
-                </div>
-                </div>
-              </section>
-
-
-          <div class="row" id="search_results_row_1">
+      <div id="about">
+        <div class="about">
+          <div id="learn_more_section">
             <div class="col-sm-6 col-md-offset-3">
-
-              <section id="create-post">
-                <form class="post-form" method="post" action="/posts">
-                  <div class="form-group">
-                    <label for="post-what">What</label>
-                    <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
-                    <div label="charCount" id='CharCountLabel1'></div>
-                  </div>
-                  <div class="form-group">
-                    <label for="post-where">Where</label>
-                    <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
-                    <input type="hidden" id="cityLat" name="lattitude">
-                    <input type="hidden" id="cityLng" name="longitude">  
-                  </div>
-                  <div class="form-group">
-                    <label for="post-when">When</label>
-                    <select name="when" id="when" class="form-control" placeholder="When did you meet?">
-                      <option value="morning">Morning</option>
-                      <option value="afternoon">Afternoon</option>
-                      <option value="evening">Evening</option>
-                    </select>
-                  </div>
-                  <button type="submit" id="add-post-button" class="btn btn-default">Add post</button>
-                </form>
-              </section>
+              <div id="scroll_to_about">
+                <a id="learn_more">Learn More</a>
+                <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
               </div>
-
-              <!-- PROFILE -->
-              <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                  <section id="profile-tools">
-                    <div class='row'>
-                      <div class="col-sm-4">
-                        <button class="profile_button" id='user-profile-button'>Profile</button>
-                      </div>
-                      <div class="col-sm-4">
-                        <button class="profile_button" id='user-posts-button'>Posts</button>
-                      </div>
-                      <div class="col-sm-4">
-                        <button class="profile_button" id='user-requests-button'>Requests</button>
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </div>
-
-              <div class="row profile-box">
-              <div class="col-sm-8 col-sm-offset-2">
-                  <section id="profile">
-                      <div class='col-sm-4'>
-                        <img id='profile-image'>
-                      </div>
-                      <div class='col-sm-8'>
-                        <div class='row'>
-                          <div class='col-sm-12'>
-                            <h7 id='profile-name'>NAME</h7>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-sm-12'>
-                            <p id='profile-email'>EMAIL</p>
-                          </div>
-                        </div>
-                        <div class='row'>
-                          <div class='col-sm-12'>
-                            <div id="tagline-box">
-                            <p id='profile-tagline'>TAGLINE</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </section>
-
-                  <section id="profile-posts">
-                    <div class='row' id="user-profile-posts"><h3>Posts</h3></div>
-                  </section>
-                  <section id="profile-requests">
-                    <div class='row' id="user-profile-requests"><h3>Requests</h3></div>
-                  </section>
-
-
-                </div>
-              </div>
-
-
-
-            <!-- Search Results --> <!-- DUPLICATION??? -->
-
-            <section id="posts">
-            <div class="row" id="search_results_row">
-
-            <div class="search-results row"></div>
-
-              <div class="col-sm-2 col-md-offset-3">
-                <a id="add_post_no_luck">"No luck?"</a>
-              </div>
-              <div class="col-sm-2 col-md-offset-2">
-                <button type="button" id="create-post-button" class="small_action_button">Add post</button>
-              </div>
-              <!-- <h2>Posts</h2> -->
-              <div class="posts"></div>
-              </div>
-              </section>
-
-
-          <section id="learn_more_section">
-          <div class="col-sm-6 col-md-offset-3">
-
-            <div id="scroll_to_about">
-              <a id="learn_more">Learn More</a>
-              <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
             </div>
-            </div>
-          </section>
+          </div>
+          <img id="wordmark_logo" src="http://bit.ly/1XlIMbg">
+          <!-- <h1 class="title" id="wordmark">SPOKEN</h1> -->
 
-      </div>
-    </div>
-
-
-    <section id="about">
-      <div class="about">
-        <h1 class="title" id="wordmark">SPOKEN</h1>
-        <img id="wordmark_logo" src="http://bit.ly/1XlIMbg">
-
-        <h1 id="about_blurb">You've already met the one</h1>
-        <div id="about_box"></div>
-        <img id="blurb_box_tip" src="http://bit.ly/1Hnk9Jn">
+          <h1 id="about_blurb">You've already met the one</h1>
+          <div id="about_box"></div>
+          <img id="blurb_box_tip" src="http://bit.ly/1Hnk9Jn">
+        </div>
       </div>
     </section>
 
-    <!-- END OF HOMEPAGE -->
+    <section class="row hide" id="search_results">
+      <div class="col-sm-6 col-md-offset-3">
+        <section id="create-post">
+        </section>
+      </div>
 
-    <section id="register">
-      <h2>Register</h2>
-      <form class="register_form" method="post" action="/register">
-        <div class="form-group">
-          <label for="register-firstname">First name</label>
-          <input type="text" name="firstName" id="register-firstname" class="form-control" placeholder="First name">
+      <div id="posts">
+        <div class="row" id="search_results_row">
+          <div class="search-results row">
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" id="create-post-button" class="large_button action_button center">No Luck? Add post</button>
+            </div>
+          </div>
+          <div class="posts"></div>
         </div>
-        <div class="form-group">
-          <label for="register-lastname">Last name</label>
-          <input type="text" name="lastName" id="register-lastname" class="form-control" placeholder="Last name">
-        </div>
-        <div class="form-group">
-          <label for="register-image">Profile Picture</label>
-          <input type="text" name="picture" id="register-picture" class="form-control" placeholder="Profile Picture URL">
-        </div>
-        <div class="form-group">
-          <label for="register-email">Email address</label>
-          <input type="email" name="email" id="register-email" class="form-control" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <label for="register-password">Password</label>
-          <input type="password" name="password" id="register-password" class="form-control" placeholder="Password">
-        </div>
-        <button type="submit" id="register_button" class="large_button">Submit</button>
-      </form>
+      </div>
     </section>
 
+    <section id="profile">
+      <div id="profile-tools">
+        <div class='row'>
+          <div class="col-sm-8 col-sm-offset-2">
+            <div class="row">
+              <div class="col-sm-4">
+              <button id='user-profile-button' class="btn">Profile</button>
+              </div>
+              <div class="col-sm-4">
+                <button id='user-posts-button' class="btn">Posts</button>
+              </div>
+              <div class="col-sm-4">
+                <button id='user-requests-button' class="btn">Requests</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="profile-box" class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class="profile">
+            <div class='col-sm-4'>
+              <img id='profile-image'>
+            </div>
+            <div class='col-sm-8'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <h7 id='profile-name'>NAME</h7>
+                </div>
+              </div>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <div id="tagline-box">
+                    <p id='profile-tagline'>TAGLINE</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="profile-posts">
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class='row' id="user-profile-posts">
+            <h3>Posts</h3>
+          </div>
+        </div>
+      </div>
+
+      <div id="profile-requests">
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class='row' id="user-profile-requests">
+            <h3>Requests</h3>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="posts">
       <button type="button" id="create-post-button" class="btn btn-default">Create post</button>
@@ -261,109 +181,141 @@
       <div class="posts"></div>
     </section>
 
-    <section id="login">
-      <form class="login_form" method="post" action="/login">
-        <div class="form-group">
-<!--           <label for="login-email">Email address</label> -->
-          <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
-        </div>
-        <div class="form-group">
-<!--           <label for="login-password">Password</label> -->
-          <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
-        </div>
-        <button type="submit" id="login_button" class="large_button">Submit</button>
-      </form>
-    </section>
-  </section>
+  </main>
 
-  <section id="profile-tools">
-    <div class='row'>
-      <div class="col-sm-4">
-        <button id='user-profile-button'>Profile</button>
-      </div>
-      <div class="col-sm-4">
-        <button id='user-posts-button'>Posts</button>
-      </div>
-      <div class="col-sm-4">
-        <button id='user-requests-button'>Requests</button>
+  <!-- Request Modal -->
+  <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="request-form" method="post" action="/requests">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Send Request</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="request-message">Write your message here</label>
+              <input type="text" name="requester_message" id="requester_message" class="form-control" placeholder="Send your love message">
+              <input type="hidden" id="requester_id" name="requester_id">
+              <input type="hidden" id="requester_firstName" name="requester_firstName">
+              <input type="hidden" id="requester_email" name="requester_email">
+              <input type="hidden" id="requester_picture" name="requester_picture">
+              <input type="hidden" id="post_id" name="post_id">
+            </div>
+          </div>
+          <div class="modal-footer"> 
+            <button type="submit" id="add-request-button" class="btn btn-primary pull-right">Send Request</button>
+          </div>
+        </form>
       </div>
     </div>
-  </section>
-  <section id="profile">
-    <div class='row'>
-      <div class='col-sm-4'>
-        <img id='profile-image'>
-      </div>
-      <div class='col-sm-8'>
-        <div class='row'>
-          <div class='col-sm-12'>
-            <h3 id='profile-name'>NAME</h3>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-sm-12'>
-            <p id='profile-email'>EMAIL</p>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-sm-12'>
-            <p id='profile-tagline'>TAGLINE</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="profile-posts">
-      <div class='row' id="user-profile-posts"><h3>Posts</h3></div>
-    </section>
-    <section id="profile-requests">
-      <div class='row' id="user-profile-requests"><h3>Requests</h3></div>
-    </section>
-
-    <section id="create-request">
-      <form class="request-form" method="post" action="/requests">
-        <div class="form-group">
-          <label for="request-message">Write your message here</label>
-          <input type="text" name="requester_message" id="requester_message" class="form-control" placeholder="Send your love message">
-          <input type="hidden" id="requester_id" name="requester_id" value="">
-          <input type="hidden" id="requester_firstName" name="requester_firstName" value="">
-          <input type="hidden" id="requester_email" name="requester_email" value="">
-          <input type="hidden" id="requester_picture" name="requester_picture" value="">
-          <input type="hidden" id="post_id" name="post_id" value="">
-
-        </div>
-        <button type="submit" id="add-request-button" class="btn btn-default">Send Request</button>
-      </form>
-    </section>
-
   </div>
-</main>
 
+  <!-- Add Post Modal -->
+  <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="post-form" method="post" action="/posts">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add Post</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="post-what">What</label>
+              <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
+              <div label="charCount" id='CharCountLabel1'></div>
+            </div>
+            <div class="form-group">
+              <label for="post-where">Where</label>
+              <input type="text" name="where" id="posts-searchbox" class="form-control " placeholder="Search">
+              <input type="hidden" id="cityLat" name="lattitude">
+              <input type="hidden" id="cityLng" name="longitude">  
+            </div>
+            <div class="form-group">
+              <label for="post-when">When</label>
+              <select name="when" id="when" class="form-control" placeholder="When did you meet?">
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">  
+            <button type="submit" id="add-post-button" class="btn btn-primary pull-right">Add Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="login_form" method="post" action="/login">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Login</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
+            </div>
+          </div>
+          <div class="modal-footer">  
+            <button type="button" class="btn btn-facebook" data-auth="facebook">
+              Or Login with Facebook
+            </button>
+            <button type="submit" id="login_button" class="btn btn-primary pull-right">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="register_form" method="post" action="/register">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Register</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="register-firstname">First name</label>
+              <input type="text" name="firstName" id="register-firstname" class="form-control" placeholder="First name">
+            </div>
+            <div class="form-group">
+              <label for="register-lastname">Last name</label>
+              <input type="text" name="lastName" id="register-lastname" class="form-control" placeholder="Last name">
+            </div>
+            <div class="form-group">
+              <label for="register-image">Profile Picture</label>
+              <input type="text" name="picture" id="register-picture" class="form-control" placeholder="Profile Picture URL">
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email address</label>
+              <input type="email" name="email" id="register-email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" name="password" id="register-password" class="form-control" placeholder="Password">
+            </div>
+          </div>
+          <div class="modal-footer">  
+            <button type="button" class="btn btn-facebook" data-auth="facebook">
+              Or Register with Facebook
+            </button>
+            <button type="submit" id="register_button" class="btn btn-primary pull-right">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
-</div>
-</div>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
