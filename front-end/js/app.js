@@ -71,7 +71,6 @@ function search(){
       if (localStorage.getItem("token")) {
         $("#addPostModal").modal('show');
         $("#posts-searchbox").val(search);
-        setupGoogleMaps()
       } else {
         $("#loginModal").modal('show');
       }
@@ -247,24 +246,32 @@ function hideErrors() {
 function getPosts(){
   event.preventDefault();
   hideErrors();
-  $('section').hide();
+  // $('section').hide();
 
-  $("#home").hide()
-  // $('#homepage-title').hide();
-  $('#scroll_to_about').hide();
-  $('#about').hide();
-  $('#search').hide();
+  // $("#home").hide()
+  // // $('#homepage-title').hide();
+  // $('#scroll_to_about').hide();
+  // $('#about').hide();
+  // $('#search').hide();
+  // $(".navbar-default").css("background-color", "#111C24");
+  // $("body").css("background-image", "none");
+  // $("body").css("background-color", "#E8ECF0");
+
+  $('section').hide();
+  $('.search_title').show();
+  $('#posts').show();
   $(".navbar-default").css("background-color", "#111C24");
   $("body").css("background-image", "none");
   $("body").css("background-color", "#E8ECF0");
-
+  
+  $("#search_results").removeClass("hide")
+  $("#search_results").show();
 
 
   $.ajax({
     method: 'GET',
     url: 'http://localhost:3000/api/posts'
   }).done(function(data){
-
     displayAllPosts(data);
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
@@ -276,28 +283,45 @@ function displayAllPosts(data){
   var posts = data.posts;
 
   for (var i=0; i<posts.length; i++) {
-      $('.posts').prepend(
-        '<ul class="what">' +
-        '<p>What: '+ posts[i].what + '</p>'+
-        '</ul>' +
-        '<ul class="where">'+
-        '<p>Where: '+ posts[i].where + '</p>'+
-        '</ul>' +
-        '<ul class="when">'+
-        '<p>When: '+ posts[i].when + '</p>'+
-        '</ul>'+
-        '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
-        '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send"></button>'
-        )
-
-  // if( posts[i].requests){
-  //   for (var j=0; j<posts[i].requests.length; j++){
-  //     if (posts[i].requests[j].requester_id == localStorage.getItem('user_id')){
-  //       '<button type="button" disabled id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Request Sent</button>'
-  //       } else{ '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'}
-  //     }
-  //   }
+    $('.search-results').append(
+      '<div class="each-result">'+
+      '<div class="col-sm-4">' +
+      '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
+      '</div>' +
+      '<div class="col-sm-4">' +
+      '<p class="when">'+ posts[i].when + '</p>'+
+      '</div>' +
+      '<div class="col-sm-4 request-container">' +
+      '<a href="#" id=' + posts[i]._id + ' data-toggle="modal" data-target="#requestModal" class="send-request"><img src="../images/logo.png"></a>'
+        +
+        '</div>' +
+        '</div>'
+       );
   }
+
+  // for (var i=0; i<posts.length; i++) {
+  //     $('.posts').prepend(
+  //       '<ul class="what">' +
+  //       '<p>What: '+ posts[i].what + '</p>'+
+  //       '</ul>' +
+  //       '<ul class="where">'+
+  //       '<p>Where: '+ posts[i].where + '</p>'+
+  //       '</ul>' +
+  //       '<ul class="when">'+
+  //       '<p>When: '+ posts[i].when + '</p>'+
+  //       '</ul>'+
+  //       '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
+  //       '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send"></button>'
+  //       )
+
+  // // if( posts[i].requests){
+  // //   for (var j=0; j<posts[i].requests.length; j++){
+  // //     if (posts[i].requests[j].requester_id == localStorage.getItem('user_id')){
+  // //       '<button type="button" disabled id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Request Sent</button>'
+  // //       } else{ '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'}
+  // //     }
+  // //   }
+  // }
 }
 
 
