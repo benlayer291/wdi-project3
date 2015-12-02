@@ -4,6 +4,7 @@ function init(){
   
   setupGoogleMaps();
 
+  //homepage
   // Forms
   $('.login_form').on('submit', login);
   $('.register_form').on('submit', register);
@@ -26,6 +27,7 @@ function init(){
   $('#user-requests-button').on('click', displayOneUserRequests);
   $('#posts').on('click', ".send-request", createRequestForm);
 
+
   // $('.large_button_email').on("click", chooseEmailLogin);
   // $('.search_title').hide();
 
@@ -39,6 +41,7 @@ function aboutScroll(){
 function displayHome(){
   event.preventDefault();
   $('section').hide();
+  $("#about").show();
   $("#home").show();
   $(".navbar-default").css("background", "transparent");
   $("body").css("background-image", 'url("http://bit.ly/1Igm8Ks")');
@@ -64,6 +67,50 @@ function search(){
   }).done(function(data){
     hidePosts();
     var posts = data.posts;
+    console.log(data.posts);
+
+    // RADIUS SEARCH
+
+    // function setupGoogleMaps(){
+    //   var fields = ["home-searchbox", "posts-searchbox"]
+
+    //   $.each(fields, function(index, field){
+    //     // Search box variable
+    //     var searchBox = new google.maps.places.Autocomplete(document.getElementById(field));
+    //     // // SearchBox event listener;
+    //     google.maps.event.addListener(searchBox, 'place_changed', function() {
+    //       var place = searchBox.getPlace();
+    //       var placeLat = place.geometry.location.lat();
+    //       var placeLng = place.geometry.location.lng();
+    //       document.getElementById('cityLat').value = placeLat;
+    //       document.getElementById('cityLng').value = placeLng;
+    //       console.log(place)
+    //     })
+
+    //     //Clear the searchBox when we click on it; 
+    //     $("#" + field).on('click', function(){
+    //       $(this).val('');
+    //     })
+    //   })
+    // }
+
+    // var request = {
+    // location: latLng,
+    // radius: 20000,
+    // types: [type] //e.g.school,restaurant,bank etc..
+    // };
+
+    // var service = new google.maps.places.PlacesService(map);
+    // service.search(request, function(results, status) {
+    // map.setZoom(14);
+    // if (status == google.maps.places.PlacesServiceStatus.OK) {
+    // for (var i = 0; i < results.length; i++) {
+    // results[i].html_attributions='';
+    // createMarker(results[i],icon);
+    // }
+    // }
+
+    // ======================
 
     if (posts.length === 0) {
       showErrors("There are no posts found for this location.");
@@ -80,13 +127,14 @@ function search(){
       }
 
     } else {
-      var title = (posts[0].where).split(',');
-      $('#nav-search-title').html('<h3>'+ title[0] + '</h3>');
+      var title = $("#home-searchbox").val();
+      var splitTitle = ((title).split(',')[0]);
+      $('#nav-search-title').html('<h3>'+ splitTitle + '</h3>');
 
       for (var i=0; i<posts.length; i++) {
         $('.search-results').append(
           '<div class="each-result">'+
-          '<div class="col-sm-4">' +
+          '<div class="when col-sm-4">' +
           '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
           '</div>' +
           '<div class="col-sm-4">' +
@@ -298,31 +346,7 @@ function displayAllPosts(data){
         '</div>'
        );
   }
-
-  // for (var i=0; i<posts.length; i++) {
-  //     $('.posts').prepend(
-  //       '<ul class="what">' +
-  //       '<p>What: '+ posts[i].what + '</p>'+
-  //       '</ul>' +
-  //       '<ul class="where">'+
-  //       '<p>Where: '+ posts[i].where + '</p>'+
-  //       '</ul>' +
-  //       '<ul class="when">'+
-  //       '<p>When: '+ posts[i].when + '</p>'+
-  //       '</ul>'+
-  //       '<button type="button" id=' + posts[i]._id + ' class="show-post btn btn-default" value="Submit">Show Page</button>' +
-  //       '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send"></button>'
-  //       )
-
-  // // if( posts[i].requests){
-  // //   for (var j=0; j<posts[i].requests.length; j++){
-  // //     if (posts[i].requests[j].requester_id == localStorage.getItem('user_id')){
-  // //       '<button type="button" disabled id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Request Sent</button>'
-  // //       } else{ '<button type="button" id=' + posts[i]._id + ' class="send-request btn btn-default" value="Send">Send Request</button>'}
-  // //     }
-  // //   }
-  // }
-}
+};
 
 
 function showCreatePosts() {
@@ -394,6 +418,23 @@ function hidePosts(){
   return $('.posts, .search-results').empty();
 }
 
+// for (var i=0; i<posts.length; i++) {
+//   $('.search-results').append(
+//     '<div class="user-profile-posts">'+
+//     '<div class="col-sm-4">' +
+//     '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
+//     '</div>' +
+//     '<div class="col-sm-4">' +
+//     '<p class="when">'+ posts[i].when + '</p>'+
+//     '</div>' +
+//     '<div class="col-sm-4 request-container">' +
+//     '<a href="#" id=' + posts[i]._id + ' data-toggle="modal" data-target="#requestModal" class="send-request"><img src="../images/logo.png"></a>'
+//       +
+//       '</div>' +
+//       '</div>'
+//      );
+// }
+
 
 // Autocomplete
 function setupGoogleMaps(){
@@ -442,13 +483,18 @@ function fillInfoOneUser(data) {
 
   for (var i=0; i<posts.length; i++) {
     $('#user-profile-posts').append(
-      '<div class="row">' +
-      '<div class="col-sm-3">'+posts[i].where+'</div>' +
-      '<div class="col-sm-3">'+posts[i].when+'</div>' +
-      '<div class="col-sm-6">'+posts[i].what+'</div>' +
+      '<div class="when col-sm-4">' +
+      '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
+      '</div>' +
+      '<div class="col-sm-4">' +
+      '<p class="when">'+ posts[i].when + '</p>'+
+      '</div>' +
+      '<div class="when col-sm-4">' +
+      '<p>' + (posts[i].where.split(',')[0]) + '</p>'+
       '</div>'
-      )
+       );
   }
+
 
   for (var i=0; i<posts.length; i++) {
     for(var j=0; j<posts[i].requests.length; j++){
@@ -480,6 +526,7 @@ function fillInfoOneUser(data) {
     }
   }
 }
+
 
 
 function displayOneUser() {
@@ -519,11 +566,12 @@ function displayOneUserPosts() {
   event.preventDefault();
   // $('section').hide();
   $('#profile-posts').fadeIn(1200);
+  $('#user-profile-posts').show();
   // $('#my-profile-header').show();
 
   $("#profile-box").hide();
   $("#profile-requests").hide();
-  $("#profile-posts").show();
+  // $("#profile-posts").show();
 
   $('#user-posts-button').css("background-color", "white");
   $('#user-posts-button').css("color", "black");
@@ -538,6 +586,7 @@ function displayOneUserRequests() {
   event.preventDefault();
 
   $("#profile-box").hide();
+  $('#user-profile-posts').hide();
   $("#profile-requests").show();
   $("#profile-posts").hide();
 

@@ -2,20 +2,26 @@ html {
   height: 100%;
   min-height: 100%; }
 
-body {
-  background-image: url("http://bit.ly/1Igm8Ks");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; }
+.row {
+  margin: 0 auto; }
 
 button:focus {
   outline: 0; }
+
+body {
+  background-image: url(../images/Home_photo_spoken.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-height: 100vh;
+  border: none;
+  height: 100vh; }
 
 .navbar-default .navbar-nav > li > a {
   color: #F1F1F1; }
 
 nav {
-  height: 29vh; }
+  height: 26vh; }
 
 .navbar-default {
   background-color: transparent;
@@ -23,8 +29,8 @@ nav {
 
 .logo {
   position: relative;
-  height: 50px;
-  width: 50px;
+  height: 5vh;
+  width: auto;
   margin-left: 10%;
   margin-top: 5.39vh; }
 
@@ -38,12 +44,12 @@ nav {
   padding: none; }
 
 .title {
-  margin-bottom: 0.5vh;
+  margin-bottom: 2vh;
   margin-top: 0vh;
   text-align: center;
   color: white;
   margin-top: 0px;
-  font-size: 58px;
+  font-size: 7.5vh;
   letter-spacing: 2px; }
 
 #search_blurb {
@@ -51,12 +57,14 @@ nav {
   margin-top: -1.5vh; }
 
 #scroll_to_about {
-  text-align: center; }
+  text-align: center;
+  z-index: -5; }
 
 #learn_more {
   color: white;
   left: 17.5vw;
   top: 10vh;
+  margin-top: 14vh;
   font-weight: lighter;
   text-decoration: none;
   display: block;
@@ -92,27 +100,33 @@ main.container {
   margin-top: 22vh; }
 
 .about {
-  padding: 50px;
+  padding-top: 30vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
   width: 100%;
-  background-color: #111C24; }
+  background-color: #111C24;
+  position: absolute;
+  top: 100vh;
+  height: 100vh;
+  margin: 0 auto; }
 
 #wordmark_logo {
-  height: 60px;
   margin: 0 auto;
-  display: block; }
+  display: block;
+  height: 20vh; }
 
 #about_box {
   border-radius: 8px;
-  height: 100px;
-  width: 300px;
+  height: 21vh;
+  width: 36vw;
   background-color: #E8ECF0;
   margin: 0 auto; }
 
 #blurb_box_tip {
-  margin: -30px auto;
-  height: 50px;
-  width: 30px;
-  display: block; }
+  margin-left: 34vw;
+  width: 5vw;
+  display: block;
+  margin-top: -5vh; }
 
 #create-post-button {
   display: block;
@@ -162,29 +176,33 @@ main.container {
   right: 40.2vh; }
 
 #nav-search-title {
+  display: hidden inline;
+  text-align: center;
+  color: white;
+  margin-top: 0; }
+
+#my-profile {
   display: hidden;
   position: absolute;
-  margin-left: 38.5vw;
-  margin-right: 38.5vw;
+  margin-left: 34.5vw;
+  margin-right: auto;
   color: white;
   margin-top: 10vh; }
-  #nav-search-title #my-profile {
-    display: hidden;
-    position: absolute;
-    margin-left: 34.5vw;
-    margin-right: auto;
-    color: white;
-    margin-top: 10vh; }
-  #nav-search-title h3 {
-    font-size: 7.3vh; }
+
+h3 {
+  font-size: 7.3vh;
+  margin: 0; }
 
 #nearby {
-  position: absolute;
-  margin-left: 42.5vw;
+  display: block;
+  text-align: center;
   color: #B7BABD;
-  margin-top: 10vh;
+  margin: 0;
   font-size: 2.2vh;
   font-style: lighter; }
+
+#nearbyRow {
+  margin: 0; }
 
 .logo_button_search_page {
   color: none;
@@ -298,5 +316,46 @@ main.container {
 
 .modal-backdrop {
   z-index: 10; }
+
+#tagline {
+  top: 18vh;
+  position: absolute;
+  top: 18vh;
+  position: absolute;
+  width: 17.8vw;
+  height: 8vh;
+  border: none; }
+
+www_title {
+  text-align: center; }
+
+.what {
+  text-align: center; }
+
+.when {
+  text-align: center; }
+
+.What {
+  text-align: center; }
+
+.When {
+  text-align: center; }
+
+.Chat {
+  text-align: center; }
+
+#search_results_row {
+  width: 50vw;
+  font-weight: bold;
+  font-size: 2vh; }
+
+#about {
+  margin-top: 5vh; }
+
+.www_profile_posts {
+  font-weight: bold;
+  font-size: 2vh;
+  padding: 3.5vh;
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

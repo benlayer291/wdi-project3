@@ -4,8 +4,6 @@
   <meta charset="utf-8">
   <title>SPOKEN</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://use.typekit.net/mcm4chn.js"></script>
-  <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
   <!-- Social buttons -->
@@ -28,16 +26,10 @@
 
   <header>
     <nav class="navbar navbar-default">
-
-      <section class="search_title">
-        <div id="nearby">SPOKEN NEAR</div>
-        <div id="nav-search-title"></div>
-      </section>
-
       <div class="container">
         <div class="navbar-header">
           <a href="#" class="home-link">
-            <img class="logo" src="http://bit.ly/1XlIMbg">
+            <img class="logo" src="./images/Spoken_wordmark.png">
           </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
@@ -48,6 +40,13 @@
         </ul>
       </div><!-- /.container-fluid -->
 
+      <section class="search_title">
+      <div class="row" id="nearbyRow">
+        <p id="nearby">SPOKEN NEAR</p>
+        <div id="nav-search-title"></div>
+        </div>
+      </section>
+
       <section id="my-profile-header">
         <h6 id="my-profile-header">My Profile</h6>
       </section>
@@ -56,7 +55,7 @@
 
   <main>
     <section id="home">
-      <div class="homepage">
+<!--       <div class="homepage"> -->
         <div class="container">
           <div class="hide alert alert-danger" role="alert"></div>
           <div class="col-sm-12" id="homepage-title">
@@ -72,25 +71,26 @@
             <input type="hidden" id="searchLng" name="longitude">  
             <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
           </form> 
+          <div class="row">
+          <div id="learn_more_section">
+            <div class="col-sm-6 col-md-offset-3">
+              <div id="scroll_to_about">
+                <a id="learn_more">About</a>
+                <img id="learn_more_arrow" src="./images/down_arrow.png">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div id="about">
         <div class="about">
-          <div id="learn_more_section">
-            <div class="col-sm-6 col-md-offset-3">
-              <div id="scroll_to_about">
-                <a id="learn_more">Learn More</a>
-                <img id="learn_more_arrow" src="http://bit.ly/1N83LZb">
-              </div>
-            </div>
-          </div>
-          <img id="wordmark_logo" src="http://bit.ly/1XlIMbg">
+          <img id="wordmark_logo" src="./images/Spoken_wordmark.png">
           <!-- <h1 class="title" id="wordmark">SPOKEN</h1> -->
 
-          <h1 id="about_blurb">You've already met the one</h1>
+          <h1 id="about_blurb">Have you already</h1>
           <div id="about_box"></div>
-          <img id="blurb_box_tip" src="http://bit.ly/1Hnk9Jn">
+          <img id="blurb_box_tip" src="./images/speechmarktip.png">
         </div>
       </div>
     </section>
@@ -102,8 +102,21 @@
       </div>
 
       <div id="posts">
-        <div class="row" id="search_results_row">
+        <div class="row">
+          <div class="row" id="search_results_row">
+          <div class="col-sm-4">
+            <p class ="www_title What">WHAT</p>
+          </div>
+          <div class="col-sm-4">
+            <p class="www_title When">WHEN</p>
+          </div>
+          <div class="col-sm-4">
+            <p class="www_title Chat">CHAT</p>
+          </div>
+          </div>
+          <div class="each-result">
           <div class="search-results row">
+          </div>
           </div>
           <div class="row">
             <div class="col-12">
@@ -144,13 +157,9 @@
               <div class='row'>
                 <div class='col-sm-12'>
                   <h7 id='profile-name'>NAME</h7>
+                  <input type="text" name="tagline" id="tagline" class="form-control" placeholder="tagline" maxlength="35" >
                 </div>
               </div>
-              <div class='row'>
-                <div class='col-sm-12'>
-                  <div id="tagline-box">
-                    <p id='profile-tagline'>TAGLINE</p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -159,9 +168,19 @@
       </div>
 
       <div id="profile-posts">
+      <div class="www_profile_posts col-sm-8 col-sm-offset-2">
+      <div class="col-sm-4">
+        <p class ="www_title What">WHAT</p>
+      </div>
+      <div class="col-sm-4">
+        <p class="www_title When">WHEN</p>
+      </div>
+      <div class="col-sm-4">
+        <p class="www_title Chat">WHERE</p>
+      </div>
+      </div>
         <div class="col-sm-8 col-sm-offset-2">
           <div class='row' id="user-profile-posts">
-            <h3>Posts</h3>
           </div>
         </div>
       </div>
@@ -169,7 +188,6 @@
       <div id="profile-requests">
         <div class="col-sm-8 col-sm-offset-2">
           <div class='row' id="user-profile-requests">
-            <h3>Requests</h3>
           </div>
         </div>
       </div>
@@ -195,7 +213,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="request-message">Write your message here</label>
-              <input type="text" name="requester_message" id="requester_message" class="form-control" placeholder="Send your love message">
+              <input type="text" name="requester_message" id="requester_message" class="form-control" placeholder="Talk about anything else?">
               <input type="hidden" id="requester_id" name="requester_id">
               <input type="hidden" id="requester_firstName" name="requester_firstName">
               <input type="hidden" id="requester_email" name="requester_email">
@@ -319,3 +337,16 @@
   </div>
 </body>
 </html>
+
+<!-- 
+SORT OUT PROFILE POSTS PAGE
+CLEAR SEARCH BOX AFTER SEARCH
+MAKE THE TAGLINE BOX AUTOSAVE - SOCKET NEEDED! - SAME JOB AS INSTANT CHAT.
+SORT OUT ABOUT SECTION
+SEARCH BY INPUT
+CHARACTER COUNT - 
+TWITTER LINK UP
+DELETE BUTTON ON OUR CHATS?
+REGISTRATION FORMS - EDIT THE MODAL - not a priority
+Get
+ -->
