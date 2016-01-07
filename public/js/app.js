@@ -71,7 +71,7 @@ function search(){
   }).done(function(data){
     hidePosts();
     var posts = data.posts;
-    // console.log(data.posts);
+    console.log(data.posts);
 
     // RADIUS SEARCH
 
@@ -374,7 +374,7 @@ function showCreatePosts() {
 
 function addNewPost(){
   event.preventDefault();
-  // console.log('creating new post');
+  console.log('creating new post');
   $.ajax({
     method: 'POST',
     url: 'https://spoken-dating.herokuapp.com/api/posts',
@@ -386,8 +386,6 @@ function addNewPost(){
     getPosts();
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
-  }).always(function(data){
-    // console.log(data);
   });
 }
 
@@ -485,7 +483,7 @@ function getUserInfo() {
     beforeSend: setHeader
   }).done(function(data){
     fillInfoOneUser(data);
-    // console.log('!!!!!!!',data);
+    console.log('!!!!!!!',data);
   })
 }
 
@@ -516,7 +514,7 @@ function fillInfoOneUser(data) {
 
   for (var i=0; i<posts.length; i++) {
     for(var j=0; j<posts[i].requests.length; j++){
-      // console.log(posts[i].requests[j]);
+      console.log(posts[i].requests[j]);
       $('#user-profile-requests').append(
         '<div class="row">'+
         '<div class="col-sm-4">' +
