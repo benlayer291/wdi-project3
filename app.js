@@ -63,12 +63,18 @@ app.use(function(err, req, res, next) {
 var routes = require('./config/routes')
 app.use('/api', routes)
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public")
+  .unless({
+    path: [
+      { url: '/', methods: ["GET"] }
+    ]
+  })
+);
 
-// app.get('/', function(req, res) {
-//   res.sendFile('/index.html');
-// })
+app.get('/', function(req, res) {
+  res.sendFile('/index.html');
+})
 
 app.listen(port);
-console.log("App listening on"+ port);
+console.log("App listening on "+ port);
 
