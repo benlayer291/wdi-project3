@@ -59,7 +59,7 @@ var searchInfo;
 
 function search(){
   event.preventDefault();
-  console.log(this);
+  // console.log(this);
   searchInfo   = $("#home-searchbox").val();
   var formData = $(this).serialize();
 
@@ -70,7 +70,7 @@ function search(){
   }).done(function(data){
     hidePosts();
     var posts = data.posts;
-    console.log(data.posts);
+    // console.log(data.posts);
 
     // RADIUS SEARCH
 
@@ -356,7 +356,7 @@ function displayAllPosts(data){
 function showCreatePosts() {
   event.preventDefault();
   hideErrors();
-  console.log(searchInfo);
+  // console.log(searchInfo);
   // $('section').hide();
   // $('#create-post').show();
   if (localStorage.getItem("token")) {
@@ -370,7 +370,7 @@ function showCreatePosts() {
 
 function addNewPost(){
   event.preventDefault();
-  console.log('creating new post');
+  // console.log('creating new post');
   $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/api/posts',
@@ -382,7 +382,7 @@ function addNewPost(){
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
   }).always(function(data){
-    console.log(data);
+    // console.log(data);
   });
 }
 
@@ -478,7 +478,7 @@ function getUserInfo() {
     beforeSend: setHeader
   }).done(function(data){
     fillInfoOneUser(data);
-    console.log('!!!!!!!',data);
+    // console.log('!!!!!!!',data);
   })
 }
 
@@ -509,7 +509,7 @@ function fillInfoOneUser(data) {
 
   for (var i=0; i<posts.length; i++) {
     for(var j=0; j<posts[i].requests.length; j++){
-      console.log(posts[i].requests[j]);
+      // console.log(posts[i].requests[j]);
       $('#user-profile-requests').append(
         '<div class="row">'+
         '<div class="col-sm-4">' +
@@ -612,7 +612,7 @@ function displayOneUserRequests() {
 }
 
 function createRequestForm(){
-  console.log($(this).attr('id'));
+  // console.log($(this).attr('id'));
   postId = $(this).attr('id');
   event.preventDefault();
   hideErrors();
@@ -628,8 +628,8 @@ function fillRequestForm(postId){
    url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
    beforeSend: setHeader
  }).done(function(data){
-  console.log(data);
-  console.log(this);
+  // console.log(data);
+  // console.log(this);
   $('#requester_id').val(data.user._id);
   $('#requester_firstName').val(data.user.local.firstName);
   $('#requester_lastName').val(data.user.local.lastName);
