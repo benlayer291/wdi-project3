@@ -65,9 +65,9 @@ app.use('/api', routes)
 
 app.use(express.static(__dirname + "/public"));
 
-app.get('/', function(req, res) {
-  res.sendFile('/index.html');
-})
+// app.get('/', function(req, res) {
+//   res.sendFile('/index.html');
+// })
 
 app.listen(port);
 console.log("App listening on"+ port);
