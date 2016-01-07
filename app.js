@@ -63,13 +63,7 @@ app.use(function(err, req, res, next) {
 var routes = require('./config/routes')
 app.use('/api', routes)
 
-app.use(express.static(__dirname + "/public")
-  .unless({
-    path: [
-      { url: '/', methods: ["GET"] }
-    ]
-  })
-);
+app.use(express.static(__dirname + "/public"));
 
 app.get('/', function(req, res) {
   res.sendFile('/index.html');
