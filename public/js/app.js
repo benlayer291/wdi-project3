@@ -328,6 +328,7 @@ function getPosts(){
     url: 'https://spoken-dating.herokuapp.com/api/posts'
     // url: 'http://localhost:3000/api/posts'
   }).done(function(data){
+    console.log('***** POSTS'+data);
     displayAllPosts(data);
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
@@ -496,7 +497,7 @@ function fillInfoOneUser(data) {
   $('#profile-tagline').html(user.tagline);
 
   for (var i=0; i<posts.length; i++) {
-
+    
     $('#user-profile-posts').append(
       '<div class="when col-sm-4">' +
       '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+

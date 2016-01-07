@@ -40,7 +40,7 @@ function postsCreate(req, res){
 
       user.save(function(err, user) { 
         if (err) return res.status(500).json({ message: "Not saving"});
-        console.log('*************');
+
         return res.status(200).json({ message: 'Post succesfully created', post: post })
       });
     });
