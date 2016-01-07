@@ -31,7 +31,8 @@ hello.on('auth.login', function(auth){
     data.access_token = hello(auth.network).getAuthResponse().access_token;
     return $.ajax({
       method:'post',
-      url: 'http://localhost:3000/api/facebook',
+      url: 'https://spoken-dating.herokuapp.com/api/facebook',
+      // url: 'http://localhost:3000/api/facebook',
       data: data
     }).done(function(data){
       console.log(data);
