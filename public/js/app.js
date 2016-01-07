@@ -65,7 +65,8 @@ function search(){
 
   $.ajax({
     method: "post",
-    url: "http://localhost:3000/api"+$(this).attr("action"),
+    url: "https://spoken-dating.herokuapp.com/api"+$(this).attr("action"),
+    // url: "http://localhost:3000/api"+$(this).attr("action"),
     data: formData
   }).done(function(data){
     hidePosts();
@@ -170,7 +171,8 @@ function register(){
   $('#registerModal').modal('hide');
   $.ajax({
     method: "POST",
-    url: "http://localhost:3000/api/register",
+    url: "https://spoken-dating.herokuapp.com/api/register",
+    // url: "http://localhost:3000/api/register",
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
@@ -189,7 +191,8 @@ function login(){
   
   $.ajax({
     method: "POST",
-    url: "http://localhost:3000/api/login",
+    url: "https://spoken-dating.herokuapp.com/api/login",
+    // url: "http://localhost:3000/api/login",
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data){
@@ -322,7 +325,8 @@ function getPosts(){
 
   $.ajax({
     method: 'GET',
-    url: 'http://localhost:3000/api/posts'
+    url: 'https://spoken-dating.herokuapp.com/api/posts'
+    // url: 'http://localhost:3000/api/posts'
   }).done(function(data){
     displayAllPosts(data);
   }).fail(function(data){
@@ -373,7 +377,8 @@ function addNewPost(){
   // console.log('creating new post');
   $.ajax({
     method: 'POST',
-    url: 'http://localhost:3000/api/posts',
+    url: 'https://spoken-dating.herokuapp.com/api/posts',
+    // url: 'http://localhost:3000/api/posts',
     data: $(this).serialize(),
     beforeSend: setHeader
   }).done(function(data) {
@@ -394,7 +399,8 @@ function getOnePost(){
 
   $.ajax({
     method: 'GET',
-    url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
+    url: 'https://spoken-dating.herokuapp.com/api/posts/'+$(this).attr('id'),
+    // url: 'http://localhost:3000/api/posts/'+$(this).attr('id'),
     beforeSend: setHeader
   }).done(function(data){
     displayOnePost(data);
@@ -474,7 +480,8 @@ function getUserInfo() {
 
   $.ajax({
     method: 'GET',
-    url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
+    url: 'https://spoken-dating.herokuapp.com/api/users/'+localStorage.getItem('user_id'),
+    // url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
     beforeSend: setHeader
   }).done(function(data){
     fillInfoOneUser(data);
@@ -625,7 +632,8 @@ function fillRequestForm(postId){
   $('#post_id').val(postId);
  $.ajax({
    method: 'GET',
-   url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
+   url: 'https://spoken-dating.herokuapp.com/api/users/'+localStorage.getItem('user_id'),
+   // url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
    beforeSend: setHeader
  }).done(function(data){
   // console.log(data);
@@ -644,7 +652,8 @@ function sendRequestForm(){
   $("#requestModal").modal('hide');
   $.ajax({
     method: 'POST',
-    url: 'http://localhost:3000/api/requests',
+    url: 'https://spoken-dating.herokuapp.com/api/requests',
+    // url: 'http://localhost:3000/api/requests',
     beforeSend: setHeader,
     data: $(this).serialize(),
     }).done(function(data) {
