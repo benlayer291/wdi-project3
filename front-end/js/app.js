@@ -478,19 +478,20 @@ function getUserInfo() {
     beforeSend: setHeader
   }).done(function(data){
     fillInfoOneUser(data);
-
+    console.log('!!!!!!!',data);
   })
 }
 
 function fillInfoOneUser(data) {
   var user     = data.user.local
   var posts    = data.user.local.posts
-  console.log(data);
+
   $('#profile-image').attr('src', user.picture);
   $('#profile-name').html(user.firstName + " " + user.lastName);
   $('#profile-tagline').html(user.tagline);
 
   for (var i=0; i<posts.length; i++) {
+
     $('#user-profile-posts').append(
       '<div class="when col-sm-4">' +
       '<p>'+ '"'+ posts[i].what + '"'+ '</p>'+
@@ -502,26 +503,27 @@ function fillInfoOneUser(data) {
       '<p>' + (posts[i].where.split(',')[0]) + '</p>'+
       '</div>'
        );
+
   }
 
 
   for (var i=0; i<posts.length; i++) {
     for(var j=0; j<posts[i].requests.length; j++){
-      console.log(posts[i].requests[j])
+      console.log(posts[i].requests[j]);
       $('#user-profile-requests').append(
         '<div class="row">'+
         '<div class="col-sm-4">' +
-        '<img id="requests-image">' +
+        '<p>'+ '"'+ posts[i].what + '"'+ '</p>' +
         '</div>'+
         '<div class="col-sm-8">'+
         '<div class="row">'+
         '<div class="col-sm-12">'+
-        '<h3 id="requests-name">'+ posts[i].requests[j].firstName+ '</h3>' +
+        '<h3 id="requests-name">'+ posts[i].requests[j].requester_firstName+ '</h3>' +
         '</div>'+
         '</div>'+
         '<div class="row">'+
         '<div class="col-sm-12">'+
-        '<p id="requests-email">' + posts[i].requests[j].email +'</p>'+
+        '<p id="requests-email">' + posts[i].requests[j].requester_email +'</p>'+
         '</div>'+
         '</div>'+
         '<div class="row">'+
