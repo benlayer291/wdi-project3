@@ -30,26 +30,17 @@ function requestsCreate(req, res){
 
   Post.findOne({_id: postId}, function(err, post){
 
-    var request = new Request({
-      requester_id: req.body.requester_id,
-      requester_firstName: req.body.requester_firstName,
-      requester_lastName: req.body.requester_lastName,
-      requester_email: req.body.requester_email,
-      requester_picture: req.body.requester_picture,
-      message: req.body.requester_message
-    });
-
-    console.log(post);
+    var request = new Request(req.body);
 
     request.save(function(err, request){
-      console.log(err);
 
       if (err) return res.status(500).json({ message: "Something went wrong" });
       post.requests.push(request);
 
-      post.save(function(err, post){
+      post.save(function(err){
+
         if (err) return res.status(500).json({ message: "Something went wrong" });
-        return res.status(201).json({ message: 'Request succesfully created', request: request }); 
+        return res.status(201).json({ message: 'Request succesfully created and added to post', post: post }); 
       });
     });
   });  

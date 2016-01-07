@@ -2,7 +2,7 @@ var mongoose   = require('mongoose');
 var Request    = require('./request');
 
 var postSchema = new mongoose.Schema({
-  _creator:  { type: String, ref: 'User' },
+  // _creator:  { type: String, ref: 'User' },
   where:     { type: String, required: true },
   lattitude: { type: String, required: true },
   longitude: { type: String, required: true },

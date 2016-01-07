@@ -28,18 +28,20 @@ function postsShow(req, res){
 // Create-POST
 
 function postsCreate(req, res){
-  User.findById({_id: currentUser._id}, function(err, user){
+
+  User.findById({_id: req.body.user_id}, function(err, user){
 
     var post = new Post(req.body);
     post.save(function(err, post){
-      console.log(err)
+
       if (err) return res.status(500).json({ message: "Something went wrong"});
       
       user.local.posts.push(post);
 
       user.save(function(err, user) { 
         if (err) return res.status(500).json({ message: "Not saving"});
-        return res.status(201).json({ message: 'Post succesfully created', post: post });  
+        console.log('*************');
+        return res.status(200).json({ message: 'Post succesfully created', post: post })
       });
     });
   });
@@ -86,7 +88,7 @@ function postsSearch(req, res) {
   Post.find({ $text : { $search : req.body.search } },
             { score : { $meta: "textScore" } }
   ).sort({ score : { $meta : 'textScore' } }).exec(function(err, posts) {
-    console.log(err)
+    // console.log(err)
     if (err) return res.status(500).json({ message: "Something went wrong " });
 
     res.status(200).json({ posts: posts })

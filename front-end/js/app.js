@@ -44,7 +44,8 @@ function displayHome(){
   $("#about").show();
   $("#home").show();
   $(".navbar-default").css("background", "transparent");
-  $("body").css("background-image", 'url("http://bit.ly/1Igm8Ks")');
+  // $("body").css("background-image", 'url("http://bit.ly/1Igm8Ks")');
+  $("body").css("background-image", 'url("../images/Home_photo_spoken.jpg")');
 }
 
 function whenYouPressLogIn(){
@@ -54,10 +55,12 @@ function whenYouPressLogIn(){
   $('#search_blurb').toggle();
 };
 
+var searchInfo;
+
 function search(){
   event.preventDefault();
-
-  var search   = $("#home-searchbox").val();
+  console.log(this);
+  searchInfo   = $("#home-searchbox").val();
   var formData = $(this).serialize();
 
   $.ajax({
@@ -117,7 +120,7 @@ function search(){
       
       if (localStorage.getItem("token")) {
         $("#addPostModal").modal('show');
-        $("#posts-searchbox").val(search);
+        $("#posts-searchbox").val(searchInfo);
       } else {
         $("#loginModal").modal('show');
       }
@@ -146,6 +149,7 @@ function search(){
             '</div>' +
             '</div>'
            );
+        $('#post_id').val(posts[i]._id);
       }
 
       $('section').hide();
@@ -352,11 +356,13 @@ function displayAllPosts(data){
 function showCreatePosts() {
   event.preventDefault();
   hideErrors();
+  console.log(searchInfo);
   // $('section').hide();
   // $('#create-post').show();
   if (localStorage.getItem("token")) {
     $("#addPostModal").modal('show');
-    $("#posts-searchbox").val(search);
+    $("#posts-searchbox").val(searchInfo);
+    $("#poster-user_id").val(localStorage.getItem('user_id'))
   } else {
     $("#loginModal").modal('show');
   }
@@ -364,7 +370,7 @@ function showCreatePosts() {
 
 function addNewPost(){
   event.preventDefault();
-
+  console.log('creating new post');
   $.ajax({
     method: 'POST',
     url: 'http://localhost:3000/api/posts',
@@ -375,6 +381,8 @@ function addNewPost(){
     getPosts();
   }).fail(function(data){
     return showErrors(data.responseJSON.message);
+  }).always(function(data){
+    console.log(data);
   });
 }
 
@@ -477,6 +485,7 @@ function getUserInfo() {
 function fillInfoOneUser(data) {
   var user     = data.user.local
   var posts    = data.user.local.posts
+  console.log(data);
   $('#profile-image').attr('src', user.picture);
   $('#profile-name').html(user.firstName + " " + user.lastName);
   $('#profile-tagline').html(user.tagline);
@@ -601,26 +610,29 @@ function displayOneUserRequests() {
 }
 
 function createRequestForm(){
-  // console.log("HELLO");
+  console.log($(this).attr('id'));
+  postId = $(this).attr('id');
   event.preventDefault();
   hideErrors();
   // $('section').hide();
   // $('#create-request').show();
-  fillRequestForm();
+  fillRequestForm(postId);
 }
 
-function fillRequestForm(data){
+function fillRequestForm(postId){
+  $('#post_id').val(postId);
  $.ajax({
    method: 'GET',
    url: 'http://localhost:3000/api/users/'+localStorage.getItem('user_id'),
    beforeSend: setHeader
  }).done(function(data){
   console.log(data);
+  console.log(this);
   $('#requester_id').val(data.user._id);
   $('#requester_firstName').val(data.user.local.firstName);
+  $('#requester_lastName').val(data.user.local.lastName);
   $('#requester_email').val(data.user.local.email);
   $('#requester_picture').val(data.user.local.picture);
-  $('#post_id').val(($('.send-request').attr('id')));
  })
 }
 

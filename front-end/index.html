@@ -213,9 +213,10 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="request-message">Write your message here</label>
-              <input type="text" name="requester_message" id="requester_message" class="form-control" placeholder="Talk about anything else?">
+              <input type="text" name="message" id="requester_message" class="form-control" placeholder="Talk about anything else?">
               <input type="hidden" id="requester_id" name="requester_id">
               <input type="hidden" id="requester_firstName" name="requester_firstName">
+              <input type="hidden" id="requester_lastName" name="requester_lastName">
               <input type="hidden" id="requester_email" name="requester_email">
               <input type="hidden" id="requester_picture" name="requester_picture">
               <input type="hidden" id="post_id" name="post_id">
@@ -243,6 +244,7 @@
               <label for="post-what">What</label>
               <input type="text" name="what" id="what" class="form-control" maxlength="25" placeholder="Spoke about?">
               <div label="charCount" id='CharCountLabel1'></div>
+              <input type="hidden" id="poster-user_id" name="user_id">
             </div>
             <div class="form-group">
               <label for="post-where">Where</label>
