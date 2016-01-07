@@ -16,7 +16,8 @@ var app            = express();
 
 var config      = require('./config/config');
 var secret      = require('./config/config').secret;
-var databaseURL = 'mongodb://localhost:27017/spoken';
+// var databaseURL = 'mongodb://localhost:27017/spoken';
+var databaseURL = config.database;
 mongoose.connect(databaseURL);
 
 require('./config/passport')(passport);
