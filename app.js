@@ -11,6 +11,7 @@ var jwt            = require('jsonwebtoken');
 var expressJWT     = require('express-jwt');
 var methodOverride = require('method-override');
 var connectFlash   = require('connect-flash');
+var port           = process.env.PORT || 3000;
 var app            = express();
 
 var config      = require('./config/config');
@@ -46,6 +47,7 @@ app.use('/api', expressJWT({secret: secret})
     ]
   })
 );
+
 //Setting current user variable
 app.use(function(req, res, next){
   global.currentUser = req.user;
@@ -57,10 +59,16 @@ app.use(function(err, req, res, next) {
     res.status(401).json({message: 'You need an authorization token to view confidential information.'});
   }
 });
+
 var routes = require('./config/routes')
 app.use('/api', routes)
 
+app.use(express.static(__dirname + "/public"));
 
-app.listen(3000);
-console.log("App listening local 3000")
+app.get('/', function(req, res) {
+  res.sendFile('/index.html');
+})
+
+app.listen(port);
+console.log("App listening on"+ port);
 
