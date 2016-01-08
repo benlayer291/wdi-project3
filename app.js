@@ -64,7 +64,9 @@ var routes = require('./config/routes')
 app.use('/api', routes)
 
 app.use(express.static(__dirname + "/public"));
+
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
+
 app.get('/', function(req, res) {
   res.sendFile('/index.html');
 })
