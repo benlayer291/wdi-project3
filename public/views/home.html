@@ -1,0 +1,40 @@
+<div id="home">
+   <div class="homepage">
+    <div class="container">
+      <div class="hide alert alert-danger" role="alert"></div>
+      <div class="col-sm-12" id="homepage-title">
+        <h1 class="title">We spoke. It was great.</h1>
+        <h1 class="title">If only we'd stayed in touch...</h1>
+      </div>
+    </div>
+    <div class="row" id="search_row">
+      <a id="search_blurb">Where and when did you meet?</a>
+      <form class="search-form" method="post" action="/search">
+        <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+        <input type="hidden" id="searchLat" name="lattitude">
+        <input type="hidden" id="searchLng" name="longitude">  
+        <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
+      </form> 
+      <div class="row">
+      <div id="learn_more_section">
+        <div class="col-sm-6 col-md-offset-3">
+          <div id="scroll_to_about">
+            <a id="learn_more">About</a>
+            <img id="learn_more_arrow" src="./images/down_arrow.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="about">
+    <div class="about">
+      <img id="wordmark_logo" src="./images/Spoken_wordmark.png">
+      <h1 class="title" id="wordmark">SPOKEN</h1>
+
+      <h1 id="about_blurb">Have you already</h1>
+      <div id="about_box"></div>
+      <img id="blurb_box_tip" src="./images/speechmarktip.png">
+    </div>
+  </div>
+</div>

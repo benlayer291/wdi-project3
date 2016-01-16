@@ -1,99 +1,61 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>SPOKEN</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-  <!-- Social buttons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
+<html ng-app="spoken">
+  <head>
+    <meta charset="utf-8">
+    <title>SPOKEN</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <!-- Social buttons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.min.css">
 
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 
-  <!-- Google Maps -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
-  
-  <!-- Local files -->
-  <script type="text/javascript" src="./js/app.js"></script>
-  <script type="text/javascript" src="./bower_components/hello/dist/hello.all.min.js"></script>
-  <script type="text/javascript" src="./js/oauth.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
-</head>
-<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-  <header>
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="#" class="home-link">
-            <img class="logo" src="./images/Spoken_wordmark.png">
-          </a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a class="register-link logged-out" data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
-          <li><a class="login-link logged-out" data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
-          <li><a href="/" class="profile-link logged-in">My Profile</a></li>
-          <li><a href="/" class="logout-link logged-in">Logout</a></li>
-        </ul>
-      </div><!-- /.container-fluid -->
-
-      <section class="search_title">
-      <div class="row" id="nearbyRow">
-        <p id="nearby">SPOKEN NEAR</p>
-        <div id="nav-search-title"></div>
-        </div>
-      </section>
-
-      <section id="my-profile-header">
-        <h6 id="my-profile-header">My Profile</h6>
-      </section>
-    </nav>
-  </header>
-
-  <main>
-    <section id="home">
-<!--       <div class="homepage"> -->
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt_Iu8lneJjK0Fnxn34y0ZHHelEvx0g8s&libraries=places"></script>
+    
+    <!-- Local files -->
+    <script type="text/javascript" src="./js/app.js"></script>
+    <script type="text/javascript" src="./bower_components/hello/dist/hello.all.min.js"></script>
+    <script type="text/javascript" src="./js/oauth.js"></script>
+  </head>
+  <body ng-controller="">
+    <header>
+      <nav class="navbar navbar-default">
         <div class="container">
-          <div class="hide alert alert-danger" role="alert"></div>
-          <div class="col-sm-12" id="homepage-title">
-            <h1 class="title">We spoke. It was great.</h1>
-            <h1 class="title">If only we'd stayed in touch...</h1>
+          <div class="navbar-header">
+            <a href="#" class="home-link">
+              <img class="logo" src="./images/Spoken_wordmark.png">
+            </a>
           </div>
-        </div>
-        <div class="row" id="search_row">
-          <a id="search_blurb">Where and when did you meet?</a>
-          <form class="search-form" method="post" action="/search">
-            <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
-            <input type="hidden" id="searchLat" name="lattitude">
-            <input type="hidden" id="searchLng" name="longitude">  
-            <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
-          </form> 
-          <div class="row">
-          <div id="learn_more_section">
-            <div class="col-sm-6 col-md-offset-3">
-              <div id="scroll_to_about">
-                <a id="learn_more">About</a>
-                <img id="learn_more_arrow" src="./images/down_arrow.png">
-              </div>
-            </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a class="register-link logged-out" data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
+            <li><a class="login-link logged-out" data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
+            <li><a href="/" class="profile-link logged-in">My Profile</a></li>
+            <li><a href="/" class="logout-link logged-in">Logout</a></li>
+          </ul>
+        </div><!-- /.container-fluid -->
+        <section class="search_title">
+        <div class="row" id="nearbyRow">
+          <p id="nearby">SPOKEN NEAR</p>
+          <div id="nav-search-title"></div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div id="about">
-        <div class="about">
-          <img id="wordmark_logo" src="./images/Spoken_wordmark.png">
-          <!-- <h1 class="title" id="wordmark">SPOKEN</h1> -->
+        <section id="my-profile-header">
+          <h6 id="my-profile-header">My Profile</h6>
+        </section>
+      </nav>
+    </header>
 
-          <h1 id="about_blurb">Have you already</h1>
-          <div id="about_box"></div>
-          <img id="blurb_box_tip" src="./images/speechmarktip.png">
-        </div>
-      </div>
-    </section>
+    <main ui-view></main>
+  </body>
+</html>
+
 
     <section class="row hide" id="search_results">
       <div class="col-sm-6 col-md-offset-3">
@@ -201,8 +163,8 @@
 
   </main>
 
-  <!-- Request Modal -->
-  <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <!-- Request Modal
+<!--   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form class="request-form" method="post" action="/requests">
@@ -231,7 +193,7 @@
   </div>
 
   <!-- Add Post Modal -->
-  <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--   <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form class="post-form" method="post" action="/posts">
@@ -268,9 +230,9 @@
       </div>
     </div>
   </div>
-
+ -->
   <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form class="login_form" method="post" action="/login">
@@ -296,8 +258,8 @@
       </div>
     </div>
   </div>
-
-  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ -->
+<!--   <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form class="register_form" method="post" action="/register">
@@ -338,4 +300,4 @@
     </div>
   </div>
 </body>
-</html>
+</html> --> 
