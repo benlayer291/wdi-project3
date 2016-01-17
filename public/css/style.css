@@ -21,22 +21,24 @@ button:focus {
 }
 
 header{
-  background-color: black;
+  background-color: #111C24;
 }
 
-#home {
+
+#home-landing {
   background-image: url(../images/home_spoken.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   border: none;
+  height: 100vh;
 }
 
 .navbar-default .navbar-nav > li > a {
   color: #F1F1F1; }
 
 nav {
-  height: 26vh; }
+  height: 15%; }
 
 .navbar-default {
   background-color: transparent;
@@ -44,20 +46,24 @@ nav {
 
 .logo {
   position: relative;
-  height: 5vh;
+  height: 30px;
   width: auto;
   margin-left: 10%;
-  margin-top: 5.39vh; }
+  margin-top: 10%; }
 
 .navbar-right {
   position: relative;
   font-color: white;
-  margin-top: 5.39vh;
+/*  margin-top: 5.39vh;
   top: -2vh;
+*/  
   background-color: transparent;
   border: none;
   padding: none; }
 
+.navbar{
+  margin-bottom: 0px;
+}
 .title {
 /*  margin-bottom: 2vh;
   margin-top: 0vh;*/
@@ -296,7 +302,10 @@ h3 {
 
 /******************************************************************************/
 #learn_more_section {
-  overflow: hidden; }
+  overflow: hidden; 
+  background-color: #E4007C;
+  height: 150px;
+}
 
 #about_blurb {
   text-align: center;
