@@ -42,8 +42,10 @@ header{
   height: 80vh;
 }
 
-.navbar-default .navbar-nav > li > a {
-  color: #F1F1F1; }
+.navbar-inverse .navbar-nav>li>a {
+  color: #FFFFFF;
+  background-color: #222222;
+}
 
 nav {
   height: 15%; }
