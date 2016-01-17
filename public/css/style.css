@@ -145,6 +145,7 @@ nav {
 
 #about{
   background-color: #111C24;
+  height: 90vh;
 }
 
   #about_box {
@@ -248,6 +249,11 @@ h3 {
   opacity: 50%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 50; }
+
+#profile{
+  height: 90vh;
+  margin-top: 50px;
+}
 
 #profile-image {
   border-radius: 100%;
