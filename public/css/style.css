@@ -12,6 +12,14 @@ main {
   padding: 0;
 }
 
+#homepage-title {
+    margin-top: 150px;
+}
+
+#home{
+  margin-top: 10px;
+}
+
 .row {
   margin: 0 auto; 
 }
@@ -134,7 +142,8 @@ nav {
 #wordmark_logo {
   margin: 0 auto;
   display: block;
-  height: 20vh; }
+  height: 100px;
+}
 
 #about{
   background-color: #111C24;
@@ -303,7 +312,7 @@ h3 {
 /******************************************************************************/
 #learn_more_section {
   overflow: hidden; 
-  background-color: #E4007C;
+  background-color: transparent;
   height: 150px;
 }
 

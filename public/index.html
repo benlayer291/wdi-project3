@@ -58,16 +58,17 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="homepage-title">
         <h2 class="title">We spoke. It was great.</h2>
         <h2 class="title">If only we'd stayed in touch...</h2>
+        <div class="row" id="search_row">
+          <a id="search_blurb">Where and when did you meet?</a>
+          <form class="search-form" method="post" action="/search">
+            <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
+            <input type="hidden" id="searchLat" name="lattitude">
+            <input type="hidden" id="searchLng" name="longitude">  
+            <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
+          </form> 
+        </div>
       </div>
-      <div class="row" id="search_row">
-        <a id="search_blurb">Where and when did you meet?</a>
-        <form class="search-form" method="post" action="/search">
-          <input type="text" name="search" id="home-searchbox" class="form-control large_button" placeholder="Search">
-          <input type="hidden" id="searchLat" name="lattitude">
-          <input type="hidden" id="searchLng" name="longitude">  
-          <button type="submit" id="search-post-button" class="large_button action_button">SEARCH</button>
-        </form> 
-      </div>
+
       </div>
         <div class="row">
           <div id="learn_more_section">
