@@ -39,7 +39,7 @@ header{
   background-position: center;
   background-size: cover;
   border: none;
-  height: 100vh;
+  height: 80vh;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -71,6 +71,7 @@ nav {
 
 .navbar{
   margin-bottom: 0px;
+  height: 10vh;
 }
 .title {
 /*  margin-bottom: 2vh;
@@ -87,13 +88,10 @@ nav {
 
 #scroll_to_about {
   text-align: center;
-  z-index: -5; }
+}
 
 #learn_more {
   color: white;
-  left: 17.5vw;
-  top: 10vh;
-  margin-top: 14vh;
   font-weight: lighter;
   text-decoration: none;
   display: block;
@@ -101,11 +99,11 @@ nav {
 
 #learn_more_arrow {
   display: inline-block;
-  width: 3vw;
+  width: 40px;
   height: auto;
   background-color: transparent;
   text-align: center;
-  margin: 20px; }
+  margin-top: 20px; }
 
 .large_button_email {
   background-color: white;
@@ -149,13 +147,11 @@ nav {
   background-color: #111C24;
 }
 
-/*  #about_box {
-border-radius: 8px;
-  height: 21vh;
-  width: 36vw;
- background-color: #E8ECF0;
-  margin: 0 auto; 
-}*/
+  #about_box {
+  border-radius: 8px;
+  background-color: #E8ECF0;
+  font-size: 25px;
+}
 
 /*#blurb_box_tip {
   margin-left: 34vw;
@@ -312,8 +308,8 @@ h3 {
 /******************************************************************************/
 #learn_more_section {
   overflow: hidden; 
-  background-color: transparent;
-  height: 150px;
+  background-color: #111C24;
+  height: 10vh;
 }
 
 #about_blurb {
