@@ -53,11 +53,8 @@ nav {
   border: none; }
 
 .logo {
-  position: relative;
-  height: 30px;
-  width: auto;
-  margin-left: 10%;
-  margin-top: 10%; }
+  width: 200px;
+}
 
 .navbar-right {
   position: relative;

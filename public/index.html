@@ -24,29 +24,42 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <a href="#" class="home-link">
-              <img class="logo" src="./images/Spoken_wordmark.png">
-            </a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a class="register-link logged-out" data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
-            <li><a class="login-link logged-out" data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
-            <li><a href="/" class="profile-link logged-in">My Profile</a></li>
-            <li><a href="/" class="logout-link logged-in">Logout</a></li>
-          </ul>
+
+      <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+       <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a id="home-button" class="pull-left home-link" href="#" class="home-link">
+          <img id="logo" src="./images/Spoken_wordmark.png">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-collapse-button">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="register-link logged-out" data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
+          <li><a class="login-link logged-out" data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
+          <li><a href="/" class="profile-link logged-in">My Profile</a></li>
+          <li><a href="/" class="logout-link logged-in">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+<!-- dlwdmlwdm,lwmdlwdmwlmdwmdlwdmldmwldmwldmwldmwld -->
+<!--       <nav class="navbar navbar-default">
+
+
         </div><!-- /.container-fluid -->
 
-        <section class="search_title">
+<!--         <section class="search_title">
         <div class="row" id="nearbyRow">
           <p id="nearby">SPOKEN NEAR</p>
           <div id="nav-search-title"></div>
           </div>
-        </section>
-
-      </nav>
+        </section> -->
+<!-- 
+      </nav> --> 
     </header>
 
   <main>
