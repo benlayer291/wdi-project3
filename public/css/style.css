@@ -62,9 +62,6 @@ nav {
 .navbar-right {
   position: relative;
   font-color: white;
-/*  margin-top: 5.39vh;
-  top: -2vh;
-*/  
   background-color: transparent;
   border: none;
   padding: none; }
@@ -74,8 +71,6 @@ nav {
   height: 10vh;
 }
 .title {
-/*  margin-bottom: 2vh;
-  margin-top: 0vh;*/
   text-align: center;
   color: white;
   margin-top: 0px;
@@ -121,22 +116,6 @@ nav {
   text-decoration: none;
   color: white; }
 
-/*main.container {
-  width: 27vw;
-  height: 30vh;
-  margin-top: 22vh; }*/
-
-/*.about {
-  padding-top: 30vh;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  width: 100%;
-  background-color: #111C24;
-  position: absolute;
-  top: 100vh;
-  height: 100vh;
-  margin: 0 auto; }*/
-
 #wordmark_logo {
   margin: 0 auto;
   display: block;
@@ -153,12 +132,6 @@ nav {
   background-color: #E8ECF0;
   font-size: 25px;
 }
-
-/*#blurb_box_tip {
-  margin-left: 34vw;
-  width: 5vw;
-  display: block;
-  margin-top: -5vh; }*/
 
 #create-post-button {
   display: block;
@@ -265,7 +238,7 @@ h3 {
   margin-top: 5vh; }
 
 #my-profile-header {
-  color: white;
+  color: #333333;
   font-size: 30pt;
   text-align: center; }
 
@@ -385,9 +358,6 @@ www_title {
   font-weight: bold;
   font-size: 2vh; }
 
-/*#about {
-  margin-top: 5vh; }
-*/
 .www_profile_posts {
   font-weight: bold;
   font-size: 2vh;
