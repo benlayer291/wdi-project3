@@ -365,3 +365,42 @@ www_title {
   text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
+
+@media screen and (max-width: 767px) {
+  #user-posts-button {
+      margin-top: 10px;
+  }
+  #user-requests-button {
+      margin-top: 10px;
+  }
+}
+
+/* sm */
+@media screen and (min-width: 768px) {
+  #user-posts-button {
+      margin-top: 10px;
+  }
+  #user-requests-button {
+      margin-top: 10px;
+  }
+}
+
+/* md */
+@media screen and (min-width: 992px) {
+  #user-posts-button {
+      margin-top: 0px;
+  }
+  #user-requests-button {
+      margin-top: 0px;
+  }
+}
+
+/* lg */
+@media screen and (min-width: 1200px) {
+  #user-posts-button {
+      margin-top: 0px;
+  }
+  #user-requests-button {
+      margin-top: 0px;
+  }
+}
