@@ -1,21 +1,36 @@
 html {
   height: 100%;
-  min-height: 100%; }
+  min-height: 100%; 
+}
+
+body{
+  padding: 0;
+  background-color: pink;
+}
+
+main {
+  padding: 0;
+}
 
 .row {
-  margin: 0 auto; }
+  margin: 0 auto; 
+}
 
 button:focus {
-  outline: 0; }
+  outline: 0; 
+}
 
-body {
-  background-image: url(../images/Home_photo_spoken.jpg);
+header{
+  background-color: black;
+}
+
+#home {
+  background-image: url(../images/home_spoken.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-height: 100vh;
   border: none;
-  height: 100vh; }
+}
 
 .navbar-default .navbar-nav > li > a {
   color: #F1F1F1; }
@@ -115,7 +130,7 @@ nav {
   display: block;
   height: 20vh; }
 
-.about{
+#about{
   background-color: #111C24;
 }
 
