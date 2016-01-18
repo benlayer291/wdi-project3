@@ -229,9 +229,11 @@ h3 {
 
 #profile-image {
   border-radius: 100%;
-  margin: 0 auto;
-  top: 3.5vh;
-  position: absolute; }
+}
+
+#profile-image-container{
+  padding: 0;
+}
 
 .profile-box {
   margin-top: 5vh; }
