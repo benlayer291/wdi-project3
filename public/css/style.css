@@ -16,10 +16,6 @@ main {
     margin-top: 150px;
 }
 
-#home{
-  margin-top: 10px;
-}
-
 .row {
   margin: 0 auto; 
 }
@@ -29,7 +25,7 @@ button:focus {
 }
 
 header{
-  background-color: #111C24;
+  background-color: transparent;
 }
 
 
@@ -39,12 +35,13 @@ header{
   background-position: center;
   background-size: cover;
   border: none;
-  height: 80vh;
+  height: 90vh;
+  margin-top: -10vh;
 }
 
 .navbar-inverse .navbar-nav>li>a {
-  color: #FFFFFF;
-  background-color: #222222;
+  color: white;
+  background-color: transparent;
 }
 
 nav {
@@ -64,6 +61,11 @@ nav {
   background-color: transparent;
   border: none;
   padding: none; }
+
+.navbar-inverse {
+  background-color: transparent;
+  border-color: white;
+}
 
 .navbar{
   margin-bottom: 0px;
