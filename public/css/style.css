@@ -5,7 +5,7 @@ html {
 
 body{
   padding: 0;
-  background-color: pink;
+  background-color: #111C24;
 }
 
 main {
@@ -204,6 +204,10 @@ h3 {
   margin: 0;
   font-size: 2.2vh;
   font-style: lighter; }
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: transparent;
+}
 
 #nearbyRow {
   margin: 0; }
