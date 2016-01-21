@@ -252,8 +252,7 @@ h3 {
 #profile-name {
   font-size: 12pt;
   font-weight: bold;
-  top: 11vh;
-  position: absolute; }
+}
 
 #profile-email {
   font-size: 9pt;
@@ -334,12 +333,8 @@ h3 {
   z-index: 10; }
 
 #tagline {
-  top: 18vh;
-  position: absolute;
-  top: 18vh;
-  position: absolute;
-  width: 17.8vw;
   height: 8vh;
+  margin-left: 0;
   border: none; }
 
 www_title {
